@@ -6754,8 +6754,31 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     const objs = m.objectives.map(o => Sim.objectiveProgress(g, m, o));
     return { m, objs, done: objs.every(o => o.done) };
   };
+  Sim.syncUnlocks = function (g) {
+    g = g || Sim.g;
+    if (!g) return;
+    g.flags = g.flags || {};
+    g.missions = g.missions || { idx: 0, base: {}, done: [] };
+    if (!Array.isArray(g.missions.done)) g.missions.done = [];
+    const done = g.missions.done;
+    const m1 = Sim.missionStatus(g, 0);
+    if (done.includes('m1') || g.missions.idx >= 1 || (m1 && m1.done)) g.flags.earthUnlocked = true;
+    const m6 = Sim.missionStatus(g, 5);
+    if (done.includes('m6') || g.missions.idx >= 6 || (m6 && m6.done)) g.flags.marsUnlocked = true;
+  };
+  Sim.isPlanetUnlocked = function (g, pid) {
+    g = g || Sim.g;
+    if (pid === 'moon') return true;
+    if (!g) return false;
+    Sim.syncUnlocks(g);
+    if (pid === 'earth') return !!g.flags.earthUnlocked;
+    if (pid === 'mars') return !!g.flags.marsUnlocked;
+    return false;
+  };
   Sim.checkMissions = function () {
-    const g = Sim.g; const st = Sim.missionStatus(g, g.missions.idx);
+    const g = Sim.g;
+    Sim.syncUnlocks(g);
+    const st = Sim.missionStatus(g, g.missions.idx);
     if (!st || !st.done || g.missions.done.includes(st.m.id)) return null;
     const m = st.m;
     g.missions.done.push(m.id);
@@ -6792,6 +6815,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     const base = Sim.newGame(s.player && s.player.look || D.defaultAppearance());
     const merge = (a, b) => { for (const k in a) { if (b[k] === undefined) b[k] = a[k]; else if (a[k] && typeof a[k] === 'object' && !Array.isArray(a[k])) merge(a[k], b[k]); } return b; };
     const loaded = merge(base, s);
+    Sim.syncUnlocks(loaded);
     if (loaded.robiChatHistory) {
       robiChatHistory = loaded.robiChatHistory;
       if (typeof renderRobiChatLog === 'function') renderRobiChatLog();
@@ -7355,6 +7379,9 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
   /* ---------- misiones ---------- */
   UI.openMissions = function () {
     const g = Sim.g;
+    const curSt = Sim.missionStatus(g, g.missions.idx);
+    if (curSt && curSt.done && !g.missions.done.includes(curSt.m.id)) Sim.checkMissions();
+    Sim.syncUnlocks(g);
     const { body } = UI.openModal(__t('Misiones'), { size: 'wide', icon: 'flag' });
     const wrap = el('div', 'grid'); wrap.style.gridTemplateColumns = 'minmax(0,1fr) minmax(0,1.3fr)'; wrap.style.gap = '16px';
     if (innerWidth < 760) wrap.style.gridTemplateColumns = '1fr';
@@ -7404,6 +7431,9 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
   /* ---------- mapa ---------- */
   UI.openMap = function () {
     const g = Sim.g, game = JSM.Game;
+    const curSt = Sim.missionStatus(g, g.missions.idx);
+    if (curSt && curSt.done && !g.missions.done.includes(curSt.m.id)) Sim.checkMissions();
+    Sim.syncUnlocks(g);
     const { body } = UI.openModal(__t('Mapa y viajes'), { size: 'wide', icon: 'map' });
     const wrap = el('div', 'mapwrap');
     const c = el('canvas'); c.width = c.height = 640; wrap.append(c);
@@ -7415,7 +7445,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     side.append(el('div', 'label', __t('Viajar')));
     ['moon', 'earth', 'mars'].forEach(pid => {
       const P = D.PLANETS[pid], here = g.planet === pid;
-      const unlocked = pid === 'moon' || (pid === 'earth' && g.flags.earthUnlocked) || (pid === 'mars' && g.flags.marsUnlocked);
+      const unlocked = Sim.isPlanetUnlocked(g, pid);
       const cost = pid === 'moon' ? 120 : P.travelCost;
       const card = el('div', 'card');
       card.innerHTML = '<div class="planetcard"><span class="planetdot" style="background:radial-gradient(circle at 35% 35%,#fff8,' + P.color + ' 45%,#0008)"></span><div><h3>' + P.name + '</h3><p>' + U.esc(P.sub) + __t(' · gravedad ') + P.realG + '</p></div></div><p>' + U.esc(P.challenge) + '</p>';
@@ -11624,7 +11654,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
   const creditsFor = pid => pid === 'moon' ? 120 : D.PLANETS[pid].travelCost;
   const fmtDays = d => d >= 60 ? T('plan.months.v', { n: Math.round(d / 30) }) : T('plan.days.v', { n: d });
   const pname = pid => D.PLANETS[pid].name;
-  const unlocked = (g, pid) => pid === 'moon' || (pid === 'earth' && g.flags.earthUnlocked) || (pid === 'mars' && g.flags.marsUnlocked);
+  const unlocked = (g, pid) => Sim.isPlanetUnlocked(g, pid);
   const RES_ICON = { oxygen: 'oxygen', water: 'water', food: 'food', power: 'power', materials: 'materials', fuel: 'rocket' };
 
   JSM.Travel = { ROUTES, TANK_DV, fuelCost, routeOpts, get pending() { return pending; } };
@@ -11632,7 +11662,8 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
   /* ---------- estado ---------- */
   function ensure(g) {
     if (!g) return;
-    if (typeof g.fuel !== 'number') g.fuel = 70;
+    Sim.syncUnlocks(g);
+    if (typeof g.fuel !== 'number' || isNaN(g.fuel)) g.fuel = 70;
     g.trips = g.trips || []; g.hist = g.hist || {};
     g.helpDay = g.helpDay || 0;
   }
@@ -13594,6 +13625,9 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
   M.missionDone = function (id, quiet) {
     const g = Sim.g; if (!g || !g.mp) return; const D_ = JSM.Data.MISSIONS, k = D_.findIndex(x => x.id === id); if (k < 0 || g.missions.done.includes(id)) return;
     const m = D_[k]; g.missions.done.push(id);
+    if (id === 'm1') g.flags.earthUnlocked = true;
+    if (id === 'm6') g.flags.marsUnlocked = true;
+    if (Sim.syncUnlocks) Sim.syncUnlocks(g);
     let nx = g.missions.idx; while (D_[nx] && g.missions.done.includes(D_[nx].id)) nx++; Sim.activateMission(g, nx);
     if (!quiet) { try { Sim.addXP((m.reward && m.reward.xp) || 0); } catch (e) { } G.missionDone(m); }
   };
