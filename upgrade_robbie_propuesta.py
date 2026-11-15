@@ -19,7 +19,7 @@ SRC_FILE = "/home/ada/Descargas/Junior_Mission_Orion_Robbie_v16zerolatency.html"
 SPRITE_FILE = "/home/ada/Proyectos/projectClaude/robbie_sprite_b64.txt"
 
 # Etiqueta corta de control de versión para cada modificación en ~/Descargas
-VERSION_TAG = "v19_menu_posiciones_invertidas"
+VERSION_TAG = "v23_multijugador_sync"
 VERSIONED_DOWNLOAD_FILE = f"/home/ada/Descargas/Junior_Mission_Orion_{VERSION_TAG}.html"
 
 OUT_FILES = [
@@ -126,10 +126,162 @@ PROPUESTA_SCRIPT = r"""<script>
   }
 
   /* ==========================================================================
-     ETAPA 6: DETECCIÓN DEL DISPOSITIVO Y ADAPTACIÓN DE INSTRUCCIONES (JSM.Device)
+     ETAPA 6 + MODALIDAD EXCLUSIVA ANDROID HORIZONTAL (JSM.Device)
+     - Detecta Android exclusivamente (/android/i en userAgent o ?android=1).
+     - En Android: fuerza SIEMPRE orientación horizontal (nunca vertical):
+       1) Bloqueo nativo screen.orientation.lock('landscape') + Fullscreen.
+       2) Si el teléfono Android está físicamente en vertical (rawH > rawW),
+          rota automáticamente #app 90° a horizontal (body.android-rotated-90),
+          reporta innerWidth = max(rawW, rawH) e innerHeight = min(rawW, rawH)
+          a Three.js/WebGL, y remapea coordenadas táctiles para joystick y cámara.
      ========================================================================== */
+  const origWDesc = Object.getOwnPropertyDescriptor(window, 'innerWidth');
+  const origHDesc = Object.getOwnPropertyDescriptor(window, 'innerHeight');
+  const getRawW = () => {
+    if (window.visualViewport && window.visualViewport.width) return Math.round(window.visualViewport.width);
+    return (origWDesc && origWDesc.get) ? origWDesc.get.call(window) : (document.documentElement.clientWidth || 800);
+  };
+  const getRawH = () => {
+    if (window.visualViewport && window.visualViewport.height) return Math.round(window.visualViewport.height);
+    return (origHDesc && origHDesc.get) ? origHDesc.get.call(window) : (document.documentElement.clientHeight || 400);
+  };
+
+  const uaString = (navigator.userAgent || '').toLowerCase();
+  const isAndroidDevice = /android/i.test(uaString) || /[?&]android=1\b/i.test(window.location.search || '');
+
+  if (isAndroidDevice) {
+    try {
+      // Meta tags de orientación horizontal para navegadores Android / WebAPK
+      ['screen-orientation:landscape', 'x5-orientation:landscape', 'mobile-web-app-capable:yes'].forEach(kv => {
+        const [name, content] = kv.split(':');
+        const m = document.createElement('meta');
+        m.name = name;
+        m.content = content;
+        document.head.appendChild(m);
+      });
+      // Forzar que innerWidth siempre sea el lado largo horizontal e innerHeight el corto en Android
+      Object.defineProperty(window, 'innerWidth', {
+        configurable: true,
+        get() { return Math.max(getRawW(), getRawH()); }
+      });
+      Object.defineProperty(window, 'innerHeight', {
+        configurable: true,
+        get() { return Math.min(getRawW(), getRawH()); }
+      });
+    } catch (e) {}
+  }
+
+  function lockAndroidLandscape(withFullscreen) {
+    if (!isAndroidDevice) return;
+    try {
+      if (withFullscreen && document.documentElement && document.documentElement.requestFullscreen && !document.fullscreenElement) {
+        document.documentElement.requestFullscreen({ navigationUI: 'hide' }).then(() => {
+          if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock('landscape').catch(() => {});
+          }
+          setTimeout(syncAndroidOrientationState, 60);
+        }).catch(() => {});
+      }
+      if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock('landscape').catch(() => {});
+      }
+    } catch (e) {}
+  }
+
+  function syncAndroidOrientationState() {
+    if (!isAndroidDevice) return;
+    const rawW = getRawW();
+    const rawH = getRawH();
+    const horizW = Math.max(rawW, rawH);
+    const horizH = Math.min(rawW, rawH);
+    document.documentElement.style.setProperty('--and-w', horizW + 'px');
+    document.documentElement.style.setProperty('--and-h', horizH + 'px');
+    document.documentElement.style.setProperty('--and-raw-w', rawW + 'px');
+    document.documentElement.style.setProperty('--and-raw-h', rawH + 'px');
+    document.body.classList.add('is-android', 'is-touch');
+
+    const isPortraitPhysical = rawH > rawW;
+    document.body.classList.toggle('android-rotated-90', isPortraitPhysical);
+
+    const app = document.getElementById('app');
+    if (app) {
+      app.classList.add('is-android', 'is-touch', 'compact', 'wide');
+    }
+    G.isTouch = true;
+    try {
+      if (typeof G.bindTouch === 'function' && !G._touchBound) G.bindTouch();
+      if (typeof G.resize === 'function') G.resize();
+      if (JSM.Menu2D && typeof JSM.Menu2D.resize === 'function') JSM.Menu2D.resize();
+    } catch (e) {}
+  }
+
+  if (isAndroidDevice) {
+    // Remapeo transparente de coordenadas táctiles/puntero cuando el teléfono Android
+    // se sostiene verticalmente y #app está rotado 90° en modo horizontal forzado
+    const remapPointerEvent = (e) => {
+      if (!document.body.classList.contains('android-rotated-90')) return;
+      if (e.__androidRemapped) return;
+      const sx = e.clientX;
+      const sy = e.clientY;
+      const rawW = getRawW();
+      try {
+        Object.defineProperty(e, '__androidRemapped', { value: true });
+        Object.defineProperty(e, 'clientX', { configurable: true, get: () => sy });
+        Object.defineProperty(e, 'clientY', { configurable: true, get: () => rawW - sx });
+      } catch (err) {}
+    };
+    ['pointerdown', 'pointermove', 'pointerup', 'pointercancel', 'click'].forEach(evName => {
+      window.addEventListener(evName, remapPointerEvent, true);
+    });
+
+    // Ajustar getBoundingClientRect de los joysticks (#h-joy y #fl-joy) cuando android-rotated-90 está activo
+    const origGetBCR = Element.prototype.getBoundingClientRect;
+    Element.prototype.getBoundingClientRect = function () {
+      const r = origGetBCR.apply(this, arguments);
+      if (document.body && document.body.classList.contains('android-rotated-90') && (this.id === 'h-joy' || this.id === 'fl-joy')) {
+        const rawW = getRawW();
+        return {
+          left: r.top,
+          right: r.bottom,
+          top: rawW - r.right,
+          bottom: rawW - r.left,
+          width: r.height,
+          height: r.width,
+          x: r.top,
+          y: rawW - r.right
+        };
+      }
+      return r;
+    };
+
+    // Envolver Game.resize para que en Android NUNCA active diseño vertical (siempre compact + wide horizontal)
+    if (G.resize) {
+      const origResize = G.resize;
+      G.resize = function () {
+        const res = origResize.apply(this, arguments);
+        const app = document.getElementById('app');
+        if (app) {
+          app.classList.add('is-android', 'is-touch', 'compact', 'wide');
+        }
+        return res;
+      };
+    }
+
+    // Intentar bloqueo nativo de orientación horizontal en interacciones clave y cambios de pantalla completa
+    window.addEventListener('pointerdown', () => lockAndroidLandscape(false), { passive: true });
+    document.addEventListener('fullscreenchange', () => {
+      lockAndroidLandscape(false);
+      setTimeout(syncAndroidOrientationState, 60);
+    });
+    window.addEventListener('orientationchange', () => setTimeout(syncAndroidOrientationState, 80));
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', () => syncAndroidOrientationState());
+    }
+  }
+
   const Device = JSM.Device = {
     type: 'desktop',
+    isAndroid: isAndroidDevice,
     hasTouch: false,
     listeners: [],
 
@@ -146,9 +298,11 @@ PROPUESTA_SCRIPT = r"""<script>
       const isTabletUA = isIPad || /tablet|playbook|silk/.test(ua) || (/android/.test(ua) && !/mobile/.test(ua));
       const isMobileUA = /iphone|ipod|windows phone/.test(ua) || (/android/.test(ua) && /mobile/.test(ua));
 
-      this.hasTouch = Boolean(coarse || touchPoints > 0 || 'ontouchstart' in window);
+      this.hasTouch = Boolean(isAndroidDevice || coarse || touchPoints > 0 || 'ontouchstart' in window);
 
-      if (JSM.Gamepad && JSM.Gamepad.connected) {
+      if (isAndroidDevice) {
+        this.type = 'mobile';
+      } else if (JSM.Gamepad && JSM.Gamepad.connected) {
         this.type = 'gamepad';
       } else if (isTabletUA || (this.hasTouch && coarse && minDim >= 540 && maxDim >= 760)) {
         this.type = 'tablet';
@@ -158,16 +312,22 @@ PROPUESTA_SCRIPT = r"""<script>
         this.type = 'desktop';
       }
 
-      const touchMode = (this.type === 'tablet' || this.type === 'mobile');
-      if (touchMode && !G.isTouch) {
+      const touchMode = (this.type === 'tablet' || this.type === 'mobile' || isAndroidDevice);
+      if (touchMode) {
         G.isTouch = true;
         document.body.classList.add('is-touch');
+        const app = document.getElementById('app');
+        if (app) app.classList.add('is-touch');
       }
-      document.body.setAttribute('data-device', this.type);
+      if (isAndroidDevice) {
+        syncAndroidOrientationState();
+      }
+      document.body.setAttribute('data-device', isAndroidDevice ? 'android' : this.type);
       return this.type;
     },
 
     getName() {
+      if (this.isAndroid) return tr('Android (Modo Horizontal)', 'Android (Landscape Mode)');
       switch (this.type) {
         case 'tablet': return tr('Tableta', 'Tablet');
         case 'mobile': return tr('Dispositivo móvil', 'Mobile device');
@@ -177,6 +337,7 @@ PROPUESTA_SCRIPT = r"""<script>
     },
 
     getIcon() {
+      if (this.isAndroid) return '🤖';
       switch (this.type) {
         case 'tablet': return '📱';
         case 'mobile': return '📲';
@@ -186,6 +347,12 @@ PROPUESTA_SCRIPT = r"""<script>
     },
 
     getSummary() {
+      if (this.isAndroid) {
+        return tr(
+          'Modo Android Horizontal activo: usa el joystick inferior izquierdo para moverte, los 4 botones táctiles derechos (Usar, Saltar, Escanear, Correr) y desliza la barra central para construir.',
+          'Android Landscape Mode active: use the bottom-left joystick to move, the 4 right touch buttons (Use, Jump, Scan, Run), and swipe the bottom toolbar to build.'
+        );
+      }
       if (this.type === 'tablet' || this.type === 'mobile') {
         const devLabel = this.type === 'tablet' ? tr('tableta', 'tablet') : tr('dispositivo táctil', 'touchscreen');
         return tr(
@@ -206,7 +373,7 @@ PROPUESTA_SCRIPT = r"""<script>
     },
 
     getFlightInstructions(phase) {
-      const isTouch = (this.type === 'tablet' || this.type === 'mobile');
+      const isTouch = (this.type === 'tablet' || this.type === 'mobile' || this.isAndroid);
       const devName = this.getName();
       if (phase === 'pad') {
         return isTouch
@@ -224,15 +391,14 @@ PROPUESTA_SCRIPT = r"""<script>
     },
 
     getControlsList() {
-      if (this.type === 'tablet' || this.type === 'mobile') {
+      if (this.type === 'tablet' || this.type === 'mobile' || this.isAndroid) {
         return [
-          [tr('Mover al astronauta / Pilotar nave', 'Move astronaut / Steer ship'), tr('Joystick táctil izquierdo', 'Left touch joystick')],
-          [tr('Girar la cámara 3D', 'Rotate 3D camera'), tr('Deslizar 1 dedo por la pantalla', 'Drag 1 finger on screen')],
-          [tr('Zoom de cámara', 'Camera zoom'), tr('Pellizcar con 2 dedos', 'Pinch with 2 fingers')],
-          [tr('Usar / Interactuar / Hablar', 'Use / Interact / Talk'), tr('Botón táctil «Usar» o tocar objeto', 'Tap "Use" button or tap object')],
-          [tr('Saltar en baja gravedad', 'Low-gravity jump'), tr('Botón táctil «Saltar»', 'Tap "Jump" button')],
-          [tr('Escanear / Construir / Mapa', 'Scan / Build / Map'), tr('Barra de herramientas inferior', 'Bottom toolbar')],
-          [tr('Panel e indicaciones de Robbie', 'Robbie panel & tips'), tr('Botón superior derecho y globo inferior derecho', 'Top-right button & bottom-right speech bubble')]
+          [tr('Mover al astronauta / Pilotar nave', 'Move astronaut / Steer ship'), tr('Joystick táctil inferior izquierdo', 'Bottom-left touch joystick')],
+          [tr('Girar la cámara 3D', 'Rotate 3D camera'), tr('Deslizar 1 dedo por la escena', 'Drag 1 finger on scene')],
+          [tr('Usar / Saltar / Escanear / Correr', 'Use / Jump / Scan / Run'), tr('4 botones táctiles inferiores derechos', '4 bottom-right touch buttons')],
+          [tr('Construir / Inventario / Mapa / Ciencia', 'Build / Inventory / Map / Science'), tr('Barra inferior deslizable al centro', 'Center swipeable bottom bar')],
+          [tr('Ver barra de necesidades del astronauta', 'View astronaut needs bars'), tr('Tocar retrato arriba a la izquierda', 'Tap top-left astronaut portrait')],
+          [tr('Panel e indicaciones de Robbie IA', 'Robbie AI panel & tips'), tr('Botón ROBBIE · IA arriba y globo a la derecha', 'Top ROBBIE · IA button & right speech bubble')]
         ];
       }
       if (this.type === 'gamepad') {
@@ -263,6 +429,7 @@ PROPUESTA_SCRIPT = r"""<script>
     notify() {
       const prev = this.type;
       this.detect();
+      if (isAndroidDevice) syncAndroidOrientationState();
       if (prev !== this.type) {
         this.listeners.forEach(fn => { try { fn(this.type); } catch (e) {} });
       }
@@ -273,7 +440,9 @@ PROPUESTA_SCRIPT = r"""<script>
   Device.detect();
   window.addEventListener('resize', () => Device.notify());
   window.addEventListener('touchstart', () => {
-    if (Device.type === 'desktop') {
+    if (isAndroidDevice) {
+      syncAndroidOrientationState();
+    } else if (Device.type === 'desktop') {
       const minDim = Math.min(window.innerWidth || 800, window.innerHeight || 600);
       Device.type = minDim >= 540 ? 'tablet' : 'mobile';
       G.isTouch = true;
@@ -750,6 +919,15 @@ PROPUESTA_SCRIPT = r"""<script>
     #flight .fl-robi > * {
       pointer-events: auto !important;
     }
+    #flight .fl-robi.hidden-dock,
+    body.is-android #flight .fl-robi.hidden-dock {
+      display: none !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+    #flight .fl-robi.hidden-dock > * {
+      pointer-events: none !important;
+    }
 
     /* Caja del Globo de Texto (inspirada en la captura: ancha, limpia, título centrado arriba y cola a la derecha) */
     .rb-speech-box {
@@ -818,6 +996,7 @@ PROPUESTA_SCRIPT = r"""<script>
       justify-content: center;
       gap: 8px;
       position: relative;
+      padding-right: 30px;
     }
     .rb-speech-name {
       font-family: var(--display);
@@ -839,6 +1018,7 @@ PROPUESTA_SCRIPT = r"""<script>
       background: rgba(184, 77, 255, 0.22);
       color: #e8c5ff;
       border: 1px solid rgba(184, 77, 255, 0.45);
+      white-space: nowrap;
     }
     .cat-emergency .rb-speech-badge {
       background: rgba(255, 77, 109, 0.28);
@@ -852,23 +1032,29 @@ PROPUESTA_SCRIPT = r"""<script>
     }
     .rb-speech-close {
       position: absolute;
-      right: -4px;
+      right: -2px;
       top: -2px;
       appearance: none;
-      border: 0;
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--muted);
-      width: 22px;
-      height: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
-      font-size: 11px;
+      font-size: 12px;
+      font-weight: 700;
       cursor: pointer;
       display: grid;
       place-items: center;
+      z-index: 10;
+      pointer-events: auto !important;
+      touch-action: manipulation;
     }
-    .rb-speech-close:hover {
+    .rb-speech-close:hover,
+    .rb-speech-close:active {
       color: #fff;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 77, 109, 0.45);
+      border-color: rgba(255, 77, 109, 0.7);
     }
 
     /* Texto del mensaje dentro del globo */
@@ -961,6 +1147,774 @@ PROPUESTA_SCRIPT = r"""<script>
     }
     .robi-chip:hover {
       background: rgba(70, 227, 198, 0.24);
+    }
+
+    /* ==========================================================================
+       MODALIDAD ANDROID HORIZONTAL FORZADA Y UX MÓVIL ERGONÓMICA (SOLO ANDROID)
+       ========================================================================== */
+    body.is-android {
+      overflow: hidden !important;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Garantizar con máxima especificidad que cualquier capa con .hidden o [hidden]
+       permanezca 100% oculta en Android (evita que #creator aparezca sobre #menu) */
+    body.is-android .hidden,
+    body.is-android #app .hidden,
+    body.is-android #creator.hidden,
+    body.is-android #flight.hidden,
+    body.is-android #hud.hidden,
+    body.is-android #menu.hidden,
+    body.is-android #loading.hidden,
+    body.is-android [hidden]:not([hidden=until-found i]) {
+      display: none !important;
+    }
+
+    /* Cuando el teléfono Android está físicamente en vertical (rawH > rawW),
+       rotamos #app 90 grados usando las medidas exactas visibles (--and-w / --and-h)
+       para que SIEMPRE se vea y use en horizontal sin recortarse por la barra de Chrome */
+    body.is-android.android-rotated-90 #app {
+      position: fixed !important;
+      top: 0 !important;
+      left: var(--and-h, 100vw) !important;
+      width: var(--and-w, 100dvh) !important;
+      height: var(--and-h, 100vw) !important;
+      transform-origin: top left !important;
+      transform: rotate(90deg) !important;
+      overflow: hidden !important;
+    }
+
+    body.is-android:not(.android-rotated-90) #app {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: var(--and-w, 100vw) !important;
+      height: var(--and-h, 100dvh) !important;
+      overflow: hidden !important;
+    }
+
+    /* --- 0. PANTALLA DE TÍTULO (#title) EN ANDROID HORIZONTAL --- */
+    body.is-android #title .t-bar {
+      height: 6% !important;
+    }
+    body.is-android #title .t-box {
+      gap: 4px !important;
+    }
+    body.is-android #title .t-logo {
+      width: 52px !important;
+    }
+    body.is-android #title .t-kick {
+      font-size: 11px !important;
+    }
+    body.is-android #title h1 {
+      font-size: clamp(26px, 5vw, 40px) !important;
+    }
+    body.is-android #title .t-press {
+      margin-top: 8px !important;
+      font-size: 11.5px !important;
+    }
+    body.is-android #title .t-ver {
+      bottom: 6px !important;
+      font-size: 9px !important;
+    }
+
+    /* --- 1. MENÚ PRINCIPAL (#menu) EN ANDROID HORIZONTAL --- */
+    body.is-android #menu,
+    body.is-android #menu.m2,
+    body.is-android.vm #menu {
+      padding: 10px 16px !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      overflow: hidden !important;
+    }
+    body.is-android #menu .m2col,
+    body.is-android.vm #menu .m2col {
+      margin: auto auto auto 0 !important;
+      width: min(540px, 60%) !important;
+      max-width: 60% !important;
+      max-height: calc(var(--and-h, 340px) - 16px) !important;
+      align-items: flex-start !important;
+      text-align: left !important;
+      gap: 6px !important;
+      justify-content: center !important;
+    }
+    body.is-android #menu .m2patch,
+    body.is-android #menu .m2badge,
+    body.is-android #menu .m2sub,
+    body.is-android #menu .m2foot {
+      display: none !important;
+    }
+    body.is-android #menu .m2kick {
+      font-size: 10.5px !important;
+      letter-spacing: 0.35em !important;
+      padding-left: 0 !important;
+    }
+    body.is-android #menu .m2title {
+      font-size: clamp(22px, 4.2vw, 32px) !important;
+      line-height: 0.95 !important;
+      margin: 0 0 2px 0 !important;
+    }
+    /* Cuadrícula amplia y cómoda de 6 columnas:
+       - Botones principales (CONTINUAR / NUEVA PARTIDA) ocupan 3 columnas cada uno (2 por fila) con altura 46px.
+       - Botones secundarios ocupan 2 columnas cada uno (3 por fila) con separación de 8pxx10px y tarjetas bien definidas. */
+    body.is-android #menu .vmenu {
+      display: grid !important;
+      grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+      gap: 8px 10px !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      margin-top: 2px !important;
+    }
+    body.is-android #menu .vmenu .vitem {
+      padding: 7px 10px !important;
+      min-height: 35px !important;
+      font-size: 10.5px !important;
+      letter-spacing: 0.04em !important;
+      border-radius: 11px !important;
+      background: rgba(14, 22, 48, 0.72) !important;
+      border: 1px solid rgba(130, 165, 255, 0.24) !important;
+      border-left: 3px solid rgba(111, 182, 255, 0.6) !important;
+      justify-content: flex-start !important;
+      text-align: left !important;
+      gap: 7px !important;
+    }
+    body.is-android #menu .vmenu .vitem .vtxt {
+      align-items: flex-start !important;
+    }
+    body.is-android #menu .vmenu .vitem small {
+      font-size: 9px !important;
+      line-height: 1.15 !important;
+      margin-top: 2px !important;
+    }
+    body.is-android #menu .vmenu .vitem svg {
+      width: 15px !important;
+      height: 15px !important;
+      flex: none !important;
+    }
+    body.is-android #menu .vmenu .vitem.m2btn {
+      grid-column: span 3 !important;
+      padding: 9px 12px !important;
+      min-height: 46px !important;
+      font-size: 11.5px !important;
+      border-radius: 12px !important;
+      background: linear-gradient(90deg, rgba(70, 227, 198, 0.18), rgba(16, 24, 52, 0.85)) !important;
+      border: 1px solid rgba(70, 227, 198, 0.42) !important;
+      border-left: 3.5px solid #46E3C6 !important;
+    }
+    body.is-android #menu .vmenu .vitem.m2btn.primary,
+    body.is-android #menu .vmenu .vitem.m2btn.lead {
+      background: linear-gradient(90deg, rgba(255, 181, 71, 0.26), rgba(16, 24, 52, 0.88)) !important;
+      border: 1px solid rgba(255, 181, 71, 0.5) !important;
+      border-left: 3.5px solid #FFB547 !important;
+    }
+    body.is-android #menu .vmenu .vitem.m2chip {
+      grid-column: span 2 !important;
+      padding: 7px 9px !important;
+      min-height: 35px !important;
+      font-size: 10px !important;
+    }
+    body.is-android #menu .vmenu .vitem[hidden] {
+      display: none !important;
+    }
+
+    /* Derecha del Menú Principal en Android:
+       Arriba a la derecha: Selector de idioma compacto (ES | EN) + Botón ROBBIE IA a su izquierda sin solaparse.
+       Abajo a la derecha: Globo de bienvenida de Robbie compacto. */
+    body.is-android #menu .m2lang {
+      top: 10px !important;
+      right: 12px !important;
+      left: auto !important;
+    }
+    body.is-android #menu .m2lang .langsw {
+      padding: 2px !important;
+    }
+    body.is-android #menu .m2lang .langsw button {
+      min-height: 28px !important;
+      padding: 4px 10px !important;
+      font-size: 10.5px !important;
+      min-width: 38px !important;
+      justify-content: center !important;
+    }
+    body.is-android #menu .m2lang .langsw button span {
+      display: none !important;
+    }
+    body.is-android #menu > #robbie-menu-right {
+      top: 10px !important;
+      right: 108px !important;
+      bottom: auto !important;
+      left: auto !important;
+    }
+    body.is-android .robbie-min-btn {
+      padding: 4px 10px 4px 6px !important;
+      gap: 6px !important;
+    }
+    body.is-android .robbie-min-btn .rb-ico {
+      width: 26px !important;
+      height: 24px !important;
+    }
+    body.is-android .robbie-min-btn .rb-meta b {
+      font-size: 10.5px !important;
+    }
+    body.is-android .robbie-min-btn .rb-meta small {
+      display: none !important;
+    }
+    body.is-android .rm-card {
+      width: min(330px, calc(var(--and-w, 640px) - 20px)) !important;
+      max-height: calc(var(--and-h, 340px) - 52px) !important;
+      overflow-y: auto !important;
+      padding: 10px 12px !important;
+      gap: 8px !important;
+    }
+    body.is-android .rm-top {
+      grid-template-columns: 64px 1fr auto !important;
+      gap: 8px !important;
+    }
+    body.is-android .rm-stage {
+      width: 64px !important;
+      height: 60px !important;
+    }
+    body.is-android .rm-stage .rm-svg-fallback {
+      width: 56px !important;
+      height: 52px !important;
+    }
+    body.is-android .rm-identity h3 {
+      font-size: 14px !important;
+    }
+    body.is-android .rm-identity p {
+      font-size: 10.5px !important;
+    }
+
+    body.is-android #menu > #robbie-menu-speech {
+      bottom: 10px !important;
+      right: 12px !important;
+      top: auto !important;
+      left: auto !important;
+      max-width: min(330px, 37%) !important;
+      gap: 6px !important;
+    }
+    body.is-android #menu > #robbie-menu-speech .rb-speech-box {
+      width: min(265px, 100%) !important;
+      padding: 8px 10px !important;
+      border-radius: 14px !important;
+    }
+    body.is-android #menu > #robbie-menu-speech .rb-speech-header {
+      margin-bottom: 3px !important;
+      gap: 5px !important;
+      padding-right: 28px !important;
+    }
+    body.is-android #menu > #robbie-menu-speech .rb-speech-name {
+      font-size: 12.5px !important;
+    }
+    body.is-android #menu > #robbie-menu-speech .rb-speech-badge {
+      font-size: 7.5px !important;
+      padding: 1.5px 5px !important;
+    }
+    body.is-android #menu > #robbie-menu-speech .rb-speech-text {
+      font-size: 10.5px !important;
+      line-height: 1.25 !important;
+    }
+    body.is-android #menu > #robbie-menu-speech .rb-speech-foot {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      margin-top: 6px !important;
+      gap: 4px !important;
+    }
+    body.is-android #menu > #robbie-menu-speech #robbie-menu-next {
+      grid-column: 1 / -1 !important;
+    }
+    body.is-android #menu > #robbie-menu-speech .rb-speech-foot button {
+      padding: 4px 6px !important;
+      font-size: 9.5px !important;
+      justify-content: center !important;
+    }
+    body.is-android #menu > #robbie-menu-speech .rb-speech-char {
+      width: 52px !important;
+      height: 48px !important;
+      flex: none !important;
+    }
+
+    /* --- 2. CREADOR DE PERSONAJE (#creator:not(.hidden)) EN ANDROID HORIZONTAL --- */
+    body.is-android #creator:not(.hidden) {
+      display: grid !important;
+      grid-template-columns: minmax(230px, 45%) 1fr !important;
+      grid-template-rows: 1fr !important;
+    }
+    body.is-android #creator .side {
+      order: 1 !important;
+      grid-column: 1 !important;
+      grid-row: 1 !important;
+      margin: 6px 0 6px 8px !important;
+      max-height: calc(var(--and-h, 340px) - 12px) !important;
+    }
+    body.is-android #creator .stage {
+      order: 2 !important;
+      grid-column: 2 !important;
+      grid-row: 1 !important;
+    }
+    body.is-android #creator .side header {
+      padding: 6px 12px 4px !important;
+      gap: 1px !important;
+    }
+    body.is-android #creator .side header .label {
+      font-size: 9px !important;
+    }
+    body.is-android #creator #cr-title {
+      font-size: 14px !important;
+    }
+    body.is-android #creator #cr-tabs {
+      padding: 0 10px !important;
+      margin-bottom: 6px !important;
+      gap: 4px !important;
+      flex-wrap: nowrap !important;
+      overflow-x: auto !important;
+      scrollbar-width: none !important;
+    }
+    body.is-android #creator #cr-tabs::-webkit-scrollbar {
+      display: none !important;
+    }
+    body.is-android #creator #cr-tabs button {
+      padding: 4px 8px !important;
+      font-size: 10.5px !important;
+      flex: none !important;
+    }
+    body.is-android #creator #cr-body {
+      padding: 0 10px 6px !important;
+    }
+    body.is-android #creator .opt-group {
+      padding: 6px 0 !important;
+      gap: 4px !important;
+    }
+    body.is-android #creator .sw {
+      width: 22px !important;
+      height: 22px !important;
+    }
+    body.is-android #creator .pill {
+      padding: 4px 8px !important;
+      font-size: 10.5px !important;
+    }
+    body.is-android #creator .side footer {
+      padding: 6px 10px !important;
+      gap: 6px !important;
+    }
+    body.is-android #creator .side footer .btn {
+      padding: 5px 10px !important;
+      font-size: 11px !important;
+    }
+    body.is-android #creator .stage .hint {
+      display: none !important;
+    }
+    body.is-android #creator .stage .animbar {
+      bottom: 6px !important;
+      padding: 4px 6px !important;
+      gap: 4px !important;
+      flex-wrap: nowrap !important;
+      overflow-x: auto !important;
+      max-width: calc(100% - 12px) !important;
+    }
+
+    /* --- 3. VUELO / DESPEGUE (#flight) EN ANDROID HORIZONTAL --- */
+    body.is-android #flight .fl-top {
+      top: 6px !important;
+      gap: 4px !important;
+    }
+    body.is-android #flight .fl-tag {
+      display: none !important;
+    }
+    body.is-android #flight .fl-route {
+      width: min(340px, 52%) !important;
+      padding: 4px 10px !important;
+    }
+    body.is-android #flight .fl-stats > div {
+      padding: 2px 7px !important;
+      min-width: 0 !important;
+    }
+    body.is-android #flight .fl-stats b {
+      font-size: 11.5px !important;
+    }
+    body.is-android #flight .fl-skip {
+      top: 6px !important;
+      right: 8px !important;
+      bottom: auto !important;
+      padding: 5px 10px !important;
+      font-size: 11px !important;
+    }
+    body.is-android #flight #fl-robi-top {
+      top: 38px !important;
+      right: 8px !important;
+      bottom: auto !important;
+    }
+    body.is-android #flight .fl-check {
+      top: 8px !important;
+      left: 8px !important;
+      bottom: auto !important;
+      padding: 6px 10px !important;
+      gap: 3px !important;
+    }
+    body.is-android #flight .fl-check li {
+      font-size: 11px !important;
+    }
+    body.is-android #flight .fl-go {
+      bottom: 8px !important;
+      padding: 8px 18px !important;
+      min-width: 220px !important;
+    }
+    body.is-android #flight .fl-go b {
+      font-size: 16px !important;
+    }
+    body.is-android #flight[data-state="space"] .fl-joy {
+      display: block !important;
+      left: 12px !important;
+      bottom: 12px !important;
+      width: 96px !important;
+      height: 96px !important;
+    }
+    body.is-android #flight .fl-joy i {
+      width: 40px !important;
+      height: 40px !important;
+      margin: -20px !important;
+    }
+    body.is-android #flight[data-state="space"] .fl-btns {
+      display: flex !important;
+      right: 12px !important;
+      bottom: 12px !important;
+      gap: 8px !important;
+    }
+    body.is-android #flight .fl-btns button {
+      width: 56px !important;
+      height: 56px !important;
+    }
+    body.is-android #flight #fl-boost {
+      width: 64px !important;
+      height: 64px !important;
+    }
+    body.is-android #flight .fl-robi,
+    body.is-android #flight[data-state^="pad"] .fl-robi,
+    body.is-android #flight[data-state="count"] .fl-robi {
+      right: 10px !important;
+      left: auto !important;
+      bottom: 10px !important;
+      width: auto !important;
+      max-width: min(320px, 46%) !important;
+      padding: 0 !important;
+      gap: 6px !important;
+    }
+    body.is-android #flight[data-state="space"] .fl-robi,
+    body.is-android #flight[data-state="approach"] .fl-robi,
+    body.is-android #flight[data-state="arrive"] .fl-robi {
+      bottom: 84px !important;
+    }
+    body.is-android #flight .fl-robi .rb-speech-box {
+      width: min(245px, 100%) !important;
+      padding: 8px 10px !important;
+      border-radius: 14px !important;
+    }
+    body.is-android #flight .fl-robi .rb-speech-header {
+      margin-bottom: 3px !important;
+      gap: 5px !important;
+      padding-right: 28px !important;
+    }
+    body.is-android #flight .fl-robi .rb-speech-name {
+      font-size: 12px !important;
+    }
+    body.is-android #flight .fl-robi .rb-speech-badge {
+      font-size: 7.5px !important;
+      padding: 1.5px 5px !important;
+    }
+    body.is-android #flight .fl-robi #fl-say {
+      font-size: 10.5px !important;
+      line-height: 1.25 !important;
+    }
+    body.is-android #flight .fl-robi .rb-speech-foot {
+      margin-top: 6px !important;
+      gap: 4px !important;
+    }
+    body.is-android #flight .fl-robi .rb-speech-foot button {
+      padding: 3px 6px !important;
+      font-size: 9px !important;
+      flex: 1 1 auto !important;
+      justify-content: center !important;
+    }
+    body.is-android #flight .fl-robi .rb-speech-char {
+      width: 52px !important;
+      height: 48px !important;
+      flex: none !important;
+    }
+
+    /* --- 4. HUD DE JUEGO (#hud) EN ANDROID HORIZONTAL --- */
+    /* Esquina superior izquierda: Retrato circular + Necesidades desplegables */
+    body.is-android #hud .hud-tl {
+      top: 6px !important;
+      left: 6px !important;
+      width: auto !important;
+      gap: 0 !important;
+    }
+    body.is-android #hud .who {
+      padding: 3px !important;
+      border-radius: 999px !important;
+      gap: 0 !important;
+    }
+    body.is-android #hud .who .meta {
+      display: none !important;
+    }
+    body.is-android #hud .portrait {
+      width: 40px !important;
+      height: 40px !important;
+    }
+    body.is-android #hud .needs {
+      display: none !important;
+      position: absolute !important;
+      top: 48px !important;
+      left: 0 !important;
+      width: 230px !important;
+      max-height: calc(var(--and-h, 340px) - 56px) !important;
+      overflow-y: auto !important;
+      z-index: 25 !important;
+      padding: 8px 10px !important;
+    }
+    body.is-android #hud.needs-open .needs {
+      display: grid !important;
+    }
+
+    /* Centro superior: Barra de recursos vitales */
+    body.is-android #hud .hud-top {
+      top: 6px !important;
+      bottom: auto !important;
+      left: 54px !important;
+      right: 225px !important;
+      transform: none !important;
+      max-width: none !important;
+      padding: 3px 6px !important;
+      gap: 2px !important;
+      flex-wrap: nowrap !important;
+      overflow-x: auto !important;
+      scrollbar-width: none !important;
+    }
+    body.is-android #hud .hud-top::-webkit-scrollbar {
+      display: none !important;
+    }
+    body.is-android #hud.building .hud-top {
+      display: none !important;
+    }
+    body.is-android #hud .res {
+      padding: 2px 4px !important;
+      gap: 3px !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      flex: 1 0 auto !important;
+    }
+    body.is-android #hud .res .icon {
+      width: 14px !important;
+      height: 14px !important;
+    }
+    body.is-android #hud .res .val {
+      font-size: 11px !important;
+    }
+    body.is-android #hud .res .rate {
+      display: none !important;
+    }
+
+    /* Derecha superior: Reloj Solar + Botón ROBBIE IA debajo del reloj */
+    body.is-android #hud .hud-tr {
+      top: 6px !important;
+      right: 6px !important;
+      width: auto !important;
+      display: flex !important;
+      gap: 4px !important;
+      align-items: center !important;
+    }
+    body.is-android #hud #minimap {
+      display: none !important;
+    }
+    body.is-android #hud .clock {
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      padding: 4px 8px !important;
+      border-radius: 999px !important;
+      width: auto !important;
+    }
+    body.is-android #hud .clock .t {
+      font-size: 14px !important;
+    }
+    body.is-android #hud .clock #h-day {
+      font-size: 9px !important;
+      max-width: 72px !important;
+    }
+    body.is-android #hud .speed button {
+      padding: 2px 5px !important;
+      font-size: 10px !important;
+    }
+    body.is-android #hud #robbie-top-panel {
+      top: 42px !important;
+      right: 6px !important;
+      left: auto !important;
+      bottom: auto !important;
+    }
+
+    /* Esquina inferior izquierda: Joystick táctil ergonómico */
+    body.is-android #hud:not(.sheet):not(.building) .joy {
+      display: block !important;
+      left: 10px !important;
+      bottom: 10px !important;
+      width: 92px !important;
+      height: 92px !important;
+    }
+    body.is-android #hud .joy i {
+      width: 38px !important;
+      height: 38px !important;
+      margin: -19px !important;
+    }
+
+    /* Esquina inferior derecha: Cuadrícula 2x2 de botones de acción para el pulgar derecho */
+    body.is-android #hud:not(.sheet):not(.building) .touchbtns {
+      display: grid !important;
+      grid-template-columns: repeat(2, 46px) !important;
+      gap: 6px !important;
+      right: 10px !important;
+      bottom: 10px !important;
+    }
+    body.is-android #hud .touchbtns button {
+      width: 46px !important;
+      height: 46px !important;
+      font-size: 10px !important;
+    }
+
+    /* Centro inferior (entre el joystick y los botones de acción): Dock de herramientas deslizable */
+    body.is-android #hud .hud-bottom {
+      bottom: 8px !important;
+      left: 112px !important;
+      right: 114px !important;
+      transform: none !important;
+      width: auto !important;
+      max-width: none !important;
+      padding: 3px 6px !important;
+      gap: 2px !important;
+      overflow-x: auto !important;
+      justify-content: flex-start !important;
+      scrollbar-width: none !important;
+    }
+    body.is-android #hud .hud-bottom::-webkit-scrollbar {
+      display: none !important;
+    }
+    body.is-android #hud #t-heart,
+    body.is-android #hud #t-research,
+    body.is-android #hud #t-scan,
+    body.is-android #hud #t-camera {
+      display: grid !important;
+    }
+    body.is-android #hud .tool {
+      min-width: 48px !important;
+      flex: 0 0 auto !important;
+      padding: 4px 5px !important;
+    }
+    body.is-android #hud .tool .icon {
+      width: 16px !important;
+      height: 16px !important;
+    }
+    body.is-android #hud .tool span:not(.icon):not(.kbd) {
+      display: block !important;
+      font-size: 8.5px !important;
+    }
+    body.is-android #hud .tool .kbd {
+      display: none !important;
+    }
+
+    /* Barra de construcción y menús contextuales en Android */
+    body.is-android #hud .buildbar:not(.hidden) {
+      bottom: 56px !important;
+      left: 10px !important;
+      right: 10px !important;
+      transform: none !important;
+      width: auto !important;
+      padding: 6px 8px !important;
+      gap: 4px !important;
+    }
+    body.is-android #hud .bcard {
+      width: 96px !important;
+      padding: 5px !important;
+    }
+    body.is-android #hud .bcard canvas {
+      height: 38px !important;
+    }
+    body.is-android #hud .ctxmenu:not(.hidden),
+    body.is-android #hud .dialog:not(.hidden) {
+      left: 50% !important;
+      right: auto !important;
+      transform: translateX(-50%) !important;
+      width: min(420px, calc(var(--and-w, 640px) - 24px)) !important;
+      bottom: 58px !important;
+      max-height: calc(var(--and-h, 340px) - 104px) !important;
+    }
+    body.is-android #hud .prompt:not(.hidden),
+    body.is-android #hud .actbar:not(.hidden) {
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      bottom: 60px !important;
+      max-width: calc(var(--and-w, 640px) - 230px) !important;
+      font-size: 11.5px !important;
+      padding: 5px 10px !important;
+    }
+
+    /* Globos de texto de Robbie en HUD de Android (abajo a la derecha, encima de los botones de acción) */
+    body.is-android #hud > #robbie-companion {
+      bottom: 112px !important;
+      right: 8px !important;
+      left: auto !important;
+      top: auto !important;
+      max-width: min(310px, 46%) !important;
+      gap: 6px !important;
+    }
+    body.is-android #hud > #robbie-companion .rb-speech-box {
+      width: min(235px, 100%) !important;
+      padding: 7px 10px !important;
+      border-radius: 14px !important;
+    }
+    body.is-android #hud > #robbie-companion .rb-speech-name {
+      font-size: 12px !important;
+    }
+    body.is-android #hud > #robbie-companion .rb-speech-text {
+      font-size: 10px !important;
+      line-height: 1.22 !important;
+    }
+    body.is-android #hud > #robbie-companion .rb-speech-foot {
+      margin-top: 5px !important;
+      gap: 4px !important;
+    }
+    body.is-android #hud > #robbie-companion .rb-speech-foot button {
+      padding: 3px 6px !important;
+      font-size: 9px !important;
+    }
+    body.is-android #hud > #robbie-companion .rb-speech-char {
+      width: 52px !important;
+      height: 48px !important;
+    }
+
+    /* Modales y Chat de Robbie adaptados a la altura horizontal de Android */
+    body.is-android .modal-back:not(.hidden) {
+      padding: 6px !important;
+    }
+    body.is-android .modal {
+      width: min(560px, calc(var(--and-w, 640px) - 16px)) !important;
+      max-height: calc(var(--and-h, 340px) - 12px) !important;
+    }
+    body.is-android .modal header {
+      padding: 8px 12px !important;
+    }
+    body.is-android .modal header h2 {
+      font-size: 15px !important;
+    }
+    body.is-android .modal .body {
+      padding: 8px 12px !important;
+    }
+    body.is-android .modal footer {
+      padding: 6px 12px !important;
+    }
+    body.is-android #modal-robi-chat .body {
+      height: calc(var(--and-h, 340px) - 70px) !important;
+      max-height: calc(var(--and-h, 340px) - 70px) !important;
+      gap: 6px !important;
     }
   `;
   (document.body || document.head).appendChild(styleEl);
@@ -1107,9 +2061,15 @@ PROPUESTA_SCRIPT = r"""<script>
       wrap.classList.add('minimized');
       wrap.classList.remove('robbie-open');
     });
-    document.getElementById('rm-speech-close').addEventListener('click', () => {
+    const closeMenuSpeech = (e) => {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
       speechDock.classList.add('hidden-dock');
-    });
+    };
+    const rmCloseBtn = document.getElementById('rm-speech-close');
+    if (rmCloseBtn) {
+      rmCloseBtn.addEventListener('click', closeMenuSpeech);
+      rmCloseBtn.addEventListener('pointerdown', closeMenuSpeech);
+    }
 
     const setMenuBubble = (text, mood, badgeText) => {
       speechDock.classList.remove('hidden-dock');
@@ -1482,11 +2442,13 @@ PROPUESTA_SCRIPT = r"""<script>
       });
       document.getElementById('fl-top-show-bub').addEventListener('click', (e) => {
         e.stopPropagation();
-        flRobi.style.display = '';
+        flRobi.classList.remove('hidden-dock');
+        flRobi.style.removeProperty('display');
       });
     }
 
     // 2. Globo de texto ABAJO A LA DERECHA (estilo captura de referencia) con #fl-say adentro
+    flRobi.classList.add('robbie-speech-dock');
     flRobi.innerHTML = `
       <div class="rb-speech-box">
         <div class="rb-speech-header">
@@ -1508,7 +2470,8 @@ PROPUESTA_SCRIPT = r"""<script>
     let fIdx = 0;
     const triggerFlightFact = (e) => {
       if (e) e.stopPropagation();
-      flRobi.style.display = '';
+      flRobi.classList.remove('hidden-dock');
+      flRobi.style.removeProperty('display');
       const f = SPACE_FUN_FACTS[fIdx % SPACE_FUN_FACTS.length];
       fIdx++;
       const sayEl = document.getElementById('fl-say');
@@ -1525,10 +2488,16 @@ PROPUESTA_SCRIPT = r"""<script>
       e.stopPropagation();
       openRobbieChatModal();
     });
-    document.getElementById('fl-speech-close').addEventListener('click', (e) => {
-      e.stopPropagation();
-      flRobi.style.display = 'none';
-    });
+    const closeFlightBubble = (e) => {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
+      flRobi.classList.add('hidden-dock');
+      flRobi.style.setProperty('display', 'none', 'important');
+    };
+    const flCloseBtn = document.getElementById('fl-speech-close');
+    if (flCloseBtn) {
+      flCloseBtn.addEventListener('click', closeFlightBubble);
+      flCloseBtn.addEventListener('pointerdown', closeFlightBubble);
+    }
   }
 
   if (JSM.Flight && JSM.Flight.start) {
@@ -1539,7 +2508,9 @@ PROPUESTA_SCRIPT = r"""<script>
       const applyFlightRobbie = () => {
         upgradeFlightCompanionUI();
         const flRobi = document.querySelector('#flight .fl-robi');
-        if (flRobi) flRobi.style.display = '';
+        if (flRobi && !flRobi.classList.contains('hidden-dock')) {
+          flRobi.style.removeProperty('display');
+        }
         const sayEl = document.getElementById('fl-say');
         const subEl = document.getElementById('fl-robi-device-tip');
         const helpEl = document.getElementById('fl-help');
@@ -1695,10 +2666,15 @@ PROPUESTA_SCRIPT = r"""<script>
       topPanel.classList.remove('robbie-open');
     });
 
-    document.getElementById('rc-close').addEventListener('click', (e) => {
-      e.stopPropagation();
+    const closeHudSpeech = (e) => {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
       speechEl.classList.add('hidden-dock');
-    });
+    };
+    const rcCloseBtn = document.getElementById('rc-close');
+    if (rcCloseBtn) {
+      rcCloseBtn.addEventListener('click', closeHudSpeech);
+      rcCloseBtn.addEventListener('pointerdown', closeHudSpeech);
+    }
 
     let hudFactIdx = 0;
     const triggerHudFact = () => {
@@ -2070,6 +3046,16 @@ PROPUESTA_SCRIPT = r"""<script>
       if (origUpdateCreator) origUpdateCreator.apply(this, arguments);
       const cr = G.cr;
       if (!cr) return;
+      // En Android horizontal mantenemos el astronauta centrado en la mitad derecha (sin desplazarlo hacia arriba)
+      if (Device.isAndroid && cr.cam && G.renderer) {
+        const Wd = window.innerWidth;
+        const Hd = window.innerHeight;
+        if (cr.zoom > 6.8) cr.zoom = 5.3;
+        cr.cam.aspect = Wd / Hd;
+        const ox = -Math.min(180, Wd * 0.18);
+        cr.cam.setViewOffset(Wd, Hd, ox, 0, Wd, Hd);
+        cr.cam.updateProjectionMatrix();
+      }
       // Animar el fondo del espacio dinámico en tiempo real
       if (cr.skyDome) cr.skyDome.rotation.y += dt * 0.018;
       if (cr.ring2) cr.ring2.rotation.z -= dt * 0.45;
@@ -2420,6 +3406,8 @@ html = html.replace(
     "R.astro = RobbieAstronaut();",
     "R.astro = (R.createModel ? R.createModel() : RobbieAstronaut());"
 )
+from mp_sync_patch import apply_mp_patch
+html = apply_mp_patch(html)
 html_out = html.replace("</body></html>", PROPUESTA_SCRIPT + "\n</body></html>")
 
 for path in OUT_FILES:

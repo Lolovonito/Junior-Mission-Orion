@@ -1,6 +1,6 @@
 # 🚀 Junior Mission Orión — Los Choyeros Galácticos
 
-![Versión](https://img.shields.io/badge/versi%C3%B3n-v19.0%20Robbie%20Edition-b84dff?style=for-the-badge)
+![Versión](https://img.shields.io/badge/versi%C3%B3n-v28.0%20Multiplayer%20%26%20Mobile%20Edition-b84dff?style=for-the-badge)
 ![NASA Space Apps](https://img.shields.io/badge/NASA%20Space%20Apps-Junior%20Astronaut%20Mission%20Trainer-ffb547?style=for-the-badge)
 ![Three.js](https://img.shields.io/badge/Motor%203D-Three.js%20r128%20WebGL-46e3c6?style=for-the-badge)
 ![HTML5](https://img.shields.io/badge/Despliegue-Single--File%20HTML5-6fb6ff?style=for-the-badge)
@@ -8,6 +8,20 @@
 **Junior Mission Orión** es un simulador espacial educativo interactivo en 3D desarrollado para el reto **Junior Astronaut Mission Trainer (NASA Space Apps Challenge 2026)** por el equipo **Los Choyeros Galácticos**.
 
 Permite a niñas, niños, jóvenes y entusiastas del espacio personalizar a su astronauta, despegar desde la Tierra en la cápsula **Orión**, navegar hacia el **Polo Sur de la Luna** (y **Marte**), construir una colonia autosustentable con datos científicos reales de la NASA y aprender en todo momento junto a **Robbie**, el ajolote espacial con inteligencia artificial.
+
+---
+
+## 🆕 Novedades de la versión `v28.0` (Multijugador + Colisiones SDF + Android Horizontal)
+
+1. **🤝 Multijugador Cooperativo Sincronizado en Tiempo Real (`v28`):**
+   - **Sincronización completa de acciones y animaciones (`ANIMS` + `FX`):** Los jugadores en la misma partida ven en tiempo real cuando un compañero extrae rocas, recolecta hielo lunar o muestras de suelo, repara módulos, investiga, descansa, saluda, observa con el telescopio o usa objetos/habilidades.
+   - **Misiones de colonia compartidas (`MISSIONS`):** El progreso y las recompensas de las 8 misiones principales se sincronizan entre todos los astronautas del equipo.
+   - **Recursos del terreno sincronizados (`mine` / `mined`):** Las rocas, depósitos de hielo y puntos de muestreo extraídos por cualquier jugador se actualizan para todo el equipo (incluyendo a quienes se unen o reconectan con la partida ya iniciada) y reaparecen de forma coordinada.
+   - **Conexión flexible (Online por código de 5 letras, P2P WebRTC, Pestañas locales y LAN):** Soporte mediante señalización redundante (`PeerJS` + `ntfy`), enlaces de invitación directa (`?sala=ABCDE`), códigos QR y reconexión automática conservando lugar y rol.
+2. **📐 Colisiones de Silueta Real 3D (Campos de Distancia con Signo — SDF):**
+   - Cada edificio y estructura mide automáticamente su geometría 3D real para calcular su silueta exacta (sin «hitboxes» circulares invisibles) y la altura real de su techo, permitiendo caminar alrededor de las paredes reales e incluso subir sobre estructuras bajas.
+3. **📱 Modo Android Horizontal Forzado y UI Móvil Optimizada:**
+   - En dispositivos Android la interfaz se adapta automáticamente a formato horizontal (*landscape*) a pantalla completa usando `visualViewport`, con controles táctiles ergonómicos, menú principal espacioso y cierre táctil inmediato de los globos de Robbie durante el despegue y la exploración.
 
 ---
 

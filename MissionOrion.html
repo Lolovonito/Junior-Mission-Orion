@@ -4204,27 +4204,27 @@ window.JSM = window.JSM || {};
     nap: { label: __t('Siesta'), anim: 'sleep', dur: 90, needs: { energy: 32, comfort: 8 }, inside: true, timeScale: 15, desc: '1 h 30 min' },
     shower: { label: __t('Ducharse'), anim: 'idle', dur: 15, needs: { hygiene: 85, comfort: 8 }, cost: { water: NA.crew.hygiene }, inside: true, timeScale: 4, power: true, desc: __live(() => __t('Gasta ') + nf(NA.crew.hygiene, 1) + __t(' kg de agua')) },
     relax: { label: __t('Descansar en el sofá'), anim: 'sit', dur: 30, needs: { comfort: 55, fun: 15, energy: 8 }, desc: __t('Comodidad y diversión') },
-    chat_spot: { label: __t('Mirar las estrellas'), anim: 'idle', dur: 20, needs: { fun: 22, comfort: 10 }, desc: __t('Relajarse un rato') },
+    chat_spot: { label: __t('Mirar las estrellas'), anim: 'look', dur: 20, needs: { fun: 22, comfort: 10 }, desc: __t('Relajarse un rato') },
     research: { label: __t('Investigar'), anim: 'work', dur: 40, needs: { energy: -8, fun: 6 }, gain: { research: 4 }, xp: 10, power: true, mood: true, desc: __t('+4 investigación') },
     harvest: { label: __t('Cosechar'), anim: 'work', dur: 20, needs: { fun: 8, energy: -4 }, gain: { food: 2.4 }, xp: 7, power: true, stat: 'harvests', desc: __t('+2,4 kg de comida') },
     garden: { label: __t('Cuidar las plantas'), anim: 'work', dur: 20, needs: { fun: 22, comfort: 14 }, xp: 3, desc: __t('Diversión y calma') },
     train: { label: __t('Entrenar'), anim: 'run', dur: 30, needs: { fun: 30, energy: -16, hygiene: -18 }, xp: 7, power: true, stat: 'trainings', desc: __t('Diversión, gasta energía') },
     play: { label: __t('Jugar baloncesto lunar'), anim: 'jump', dur: 25, needs: { fun: 45, social: 12, energy: -10, hygiene: -10 }, xp: 4, power: true, desc: __t('Mucha diversión') },
     call: { label: __t('Llamar a la Tierra'), anim: 'talk', dur: 15, needs: { social: 45, fun: 10 }, xp: 3, power: true, desc: __t('Socialización') },
-    inspect: { label: __t('Revisar el sistema'), anim: 'work', dur: 12, needs: { energy: -3 }, xp: 4, edu: true, desc: __t('Aprende cómo funciona') },
+    inspect: { label: __t('Revisar el sistema'), anim: 'inspect', dur: 12, needs: { energy: -3 }, xp: 4, edu: true, desc: __t('Aprende cómo funciona') },
     clean: { label: __t('Limpiar el polvo'), anim: 'work', dur: 10, needs: { energy: -2 }, xp: 3, clean: true, desc: __t('+20 % de rendimiento 1 día') },
-    soil: { label: __t('Analizar suelo'), anim: 'work', dur: 40, needs: { energy: -8, fun: 8 }, gain: { research: 6 }, xp: 14, power: true, needItem: 'soil', stat: 'soilAnalyzed', mood: true, desc: __t('Usa 1 muestra de suelo') },
+    soil: { label: __t('Analizar suelo'), anim: 'inspect', dur: 40, needs: { energy: -8, fun: 8 }, gain: { research: 6 }, xp: 14, power: true, needItem: 'soil', stat: 'soilAnalyzed', mood: true, desc: __t('Usa 1 muestra de suelo') },
     /* lugares fijos */
     cabin_rest: { label: __t('Descansar en la cabina'), anim: 'sit', dur: 60, needs: { energy: 22, comfort: 18 }, desc: __t('Refugio básico') },
     cabin_eat: { label: __t('Comer ración de emergencia'), anim: 'sit', dur: 10, needs: { hunger: 40 }, cost: { food: NA.mealKg }, desc: __live(() => __t('Gasta ') + nf(NA.mealKg, 2) + __t(' kg de comida')) },
     cabin_wash: { label: __t('Toallitas de higiene'), anim: 'idle', dur: 8, needs: { hygiene: 35 }, desc: __t('Higiene básica') },
     terminal: { label: __t('Terminal de la colonia'), ui: 'terminal', desc: __t('Abastecimiento, mejoras y viajes') },
-    telescope: { label: __t('Observar con el telescopio'), anim: 'work', dur: 20, needs: { fun: 35 }, xp: 6, discover: 'telescope', desc: __t('Diversión y descubrimiento') },
+    telescope: { label: __t('Observar con el telescopio'), anim: 'look', dur: 20, needs: { fun: 35 }, xp: 6, discover: 'telescope', desc: __t('Diversión y descubrimiento') },
     base_research: { label: __t('Estudiar muestras lunares'), anim: 'work', dur: 30, needs: { energy: -6, fun: 5 }, gain: { research: 3 }, xp: 8, mood: true, desc: __t('+3 investigación') },
     gtrain: { label: __t('Centrífuga de entrenamiento'), anim: 'run', dur: 30, needs: { fun: 30, energy: -18, hygiene: -12 }, xp: 14, stat: 'trainings', desc: __t('+XP de piloto') },
     flightsim: { label: __t('Simulador de vuelo'), anim: 'sit', dur: 25, needs: { fun: 45 }, xp: 10, desc: __t('Practica aterrizajes') },
     study: { label: __t('Clase en la Academia'), anim: 'sit', dur: 30, needs: { social: 15, energy: -5 }, gain: { research: 5 }, xp: 12, edu: true, desc: __t('+5 investigación') },
-    rover: { label: __t('Revisar el rover'), anim: 'work', dur: 15, needs: { fun: 15 }, xp: 10, discover: 'rover', desc: __t('Datos del terreno') }
+    rover: { label: __t('Revisar el rover'), anim: 'inspect', dur: 15, needs: { fun: 15 }, xp: 10, discover: 'rover', desc: __t('Datos del terreno') }
   };
 
   D.ITEMS = {
@@ -4793,13 +4793,16 @@ class Session {
     this.id = id; this.token = token; this.name = 'Astronauta'; this.look = cleanLook({}); this.conn = null; this.room = null; this.role = null;
     this.pos = { x: 0, z: 6, ry: 0, m: 'idle', t: 0 }; this.lastSeen = Date.now(); this.offlineAt = 0;
     this.stats = { built: 0, repaired: 0, upgraded: 0, maint: 0, chat: 0, answers: 0, correct: 0, xp: 0 }; this.awards = []; this.invites = {};
-    this.rl = { chat: new Bucket(0.8, 3), move: new Bucket(25, 40), act: new Bucket(4, 8), give: new Bucket(1, 6), msg: new Bucket(60, 120) };
+    this.rl = { chat: new Bucket(0.8, 3), move: new Bucket(40, 60), act: new Bucket(4, 8), fx: new Bucket(6, 12), give: new Bucket(1, 6), msg: new Bucket(60, 120) };
   }
   get online() { return !!(this.conn && this.conn.open); }
   send(o) { if (this.online) this.conn.send(JSON.stringify(o)); }
   pub() { return { id: this.id, name: this.name, look: this.look, role: this.role, online: this.online, stats: this.stats, awards: this.awards, pos: { x: this.pos.x, z: this.pos.z } }; }
 }
 
+const MISSIONS = [['m1', 200, 60], ['m2', 150, 0], ['m3', 180, 40], ['m4', 160, 0], ['m5', 160, 0], ['m6', 300, 0], ['m7', 350, 0], ['m8', 500, 0]];   // id, créditos, materiales
+const FX = ['item', 'use', 'skill'];       // gestos puntuales que se muestran a los demás
+const ANIMS = ['idle', 'walk', 'run', 'jump', 'sit', 'sleep', 'talk', 'work', 'wave', 'cheer', 'look', 'inspect', 'sitg'];     // animaciones que se comparten con los demás jugadores
 class Hub {
   constructor(opts) {
     opts = opts || {}; this.sessions = new Map(); this.tokens = new Map(); this.rooms = new Map(); this.nextId = 1; this.rnd = opts.rnd || Math.random; this.log = opts.log || (() => { }); this.allowCodeHint = !!opts.allowCodeHint;
@@ -4838,7 +4841,7 @@ class Hub {
     if (ss.room) { this.sysChat(ss.room, ss.name + ' · volvió', 'join'); this.fullState(ss); this.pushRoom(ss.room); }
     this.pushOnline();
   }
-  fullState(ss) { const r = ss.room; if (!r) return; ss.send({ t: 'room', room: this.roomPub(r) }); if (r.status === 'play') { ss.send({ t: 'buildings', bver: r.colony.bver, list: C.buildingsOf(r.colony) }); ss.send({ t: 'colony', c: C.snapshot(r.colony), ...(r.coop ? { coop: this.coopPub(r) } : {}) }); } }
+  fullState(ss) { const r = ss.room; if (!r) return; ss.send({ t: 'room', room: this.roomPub(r) }); if (r.status === 'play') { ss.send({ t: 'buildings', bver: r.colony.bver, list: C.buildingsOf(r.colony) }); ss.send({ t: 'missions', done: r.mdone || [] }); { const nw = Date.now(); ss.send({ t: 'mined', list: (r.mined || []).filter(e => nw - e.at < 240000).map(e => ({ x: e.x, z: e.z, kind: e.kind, left: 240000 - (nw - e.at) })) }); } ss.send({ t: 'colony', c: C.snapshot(r.colony), ...(r.coop ? { coop: this.coopPub(r) } : {}) }); } }
 
   /* ---------- lista de jugadores en línea e invitaciones ---------- */
   pushOnline() { const list = [...this.sessions.values()].filter(x => x.online).map(x => ({ id: x.id, name: x.name, inRoom: !!x.room })); this.sessions.forEach(x => { if (x.online) x.send({ t: 'online', list }); }); }
@@ -4915,44 +4918,47 @@ class Hub {
   }
 
   /* ---------- movimiento ---------- */
-  h_land(ss, m) {
-    const r = ss.room; if (!r || r.status !== 'play') return;
-    this.broadcast(r, { t: 'land', id: ss.id, x: m.x, z: m.z, y: m.y });
-  }
-  h_jump(ss, m) {
-    const r = ss.room; if (!r || r.status !== 'play') return;
-    this.broadcast(r, { t: 'jump', id: ss.id, x: m.x, z: m.z, y: m.y });
-  }
-  h_action(ss, m) {
-    const r = ss.room; if (!r || r.status !== 'play') return;
-    this.broadcast(r, { t: 'action', id: ss.id, active: m.active, mode: m.mode });
-  }
-  h_interact(ss, m) {
-    const r = ss.room; if (!r || r.status !== 'play') return;
-    this.broadcast(r, { t: 'interact', id: ss.id, target: m.target });
-  }
-  h_mine(ss, m) {
-    const r = ss.room; if (!r || r.status !== 'play') return;
-    this.broadcast(r, { t: 'mine', id: ss.id, x: m.x, z: m.z });
-  }
-  h_build_add(ss, m) {
-    const r = ss.room; if (!r || r.status !== 'play') return;
-    this.broadcast(r, { t: 'build_add', id: ss.id, building: m.building });
-  }
-  h_item_use(ss, m) {
-    const r = ss.room; if (!r || r.status !== 'play') return;
-    this.broadcast(r, { t: 'item_use', id: ss.id, item: m.item });
-  }
-  h_skill(ss, m) {
-    const r = ss.room; if (!r || r.status !== 'play') return;
-    this.broadcast(r, { t: 'skill', id: ss.id, skill: m.skill });
-  }
   h_move(ss, m) {
     const r = ss.room; if (!r || r.status !== 'play' || !ss.rl.move.take()) return;
-    const x = num(m.x), z = num(m.z), y = num(m.y) || 0; if (x == null || z == null) return;
+    const x = num(m.x), z = num(m.z); if (x == null || z == null) return;
+    const inn = m.in == null ? '' : String(m.in).replace(/[^\w.-]/g, '').slice(0, 24);
+    if (inn) {          // dentro de un edificio: las coordenadas son de la sala interior; la posición de afuera no cambia (queda junto a la puerta)
+      ss.in = inn; ss.ipos = { x: Math.max(-40, Math.min(40, x)), z: Math.max(-40, Math.min(40, z)), y: Math.max(0, Math.min(3, num(m.y) || 0)), ry: num(m.ry) || 0, m: ['idle', 'walk', 'run'].includes(m.m) ? m.m : 'idle', a: ANIMS.includes(m.a) ? m.a : null }; ss.moved = true; return;
+    }
+    if (ss.in) { ss.in = null; ss.ipos = null; ss.moved = true; }
     const now = Date.now(), dt = Math.min(1.5, Math.max(0.05, (now - (ss.pos.t || now)) / 1000)), d = Math.hypot(x - ss.pos.x, z - ss.pos.z);
     if (Math.abs(x) > 200 || Math.abs(z) > 200 || d > MAX_SPEED * 1.6 * dt + 4) { ss.send({ t: 'correct', x: ss.pos.x, z: ss.pos.z }); return; }     // demasiado rápido o fuera del mapa
-    ss.pos = { x, z, y, ry: num(m.ry) || 0, m: ['idle', 'walk', 'run', 'jump'].includes(m.m) ? m.m : 'idle', t: now }; ss.moved = true;
+    const y = num(m.y);       // altura (salto): se acota para que nadie «vuele» fuera del mapa
+    ss.pos = { x, z, y: y == null ? null : Math.max(-20, Math.min(80, y)), ry: num(m.ry) || 0, m: ['idle', 'walk', 'run', 'jump'].includes(m.m) ? m.m : 'idle', a: ANIMS.includes(m.a) ? m.a : null, t: now }; ss.moved = true;
+  }
+
+  /* gesto puntual (usar objeto, extraer roca, habilidad): lo ven todos los demás al instante */
+  h_fx(ss, m) {
+    const r = ss.room; if (!r || r.status !== 'play' || !ss.rl.fx.take()) return;
+    const k = String(m.k); if (FX.indexOf(k) < 0) return;
+    const o = { t: 'fx', id: ss.id, k }, x = num(m.x), z = num(m.z);
+    if (x != null && z != null && Math.abs(x) <= 200 && Math.abs(z) <= 200) { o.x = x; o.z = z; }
+    if (m.item != null) o.item = clean(m.item, 24);
+    this.broadcast(r, o);
+  }
+
+  /* recurso agotado (roca, hielo, muestra): todos lo ven desaparecer; quien entra después recibe la lista con lo que falta para que reaparezca */
+  h_mine(ss, m) {
+    const r = ss.room; if (!r || r.status !== 'play' || !ss.rl.fx.take()) return;
+    const x = num(m.x), z = num(m.z); if (x == null || z == null || Math.abs(x) > 200 || Math.abs(z) > 200) return;
+    const kind = ['rock', 'ice', 'soil'].indexOf(m.kind) >= 0 ? m.kind : 'rock', now = Date.now();
+    r.mined = (r.mined || []).filter(e => now - e.at < 240000); r.mined.push({ x, z, kind, at: now }); if (r.mined.length > 400) r.mined.shift();
+    this.broadcast(r, { t: 'mine', id: ss.id, x, z, kind });
+  }
+
+  /* misión cumplida por el equipo: la recompensa se da una sola vez, en orden, y todos pasan a la siguiente */
+  h_mission(ss, m) {
+    const r = ss.room; if (!r || r.status !== 'play' || !ss.rl.act.take()) return;
+    const k = MISSIONS.findIndex(e => e[0] === String(m.id)); if (k < 0) return;
+    r.mdone = r.mdone || []; if (r.mdone.indexOf(MISSIONS[k][0]) >= 0) return;
+    if (k > 0 && r.mdone.indexOf(MISSIONS[k - 1][0]) < 0) return;      // solo la siguiente misión de la fila
+    r.mdone.push(MISSIONS[k][0]); r.colony.credits += MISSIONS[k][1]; r.colony.res.materials += MISSIONS[k][2];
+    this.broadcast(r, { t: 'mission', id: MISSIONS[k][0], by: ss.name }); this.pushColony(r);
   }
 
   /* ---------- acciones de colonia (validadas) ---------- */
@@ -5071,17 +5077,18 @@ class Hub {
       const dt = Math.min(5, Math.max(0, (now - (r.lastTick || now)) / 1000)); r.lastTick = now;
       const res = C.tick(r.colony, dt * C.DATA.gameMinPerSec, r.players.length, this.rnd);
       res.events.forEach(e => this.broadcast(r, { t: 'event', e }));
-      if (!r._pc || now - r._pc > 900) { r._pc = now; this.pushColony(r); }
+      if (!r._pc || now - r._pc > 240) { r._pc = now; this.pushColony(r); }
       if (res.events.some(e => e.k === 'broken')) this.broadcast(r, { t: 'buildings', bver: r.colony.bver, list: C.buildingsOf(r.colony) });
       r.colony.alerts.forEach(a => { r._al = r._al || {}; if (!r._al[a] || now - r._al[a] > 60000) { r._al[a] = now; this.broadcast(r, { t: 'alert', k: a }); } });
     }
     for (const s of [...this.sessions.values()]) if (!s.online && !s.room && s.offlineAt && now - s.offlineAt > 10 * 60 * 1000) { this.sessions.delete(s.id); this.tokens.delete(s.token); }
   }
-  tickPos(now) {      // ~10 veces por segundo
+  tickPos(now) {      // ~20 veces por segundo; cada paquete lleva la hora del servidor para que los clientes interpolen
+    now = now || Date.now();
     for (const r of this.rooms.values()) {
       if (r.status !== 'play') continue; const moved = r.players.filter(p => p.moved); if (!moved.length) continue;
-      const list = moved.map(p => { p.moved = false; return { id: p.id, x: p.pos.x, z: p.pos.z, y: p.pos.y || 0, ry: p.pos.ry, m: p.pos.m }; });
-      this.broadcast(r, { t: 'snap', list });
+      const list = moved.map(p => { p.moved = false; return p.in && p.ipos ? { id: p.id, x: p.ipos.x, z: p.ipos.z, y: p.ipos.y || 0, ry: p.ipos.ry, m: p.ipos.m, a: p.ipos.a, in: p.in } : { id: p.id, x: p.pos.x, z: p.pos.z, y: p.pos.y, ry: p.pos.ry, m: p.pos.m, a: p.pos.a }; });
+      this.broadcast(r, { t: 'snap', ts: now, list });
     }
   }
 }
@@ -5415,16 +5422,6 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
           set('torso', 'x', 0.22); set('torso', 'y', s * 0.12); set('head', 'x', -0.15);
           hipY = HIP - 0.05 + Math.abs(c) * 0.07; break;
         }
-        case 'land': {
-          const o = M.remote[m.id];
-          if (o) {
-            o.mode = 'idle';
-            if (m.y !== undefined) o.ty = m.y;
-            if (o.astro && o.astro.animate) o.astro.animate(0.3, 'idle', 1);
-            if (G.world && G.world.dust) G.world.dust(m.x || o.tx, G.world.heightAt(m.x || o.tx, m.z || o.tz), m.z || o.tz, 14, 1.2);
-          }
-          break;
-        }
         case 'jump': {
           set('legL', 'x', -0.6); set('legR', 'x', -0.25); set('kneeL', 'x', 1.1); set('kneeR', 'x', 0.6);
           set('armL', 'x', -0.5); set('armR', 'x', -0.5); set('armL', 'z', 0.9); set('armR', 'z', -0.9);
@@ -5435,6 +5432,12 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
           set('armL', 'x', -0.5); set('armR', 'x', -0.5); set('elbowL', 'x', -0.9); set('elbowR', 'x', -0.9);
           set('torso', 'x', -0.05 + Math.sin(t * 1.5) * 0.02); set('head', 'y', Math.sin(t * 0.6) * 0.3);
           hipY = HIP - 0.4; break;
+        }
+        case 'sitg': {         // sentado en el suelo (sin silla): piernas hacia adelante y manos sobre las rodillas
+          set('legL', 'x', -1.5); set('legR', 'x', -1.5); set('kneeL', 'x', 0.12); set('kneeR', 'x', 0.12);
+          set('armL', 'x', -0.9); set('armR', 'x', -0.9); set('elbowL', 'x', -0.5); set('elbowR', 'x', -0.5);
+          set('torso', 'x', 0.04 + Math.sin(t * 1.5) * 0.02); set('head', 'y', Math.sin(t * 0.6) * 0.3);
+          hipY = 0.2; break;
         }
         case 'work': {
           set('armL', 'x', -1.1 + Math.sin(t * 6) * 0.12); set('armR', 'x', -1.0 + Math.sin(t * 6 + 2) * 0.15);
@@ -5448,6 +5451,21 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
           if (mode === 'talk') { set('armL', 'z', 0.4 + Math.sin(t * 3) * 0.3); set('armL', 'x', -0.6); set('elbowL', 'x', -0.9); set('armR', 'x', -0.3 + Math.sin(t * 2.3) * 0.2); set('elbowR', 'x', -0.5); }
           set('head', 'z', Math.sin(t * 2) * 0.08); set('head', 'x', Math.sin(t * 5) * 0.05);
           set('torso', 'x', Math.sin(t * 1.4) * 0.03); break;
+        }
+        case 'look': {         // mirar alrededor: la mano a modo de visera y la cabeza barre el horizonte
+          const w = Math.sin(t * 0.8);
+          set('head', 'y', w * 0.95); set('head', 'x', -0.12 + Math.sin(t * 0.4) * 0.05); set('torso', 'y', w * 0.28);
+          set('armR', 'x', -2.15); set('armR', 'z', -0.25); set('elbowR', 'x', -1.7);
+          set('armL', 'z', 0.12); set('elbowL', 'x', -0.15);
+          set('kneeL', 'x', 0.04); set('kneeR', 'x', 0.04); hipY = HIP + Math.sin(t * 1.8) * 0.005; break;
+        }
+        case 'inspect': {      // inspeccionar: se agacha y examina algo con las manos
+          const s = Math.sin(t * 2.2);
+          set('legL', 'x', -0.95); set('kneeL', 'x', 1.35); set('legR', 'x', 0.2); set('kneeR', 'x', 1.5);
+          set('torso', 'x', 0.55); set('head', 'x', 0.4 + s * 0.04); set('head', 'y', Math.sin(t * 0.9) * 0.25);
+          set('armR', 'x', -1.25 + s * 0.08); set('elbowR', 'x', -1.0); set('armR', 'z', -0.05);
+          set('armL', 'x', -1.0); set('elbowL', 'x', -0.95 + s * 0.1); set('armL', 'z', 0.08);
+          hipY = HIP - 0.3; break;
         }
         case 'sleep': {
           rigRot = -Math.PI / 2; rigY = 0.25;
@@ -8239,8 +8257,8 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     let best = null, bd = 1e9;
     const consider = (d, item) => { if (d < bd) { bd = d; best = item; } };
     Game.npcs.forEach(n => { if (!n.astro.group.visible) return; const p = n.astro.group.position; const d = U.dist2(px, pz, p.x, p.z); if (d < 2.8) consider(d - 1, { type: 'npc', ref: n, label: __t('Hablar con ') + n.def.name.split(' ')[0] }); });
-    Sim.colony(g).buildings.forEach(b => { const d = U.dist2(px, pz, b.x, b.z) - b.r; if (d < 2.4) consider(d, { type: 'building', ref: b, label: (b.broken ? __t('Reparar ') : __t('Usar ')) + D.BUILDINGS[b.type].name }); });
-    w.landmarks.forEach(l => { const d = U.dist2(px, pz, l.x, l.z) - l.r; if (d < 2.8) consider(d, { type: 'landmark', ref: l, label: l.name }); });
+    Sim.colony(g).buildings.forEach(b => { const fd = Game.footDist && Game.footDist(b, px, pz, 'b'), d = fd != null ? fd : U.dist2(px, pz, b.x, b.z) - b.r; if (d < (fd != null ? Game.footRange : 2.4)) consider(d, { type: 'building', ref: b, label: (b.broken ? __t('Reparar ') : __t('Usar ')) + D.BUILDINGS[b.type].name }); });
+    w.landmarks.forEach(l => { const fd = Game.footDist && Game.footDist(l, px, pz, 'l'), d = fd != null ? fd : U.dist2(px, pz, l.x, l.z) - l.r; if (d < (fd != null ? Game.footRange : 2.8)) consider(d, { type: 'landmark', ref: l, label: l.name }); });
     w.rocks.forEach(r => { if (!r.alive) return; const d = U.dist2(px, pz, r.x, r.z) - r.r; if (d < 1.2) consider(d, { type: 'rock', ref: r, label: __t('Extraer ') + r.name.toLowerCase() }); });
     w.deposits.forEach(r => { if (!r.alive) return; const d = U.dist2(px, pz, r.x, r.z) - r.r; if (d < 1.4) consider(d, { type: 'deposit', ref: r, label: r.kind === 'ice' ? __t('Extraer hielo') : __t('Recoger muestra de suelo') }); });
     return best;
@@ -8307,9 +8325,6 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
   };
 
   Game.useItem = function (id) {
-    if (window.JSM && JSM.Net && JSM.Net.inGame && JSM.Net.room) {
-      try { JSM.Net.send({ t: 'item_use', item: id }); } catch(e) {}
-    }
     const g = Sim.g, inv = g.player.inv; if (!(inv[id] > 0)) return;
     const n = g.player.needs;
     if (id === 'ration') { inv[id]--; n.hunger = Math.min(100, n.hunger + 40); g.stats.meals++; JSM.Audio.sfx('eat'); UI.toast(__t('Comiste una ración espacial (+40 hambre)'), 'good', 'hunger'); }
@@ -8411,9 +8426,18 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
   };
 
   /* --- escáner --- */
+  /* animaciones según lo que haces: inspeccionar muestras, mirar alrededor cuando llevas rato quieto */
+  Game.pose = function (a, ms) { Game.poseA = { a, until: performance.now() + ms }; };
+  Game.realAnim = function (a) { if (a.id === 'soil') return 'inspect'; return (a.id === 'mine' || a.id === 'ice') && a.elapsed < a.dur * 0.3 ? 'inspect' : 'work'; };
+  Game.idleLook = function (anim, dt) {
+    const P = Game.player;
+    if (anim !== 'idle') { P.idleT = 0; return anim; }
+    P.idleT = (P.idleT || 0) + dt; if (P.idleT > 9) { if (P.idleT > 14) P.idleT = 0; return 'look'; }
+    return anim;
+  };
   Game.scan = function () {
     if (Game.mode !== 'play' || UI.modalOpen) return;
-    const now = performance.now(); if (Game.scanT && now - Game.scanT < 2500) return; Game.scanT = now;
+    const now = performance.now(); if (Game.scanT && now - Game.scanT < 2500) return; Game.scanT = now; Game.pose('look', 2200);
     const g = Sim.g, w = Game.world, P = Game.player, range = g.player.inv.xscanner ? 90 : 45;
     w.ring(P.pos.x, P.pos.z); JSM.Audio.sfx('scan');
     let rocks = 0, rare = 0, deps = 0;
@@ -8593,20 +8617,18 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     P.pos.x = nx; P.pos.z = nz; P.pos.y += P.vel.y * dt;
     // colisiones circulares
     const push = (x, z, r) => { const dx = P.pos.x - x, dz = P.pos.z - z, d = Math.hypot(dx, dz), rr = r + 0.45; if (d < rr && d > 0.001) { P.pos.x = x + dx / d * rr; P.pos.z = z + dz / d * rr; } };
-    Sim.colony(g).buildings.forEach(b => push(b.x, b.z, b.r * 0.92));
-    w.landmarks.forEach(l => push(l.x, l.z, l.r));
+    Sim.colony(g).buildings.forEach(b => { if (!(Game.footPush && Game.footPush(b, P.pos, 'b'))) push(b.x, b.z, b.r * 0.92); });
+    w.landmarks.forEach(l => { if (!(Game.footPush && Game.footPush(l, P.pos, 'l'))) push(l.x, l.z, l.r); });
     w.rocks.forEach(r => { if (r.alive) push(r.x, r.z, r.r * 0.55); });
     w.decorTrees.forEach(t => push(t.x, t.z, t.r));
     Game.npcs.forEach(n => { if (n.astro.group.visible) push(n.astro.group.position.x, n.astro.group.position.z, 0.35); });
     const R = Math.hypot(P.pos.x, P.pos.z); if (R > W.BOUND) { P.pos.x *= W.BOUND / R; P.pos.z *= W.BOUND / R; }
-    const ground = w.heightAt(P.pos.x, P.pos.z);
+    let ground = w.heightAt(P.pos.x, P.pos.z);
+    if (Game.roofAt) { const rf = Game.roofAt(P.pos.x, P.pos.z, P.pos.y, Sim.colony(g).buildings); if (rf != null && rf > ground) ground = rf; }
     if (P.pos.y <= ground) {
       if (!P.onGround && P.vel.y < -3) {
         if (planet.id !== 'earth') w.dust(P.pos.x, ground, P.pos.z, 14, 1.4);
         JSM.Audio.sfx('land');
-        if (window.JSM && JSM.Net && JSM.Net.inGame && JSM.Net.room) {
-          try { JSM.Net.send({ t: 'land', x: Math.round(P.pos.x*100)/100, z: Math.round(P.pos.z*100)/100, y: ground }); } catch(e){}
-        }
       }
       P.pos.y = ground; P.vel.y = 0; P.onGround = true;
     } else if (P.pos.y - ground > 0.25) P.onGround = false;
@@ -8622,11 +8644,14 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     if (P.onGround && hs > 1) { P.stepT += dt * hs; if (P.stepT > (run ? 2.2 : 1.6)) { P.stepT = 0; JSM.Audio.sfx('step'); if (planet.id !== 'earth') w.dust(P.pos.x, P.pos.y, P.pos.z, run ? 4 : 2, run ? 1 : 0.6); } }
     // animación
     let anim = 'idle';
-    if (Game.action) anim = Game.action.real ? 'work' : (Game.action.A.anim || 'work');
+    if (Game.action) anim = Game.action.real ? Game.realAnim(Game.action) : (Game.action.A.anim || 'work');
     else if (!P.onGround) anim = 'jump';
     else if (hs > 5.5) anim = 'run';
     else if (hs > 0.5) anim = 'walk';
     else if (Game.talking) anim = 'talk';
+    else if (Game.poseA && performance.now() < Game.poseA.until) anim = Game.poseA.a;
+    if (anim === 'sit') anim = 'sitg';                // fuera de un edificio no hay silla: se sienta en el suelo
+    anim = Game.idleLook(anim, dt);
     P.astro.setMood(Sim.mood(g.player.needs).score);
     P.astro.animate(dt, anim, anim === 'walk' ? hs / 4.2 : anim === 'run' ? hs / 8 : 1);
     // oxígeno del traje
@@ -9753,6 +9778,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
       if (t > 3.4) { P.astro.group.visible = false; beep(660, 0.15, 0.08); }
       if (t > 3.9) { F.phase = 'ready'; F.t = 0; padChecklist(); say(__t('¡Todos a bordo! Revisemos la lista… ✔ Todo listo. ¡Pulsa <b>DESPEGAR</b>!')); }
     } else if (F.phase === 'ready') {
+      if (F.opts.cinematic && t > 2.4) F.press();
       const a = 0.9 + t * 0.06, r = 72 - Math.min(t, 3) * 3;
       cam.position.set(Math.cos(a) * r, 14 + Math.min(t, 3) * 2, Math.sin(a) * r); cam.lookAt(0, 26, 0);
     } else if (F.phase === 'count') {
@@ -9798,7 +9824,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
       cam.updateProjectionMatrix();
       rumble(0.9 - clamp(alt / 900, 0, 0.6), 0.5);
       if (t > 6.6 && !P.flashing) { P.flashing = true; flash(true); }
-      if (t > 7.1) { F.startSpace(false); setTimeout(() => flash(false), 80); }
+      if (t > 7.1) { if (F.opts.cinematic) F.finish(false); else { F.startSpace(false); setTimeout(() => flash(false), 80); } }
     }
     P.smoke.update(dt);
     F.scene = P.scene; F.cam = cam; F.planet = 'earth';
@@ -9963,7 +9989,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
       F.active = false; F.phase = 'done';
       stopRumble();
       F.el.classList.add('hidden'); F.el.classList.remove('outside');
-      if ($('#fl-say') && $('#fl-say').parentNode) if ($('#fl-say') && $('#fl-say').parentNode) if ($('#fl-say') && $('#fl-say').parentNode) if ($('#fl-say') && $('#fl-say').parentNode) if ($('#fl-say') && $('#fl-say').parentNode) if ($('#fl-say') && $('#fl-say').parentNode) if ($('#fl-say') && $('#fl-say').parentNode) if ($('#fl-say') && $('#fl-say').parentNode) if ($('#fl-say') && $('#fl-say').parentNode) if ($('#fl-say') && $('#fl-say').parentNode) if ($('#fl-say') && $('#fl-say').parentNode) if ($('#fl-say') && $('#fl-say').parentNode) $('#fl-say').parentNode.classList.remove('show');
+      if ($('#fl-say') && $('#fl-say').parentNode) $('#fl-say').parentNode.classList.remove('show');
       const S = F.space, P = F.pad; F.space = null; F.pad = null; F.scene = null;
       if (F.cabin) { F.cabin.dispose(); F.cabin = null; }
       try { if (P) { P.astro.dispose(); U.disposeTree(P.scene); } if (S) U.disposeTree(S.scene); } catch (e) { }
@@ -10257,7 +10283,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     R.box(M.cloth3, 3.4, 0.45, 1.0, 0, -2.6, 0); R.box(M.cloth3, 3.4, 0.7, 0.25, 0, -3.0, 0.4); R.box(M.cloth3, 0.25, 0.65, 1.0, -1.7, -2.6, 0.3); R.box(M.cloth3, 0.25, 0.65, 1.0, 1.7, -2.6, 0.3);
     [-1.1, 0, 1.1].forEach(x => R.box(M.amberCl, 0.9, 0.14, 0.6, x, -2.5, 0.45)); R.solid(0, -2.7, 3.6, 1.3);
     R.box(M.wood2, 1.5, 0.08, 0.8, 0, -1.2, 0.42); R.cyl(M.dark, 0.08, 0.42, 0, -1.2, 0); R.cyl(M.white, 0.12, 0.1, -0.4, -1.2, 0.5); R.sph(M.leaf, 0.14, -0.4, 0.68, -1.2); R.solid(0, -1.2, 1.5, 0.8);
-    R.hotspot(0, -1.8, __t('Descansar en el sofá'), ['relax'], { x: 0, z: -3 });
+    R.hotspot(0, -1.8, __t('Descansar en el sofá'), ['relax'], { x: 0, z: -3 }, { seat: { x: 0, z: -2.5, y: 0.17, yaw: 0 } });
     R.hotspot(-3.1, -3.4, __t('Mirar las estrellas'), ['chat_spot'], { x: -3.1, z: -4.5 }, { r: 1.2 });
     // ducha
     const sx = -w / 2 + 1.1, sz = d / 2 - 1.5; R.box(M.white, 1.5, 0.12, 1.5, sx, sz, 0); R.box(M.glass, 1.5, 2.3, 0.05, sx, sz + 0.75, 0.12); R.box(M.glass, 0.05, 2.3, 1.5, sx + 0.75, sz, 0.12);
@@ -10275,7 +10301,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     R.bed(-3.3, -1.55, 0, M.cloth, true); R.solid(-3.3, -1.55, 2.3, 1.2);
     R.bed(0.2, -1.55, 0, M.cloth3, true); R.solid(0.2, -1.55, 2.3, 1.2);
     R.bed(3.6, -1.7, 0, M.cloth2, false); R.solid(3.6, -1.7, 2.3, 1.2);
-    R.hotspot(-3.3, -0.4, __t('Dormir'), ['sleep'], { x: -3.3, z: -1.55 }); R.hotspot(0.2, -0.4, __t('Siesta'), ['nap'], { x: 0.2, z: -1.55 });
+    R.hotspot(-3.3, -0.4, __t('Dormir'), ['sleep'], { x: -3.3, z: -1.55 }, { seat: { x: -3.2, z: -1.55, y: 0.42, yaw: Math.PI / 2 } }); R.hotspot(0.2, -0.4, __t('Siesta'), ['nap'], { x: 0.2, z: -1.55 }, { seat: { x: 0.3, z: -1.55, y: 0.42, yaw: Math.PI / 2 } });
     // casilleros y escritorio
     for (let i = 0; i < 4; i++) { R.box(M.metal, 0.7, 2.0, 0.5, -w / 2 + 0.35, -d / 2 + 0.8 + i * 0.75 + 1.0, 0).rotation.y = 0; R.box(M.cyan, 0.04, 0.5, 0.04, -w / 2 + 0.72, -d / 2 + 0.8 + i * 0.75 + 1.0, 1.1); }
     R.solid(-w / 2 + 0.4, 0.5, 0.8, 3.3);
@@ -10298,7 +10324,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     // mesas
     R.table(-1.9, 0.4, 2.2, 1.0, [[-0.6, 0.9], [0.6, 0.9], [-0.6, -0.9], [0.6, -0.9]]); R.table(2.0, 0.4, 2.2, 1.0, [[-0.6, 0.9], [0.6, 0.9], [-0.6, -0.9], [0.6, -0.9]]);
     [-1.9, 2.0].forEach(x => { R.cyl(M.white, 0.2, 0.03, x - 0.5, 0.4, 0.8); R.cyl(M.fruit, 0.1, 0.1, x + 0.5, 0.4, 0.8); R.cyl(M.cloth, 0.14, 0.2, x, 0.4, 0.8); });
-    R.hotspot(-1.9, 1.7, __t('Comer'), ['eat'], { x: -1.9, z: 0.4 }); R.hotspot(2.0, 1.7, __t('Comer'), ['eat'], { x: 2.0, z: 0.4 });
+    R.hotspot(-1.9, 1.7, __t('Comer'), ['eat'], { x: -1.9, z: 0.4 }, { seat: { x: -1.3, z: 1.3, y: 0.1, yaw: Math.PI } }); R.hotspot(2.0, 1.7, __t('Comer'), ['eat'], { x: 2.0, z: 0.4 }, { seat: { x: 2.6, z: 1.3, y: 0.1, yaw: Math.PI } });
     R.screen('life', 1.4, 0.8, w / 2 - 0.06, 1.8, -1.5, -Math.PI / 2); R.plant(-w / 2 + 0.7, d / 2 - 1.2, 1.2);
     R.cyl(M.amber, 0.45, 0.06, 0, 0.4, 2.6); R.cyl(M.dark, 0.03, 0.6, 0, 0.4, 2.65); R.light(0, 2.5, 0, 0xffd9a0, 0.8, 10);
     return R;
@@ -10364,7 +10390,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     [-0.8, 0.8].forEach(x => { R.box(M.cloth2, 0.6, 0.15, 0.6, x, -0.7, 0.4); R.box(M.cloth2, 0.6, 0.6, 0.12, x, -0.4, 0.4); R.solid(x, -0.6, 0.7, 0.7); });
     R.hotspot(0, -1.7, __t('Terminal de la colonia'), ['terminal'], { x: 0, z: -d / 2 });
     // litera, comida y lavabo
-    R.bed(-w / 2 + 0.8, 0.3, Math.PI / 2, M.cloth, false); R.solid(-w / 2 + 0.7, 0.4, 1.2, 2.2); R.hotspot(-w / 2 + 2.0, 0.4, __t('Descansar'), ['cabin_rest'], { x: -w / 2 + 0.7, z: 0.4 });
+    R.bed(-w / 2 + 0.8, 0.3, Math.PI / 2, M.cloth, false); R.solid(-w / 2 + 0.7, 0.4, 1.2, 2.2); R.hotspot(-w / 2 + 2.0, 0.4, __t('Descansar'), ['cabin_rest'], { x: -w / 2 + 0.7, z: 0.4 }, { seat: { x: -w / 2 + 1.1, z: 0.4, y: 0.2, yaw: Math.PI / 2 } });
     R.box(M.white, 0.7, 1.2, 1.2, w / 2 - 0.5, -0.3, 0); R.solid(w / 2 - 0.5, -0.3, 0.8, 1.2); [0, 1, 2].forEach(i => R.box(M.amberCl, 0.3, 0.12, 0.3, w / 2 - 0.5, -0.7 + i * 0.4, 1.25));
     R.hotspot(w / 2 - 1.4, -0.3, __t('Comer ración'), ['cabin_eat'], { x: w / 2, z: -0.3 }); R.box(M.metal, 0.5, 0.3, 0.45, w / 2 - 0.4, 1.0, 0.9); R.cyl(M.metal, 0.03, 0.2, w / 2 - 0.4, 1.0, 1.2); R.solid(w / 2 - 0.4, 1.0, 0.6, 0.5);
     R.hotspot(w / 2 - 1.4, 1.0, __t('Higiene'), ['cabin_wash'], { x: w / 2, z: 1.0 }, { r: 1.0 });
@@ -10394,7 +10420,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     R.hotspot(-2.6, 2.0, __t('Centrífuga de entrenamiento'), ['gtrain'], { x: -2.6, z: -0.8 });
     // simulador de vuelo
     const sx = 3.0, sz = -1.5; R.box(M.dark, 2.0, 0.5, 2.4, sx, sz, 0); R.box(M.cloth2, 0.8, 0.2, 0.8, sx, sz + 0.3, 0.55); R.box(M.cloth2, 0.8, 0.8, 0.15, sx, sz + 0.7, 0.9); R.box(M.black, 1.8, 0.8, 0.12, sx, sz - 0.7, 1.15).rotation.x = -0.3; R.screen('map', 1.5, 0.6, sx, 1.45, sz - 0.76, 0.0); R.box(M.amber, 0.25, 0.04, 0.3, sx, sz - 0.4, 0.55); R.solid(sx, sz, 2.2, 2.6);
-    R.hotspot(sx, sz + 2.0, __t('Simulador de vuelo'), ['flightsim'], { x: sx, z: sz });
+    R.hotspot(sx, sz + 2.0, __t('Simulador de vuelo'), ['flightsim'], { x: sx, z: sz }, { seat: { x: sx, z: sz + 0.3, y: 0.4, yaw: Math.PI } });
     R.screen('chart', 2.2, 1.2, 0, 2.2, -d / 2 + 0.06, 0); R.box(M.red, 3.0, 0.12, 0.05, 0, -d / 2 + 0.06, 3.3);
     R.box(M.metal, 0.6, 1.0, 0.8, w / 2 - 0.5, 2.3, 0); R.hotspot(w / 2 - 1.5, 2.3, __t('Higiene'), ['cabin_wash'], { x: w / 2, z: 2.3 }, { r: 1.0 });
     R.plant(-w / 2 + 0.7, d / 2 - 1.2, 1.2); R.light(0, 3.0, 0, 0xffd0d0, 0.5, 12);
@@ -10409,10 +10435,10 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     [[0.6, 0x9aa0b4, 0.06], [0.9, 0xe8c878, 0.08], [1.25, 0x3f8cff, 0.09], [1.6, 0xd8663a, 0.07]].forEach(([r, col, s], i) => { const p = new THREE.Mesh(SPH(), M.m(col, 0.6)); p.scale.setScalar(s); p.position.x = r; const o = new THREE.Group(); o.add(p); o.rotation.y = i * 1.7; pg.add(o); R.anim.push((dt) => { o.rotation.y += dt * (0.9 - i * 0.18); }); });
     // pupitres
     for (let r = 0; r < 2; r++) for (let c2 = -2; c2 <= 1; c2++) { const x = c2 * 2.2 + 1.1, z = -0.4 + r * 2.0; R.box(M.wood, 1.2, 0.06, 0.7, x, z, 0.72); R.box(M.metal, 0.06, 0.72, 0.06, x - 0.5, z, 0); R.box(M.metal, 0.06, 0.72, 0.06, x + 0.5, z, 0); R.box(M.cloth, 0.5, 0.08, 0.5, x, z + 0.8, 0.45); R.box(M.cloth, 0.5, 0.45, 0.07, x, z + 1.05, 0.5); R.solid(x, z, 1.3, 0.9); }
-    R.hotspot(0, 2.7, __t('Clase en la Academia'), ['study'], { x: 0, z: -d / 2 }, { r: 2.2 });
+    R.hotspot(0, 2.7, __t('Clase en la Academia'), ['study'], { x: 0, z: -d / 2 }, { r: 2.2, seat: { x: 1.1, z: 2.4, y: 0.12, yaw: Math.PI } });
     // cafetería y descanso
     R.box(M.dark, 0.7, 0.95, 2.0, w / 2 - 0.5, -2.3, 0); R.solid(w / 2 - 0.5, -2.3, 0.8, 2.0); R.hotspot(w / 2 - 1.6, -2.3, __t('Comer ración'), ['cabin_eat'], { x: w / 2, z: -2.3 });
-    R.box(M.cloth3, 0.9, 0.45, 2.0, w / 2 - 0.6, 1.7, 0); R.box(M.cloth3, 0.25, 0.8, 2.0, w / 2 - 0.2, 1.7, 0); R.solid(w / 2 - 0.5, 1.7, 1.0, 2.0); R.hotspot(w / 2 - 1.6, 1.7, __t('Descansar'), ['cabin_rest'], { x: w / 2, z: 1.7 });
+    R.box(M.cloth3, 0.9, 0.45, 2.0, w / 2 - 0.6, 1.7, 0); R.box(M.cloth3, 0.25, 0.8, 2.0, w / 2 - 0.2, 1.7, 0); R.solid(w / 2 - 0.5, 1.7, 1.0, 2.0); R.hotspot(w / 2 - 1.6, 1.7, __t('Descansar'), ['cabin_rest'], { x: w / 2, z: 1.7 }, { seat: { x: w / 2 - 0.75, z: 1.7, y: 0.12, yaw: -Math.PI / 2 } });
     R.plant(-w / 2 + 0.7, d / 2 - 1.2, 1.3); R.light(0, 2.8, -0.5, 0xfff0d0, 0.7, 12);
     return R;
   };
@@ -10506,7 +10532,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
         const sc = new THREE.Scene(); sc.background = new THREE.Color(0x04060e); sc.add(R.g);
         const cam = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.1, 100);
         $('#app').classList.add('inside');
-        Object.assign(I, { active: true, R, scene: sc, cam, src, x: R.spawn.x, z: R.spawn.z, yaw: Math.PI, saved: { yaw: G.camYaw, pitch: G.camPitch, dist: G.camDist, mode: G.camMode }, t: 0, actSeen: false, hot: null, trail: [] });
+        Object.assign(I, { active: true, R, scene: sc, cam, src, x: R.spawn.x, z: R.spawn.z, yaw: Math.PI, saved: { yaw: G.camYaw, pitch: G.camPitch, dist: G.camDist, mode: G.camMode }, t: 0, actSeen: false, seat: null, stand: null, sy: 0, hot: null, trail: [] });
         R.hot.forEach(h => {
           const ring = new THREE.Mesh(new THREE.RingGeometry(0.42, 0.55, 28), new THREE.MeshBasicMaterial({ color: h.exit ? 0xff7a8a : 0x46E3C6, transparent: true, opacity: 0.85, side: THREE.DoubleSide, blending: THREE.AdditiveBlending, depthWrite: false }));
           ring.rotation.x = -Math.PI / 2; ring.position.set(h.x, 0.04, h.z); R.g.add(ring); h.ring = ring;
@@ -10588,7 +10614,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     if (G.action) { P.vel.x = P.vel.z = 0; }
     I.x += P.vel.x * dt; I.z += P.vel.z * dt;
     const m = 0.55; I.x = clamp(I.x, -R.w / 2 + m, R.w / 2 - m); I.z = clamp(I.z, -R.d / 2 + m, R.d / 2 - m);
-    for (const s of R.solids) {
+    if (!I.seat) for (const s of R.solids) {
       const hx = s.w / 2 + 0.32, hz = s.d / 2 + 0.32, dx = I.x - s.x, dz = I.z - s.z;
       if (Math.abs(dx) < hx && Math.abs(dz) < hz) { const px = hx - Math.abs(dx), pz = hz - Math.abs(dz); if (px < pz) I.x = s.x + Math.sign(dx || 1) * hx; else I.z = s.z + Math.sign(dz || 1) * hz; }
     }
@@ -10596,10 +10622,18 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     if (hs > 0.4 && !G.action) I.yaw = U.angDamp(I.yaw, Math.atan2(P.vel.x, P.vel.z), 12, dt);
     // acción en marcha: colócate en el punto y mira al mueble
     if (G.action) {
-      if (!I.actSeen && I.curHot) { I.actSeen = true; const h = I.curHot; I.x = h.look ? h.x : I.x; I.z = h.z; if (h.look) I.yaw = Math.atan2(h.look.x - h.x, h.look.z - h.z); }
-    } else I.actSeen = false;
-    const grp = P.astro.group; grp.position.set(I.x, 0, I.z); grp.rotation.y = I.yaw;
-    let anim = 'idle'; if (G.action) anim = G.action.real ? 'work' : (G.action.A.anim || 'work'); else if (hs > 4) anim = 'run'; else if (hs > 0.4) anim = 'walk';
+      if (!I.actSeen && I.curHot) {
+        I.actSeen = true; const h = I.curHot;
+        if (h.seat) { I.stand = { x: I.x, z: I.z, yaw: I.yaw }; I.seat = h.seat; I.x = h.seat.x; I.z = h.seat.z; I.yaw = h.seat.yaw; }   // se sienta (o acuesta) en el mueble, mirando hacia donde mira el asiento
+        else { I.x = h.look ? h.x : I.x; I.z = h.z; if (h.look) I.yaw = Math.atan2(h.look.x - h.x, h.look.z - h.z); }
+      }
+    } else {
+      I.actSeen = false;
+      if (I.seat) { if (I.stand) { I.x = I.stand.x; I.z = I.stand.z; } I.seat = null; I.stand = null; }     // al terminar, se levanta donde estaba
+    }
+    I.sy = (I.sy || 0) + ((I.seat ? I.seat.y : 0) - (I.sy || 0)) * (1 - Math.exp(-12 * dt));
+    const grp = P.astro.group; grp.position.set(I.x, I.sy, I.z); grp.rotation.y = I.yaw;
+    let anim = 'idle'; if (G.action) { anim = G.action.real ? G.realAnim(G.action) : (G.action.A.anim || 'work'); if (anim === 'sit' && !I.seat) anim = 'work'; } else if (hs > 4) anim = 'run'; else if (hs > 0.4) anim = 'walk'; anim = G.idleLook(anim, dt);
     P.astro.setMood(Sim.mood(g.player.needs).score); P.astro.animate(dt, anim, anim === 'walk' ? hs / 3.2 : anim === 'run' ? hs / 5.2 : 1);
     R.anim.forEach(f => f(dt, I.t));
     // puntos de interés
@@ -11243,8 +11277,8 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
       [-1.4, 1.4].forEach(ox => { R.cyl(M.cloth, 0.3, 0.1, x + ox, z + 1.1, 0.45); R.box(M.cloth, 0.55, 0.6, 0.1, x + ox, z + 1.4, 0.55); R.cyl(M.metal, 0.05, 0.45, x + ox, z + 1.1, 0); });
       R.solid(x, z, 5.5, 1.3);
     });
-    R.hotspot(-3.6, -0.6, __t('Analizar telemetría'), ['telemetry'], { x: -3.6, z: -2.0 });
-    R.hotspot(3.6, -0.6, __t('Analizar telemetría'), ['telemetry'], { x: 3.6, z: -2.0 });
+    R.hotspot(-3.6, -0.6, __t('Analizar telemetría'), ['telemetry'], { x: -3.6, z: -2.0 }, { seat: { x: -2.2, z: -0.9, y: 0.12, yaw: Math.PI } });
+    R.hotspot(3.6, -0.6, __t('Analizar telemetría'), ['telemetry'], { x: 3.6, z: -2.0 }, { seat: { x: 2.2, z: -0.9, y: 0.12, yaw: Math.PI } });
     R.hotspot(3.6, 3.0, __t('Revisar una misión'), ['mission_review'], { x: 3.6, z: 1.6 });
     R.light(0, 3.8, -d / 2 + 1.5, 0x9ec8ff, 0.55, 12);
     return R;
@@ -12784,7 +12818,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
   const el = (tag, cls, html) => UI.el(tag, cls, html);
   const X = Edu.X, LT = Edu.LT, esc = U.esc;
   const KEY = 'jsm_mp_v1';
-  const M = JSM.Multi = { available: null, status: 'off', me: null, room: null, online: [], remote: {}, chat: [], shared: [], coop: null, bver: -1, last: null, awards: [], xp: 0, inGame: false, rtt: 0 };
+  const M = JSM.Multi = { available: null, status: 'off', me: null, room: null, online: [], remote: {}, interpMs: 70, chat: [], shared: [], coop: null, bver: -1, last: null, awards: [], xp: 0, inGame: false, rtt: 0 };
 
   /* ---------- datos locales (nombre, astronauta, logros) ---------- */
   function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
@@ -12857,14 +12891,11 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
   /* ---------- enlaces de invitación ---------- */
   const isLocalHost = () => /^(localhost|127\.|\[?::1\]?$)/.test(location.hostname);
   /* direcciones con las que OTROS dispositivos pueden abrir este mismo servidor (la primera es la más probable) */
-  M.baseUrls = function () {
-    if (!/^https?:$/.test(location.protocol)) return [];
-    if (!isLocalHost()) return [location.origin + '/'];
-    const info = M.info, port = location.port ? ':' + location.port : (info && info.port ? ':' + info.port : ''), lan = (info && info.lan) || [];
-    return lan.length ? lan.map(ip => 'http://' + ip + port + '/') : [location.origin + '/'];
-  };
+  /* dirección pública del juego (GitHub Pages): se usa para el enlace y el QR cuando esta copia no está publicada (archivo local, visor…) */
+  M.publicUrl = function () { return window.JSM_PUBLIC_URL || 'https://cecytero.github.io/MissionOrion/'; };
+  M.baseUrls = function () { return []; };
   M.urlIdx = 0;
-  M.inviteUrl = function (code) { const b = M.baseUrls(); return b.length ? b[Math.min(M.urlIdx, b.length - 1)] + (code ? '?sala=' + code : '') : ''; };
+  M.inviteUrl = function () { return ''; };
   /* copiar: funciona también en http dentro de la red local (donde el portapapeles moderno está bloqueado) */
   M.copy = function (text) {
     return new Promise((res, rej) => {
@@ -12879,8 +12910,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     v = String(v || ''); const m = v.match(/[?&#]sala=([A-Za-z0-9]{5})/); if (m) return m[1].toUpperCase();
     return v.toUpperCase().replace(/[^A-Z2-9]/g, '').slice(0, 5);
   };
-  /* enlace de invitación al abrir el juego: ?sala=ABCDE */
-  (function () { try { const q = new URLSearchParams(location.search).get('sala') || (location.hash.match(/sala=([A-Za-z0-9]{5})/) || [])[1]; const c = q && String(q).toUpperCase(); if (c && CODE_RE.test(c)) M.codeHint = c; } catch (e) { } })();
+  /* sin enlaces de invitación: solo se entra con el código de sala */
   M.clearHint = function () { M.codeHint = null; try { if (/[?&#]sala=/.test(location.search + location.hash) && history.replaceState) history.replaceState(null, '', location.pathname); } catch (e) { } };
 
   M.connect = async function () {
@@ -12894,7 +12924,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     M._pi = setInterval(() => {
       if (document.visibilityState === 'visible' && Date.now() - M._lastRx > 16000) { M.dead(); return; }   // sin noticias del servidor: la conexión se cayó sin avisar
       M._pt = Date.now(); send({ t: 'ping', c: M._pt });
-    }, 5000);
+    }, 2000);
   };
   /* conexión muerta (Wi-Fi que se fue, celular que se bloqueó…): reconectar con el mismo lugar y rol */
   M.dead = function () {
@@ -12948,90 +12978,24 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
       switch (m.t) {
         case 'welcome': if (m.room === null && M.room) { M.room = null; } break;
         case 'online': M.online = m.list; break;
-        case 'room': { const prev = M.room; M.room = m.room; if (M.codeHint) M.clearHint(); M.coop = m.room.coop; M.shared = m.room.shared || M.shared; if (M.room.status === 'play' && !M.inGame) M.begin(); if (M.inGame) M.syncPlayers(); break; }
+        case 'room': { const prev = M.room; M.room = m.room; if (M.codeHint) M.clearHint(); M.coop = m.room.coop; M.shared = m.room.shared || M.shared; if (M.room.status === 'play' && !M.inGame && !M.cine) M.begin(!!(prev && prev.status !== 'play')); if (M.inGame) M.syncPlayers(); break; }
         case 'left': M.room = null; break;
+        case 'mission': M.missionDone(m.id, false); break;
+        case 'missions': M._mdone = m.done || []; break;
+        case 'mine': { if (m.id === M.me) break; const o = M.remote[m.id]; if (o) { o.pulseUntil = Date.now() + 1100; o.anim = 'work'; } M.applyMine(m, 300); break; }
+        case 'mined': (m.list || []).forEach(e => M.applyMine(e, (e.left || 240000) / 1000)); break;
+        case 'fx': {                                   // gesto puntual de otro jugador (objeto, roca, habilidad)
+          const o = M.remote[m.id]; if (!o) break;
+          o.pulseUntil = Date.now() + 1100; o.anim = 'work';
+          if (m.k === 'item' && G.world && G.world.dust && o.astro) { const q = o.astro.group.position; G.world.dust(q.x, q.y, q.z, 12, 1); }
+          break;
+        }
         case 'chat': M.chat.push(m); if (M.chat.length > 80) M.chat.shift(); chatLine(m); break;
-        case 'err': (M.errLog = M.errLog || []).push(m.code); if (m.code === 'role_taken' || m.code === 'room_not_found' || true) { UI.toast(errText(m.code), 'bad'); JSM.Audio.sfx('error'); } break;
+        case 'err': M.dropPending(); (M.errLog = M.errLog || []).push(m.code); if (m.code === 'role_taken' || m.code === 'room_not_found' || true) { UI.toast(errText(m.code), 'bad'); JSM.Audio.sfx('error'); } break;
         case 'invited': inviteModal(m); break;
         case 'invite_declined': UI.toast(m.name + X(' no puede unirse ahora.', ' cannot join right now.'), ''); break;
         case 'invite_sent': UI.toast(X('Invitación enviada a ', 'Invitation sent to ') + m.name, 'good', 'check'); break;
         case 'snap': m.list.forEach(p => { if (p.id !== M.me) setTarget(p); }); break;
-        case 'jump': {
-          const o = M.remote[m.id];
-          if (o) {
-            o.mode = 'jump';
-            if (m.y !== undefined) o.ty = m.y;
-            if (o.astro && o.astro.animate) o.astro.animate(0.4, 'jump', 1);
-            if (G.world && G.world.dust) G.world.dust(m.x || o.tx, G.world.heightAt(m.x || o.tx, m.z || o.tz), m.z || o.tz, 12, 0.9);
-          }
-          break;
-        }
-        case 'action': {
-          const o = M.remote[m.id];
-          if (o) {
-            o.mode = m.mode || (m.active ? 'work' : 'idle');
-          }
-          break;
-        }
-        case 'build_add': {
-          if (m.building && Sim.g) {
-            const g = Sim.g, col = Sim.colony(g);
-            if (!col.buildings.find(b => b.id === m.building.id)) {
-              col.buildings.push(m.building);
-              if (G.addBuildingObj) G.addBuildingObj(m.building);
-              if (G.world && G.world.dust) G.world.dust(m.building.x, G.world.heightAt(m.building.x, m.building.z), m.building.z, 20, 2);
-              UI.toast(X('Nuevo edificio construido en equipo: ', 'New team building: ') + (D.BUILDINGS[m.building.type] ? D.BUILDINGS[m.building.type].name : m.building.type), 'good', 'build');
-            }
-          }
-          break;
-        }
-        case 'interact': {
-          const o = M.remote[m.id];
-          if (o && m.target) {
-            o.mode = 'work';
-            if (o.astro && o.astro.setExpression) o.astro.setExpression('concentrado');
-          }
-          break;
-        }
-        case 'item_use': {
-          const o = M.remote[m.id];
-          if (o) {
-            o.mode = 'work';
-            if (o.astro && o.astro.setExpression) o.astro.setExpression('feliz');
-            if (G.world && G.world.dust) G.world.dust(o.astro.group.position.x, G.world.heightAt(o.astro.group.position.x, o.astro.group.position.z), o.astro.group.position.z, 15, 1);
-          }
-          UI.toast(X('Compañero usó un objeto: ', 'Teammate used item: ') + (m.item || ''), 'info');
-          break;
-        }
-        case 'skill': {
-          const o = M.remote[m.id];
-          if (o) {
-            o.mode = 'work';
-            if (o.astro && o.astro.setExpression) o.astro.setExpression('concentrado');
-          }
-          UI.toast(X('Compañero activó habilidad', 'Teammate used skill'), 'info');
-          break;
-        }
-        case 'interact': {
-          const o = M.remote[m.id];
-          if (o) {
-            o.mode = 'work';
-            if (o.astro && o.astro.animate) o.astro.animate(0.6, 'work', 1);
-          }
-          break;
-        }
-        case 'item_use': {
-          UI.toast(X('Jugador usó un objeto/habilidad', 'Player used an item/skill'), 'info');
-          break;
-        }
-        case 'ping': {
-          if (m.c) send({ t: 'pong', c: m.c });
-          break;
-        }
-        case 'pong': {
-          if (m.c && M._pt) { M.rtt = Date.now() - m.c; }
-          break;
-        }
         case 'correct': if (M.inGame && G.player) { G.player.pos.x = m.x; G.player.pos.z = m.z; G.player.pos.y = G.world.heightAt(m.x, m.z); G.player.vel.set(0, 0, 0); } break;
         case 'colony': M.last = m.c; if (m.coop !== undefined) M.coop = m.coop; applyColony(); break;
         case 'buildings': M.bver = m.bver; M.blist = m.list; applyBuildings(); break;
@@ -13042,35 +13006,6 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
         case 'event': onEvent(m.e); break;
         case 'pong': if (m.c === M._pt) { M.rtt = Date.now() - m.c; hudUpdate(); } break;
         case 'rooms': M.roomList = m.list || []; fillRooms(document.getElementById('mp-rooms')); break;
-        case 'mine': {
-          console.log('[MP] Recibido evento mine remoto:', m);
-          const w = G.world || (window.JSM && window.JSM.Game && window.JSM.Game.world);
-          if (w && w.rocks) {
-            let closest = null, minD = 2.0;
-            w.rocks.forEach(rk => {
-              const d = Math.hypot(rk.x - m.x, rk.z - m.z);
-              if (d < minD) { minD = d; closest = rk; }
-            });
-            console.log('[MP] Roca más cercana encontrada:', closest, 'dist:', minD);
-            if (closest) {
-              closest.alive = false;
-              if (closest.group) closest.group.visible = false;
-              if (w.dust) w.dust(closest.x, w.heightAt(closest.x, closest.z), closest.z, 20, 2);
-            }
-          }
-          if (w && w.deposits) {
-            let closest = null, minD = 2.0;
-            w.deposits.forEach(dp => {
-              const d = Math.hypot(dp.x - m.x, dp.z - m.z);
-              if (d < minD) { minD = d; closest = dp; }
-            });
-            if (closest) {
-              closest.alive = false;
-              if (closest.group) closest.group.visible = false;
-            }
-          }
-          break;
-        }
       }
     } catch (e) { JSM.reportError('multijugador · ' + m.t + ' · ' + e.message, e.stack); }
     if (!NO_REFRESH[m.t] || (m.t === 'colony' && m.coop !== undefined)) M.refresh();
@@ -13086,7 +13021,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     const body = mo.m.querySelector('.body'); const top = body.scrollTop;
     const act = document.activeElement, keep = act && act.id && body.contains(act) ? { id: act.id, v: act.value, s: act.selectionStart } : null;
     const log = body.querySelector('.chatlog'), logTop = log ? log.scrollTop : 0, stick = log ? (log.scrollHeight - log.scrollTop - log.clientHeight < 30) : true;
-    const draft = {}; body.querySelectorAll('input[id],select[id],textarea[id]').forEach(i => { draft[i.id] = i.type === 'checkbox' ? i.checked : i.value; });
+    const draft = {}; body.querySelectorAll('input[id],select[id],textarea[id]').forEach(i => { if (i.readOnly) return; draft[i.id] = i.type === 'checkbox' ? i.checked : i.value; });
     body.innerHTML = ''; (M.view || renderEntry)(body);
     Object.keys(draft).forEach(id => { const i = body.querySelector('#' + id); if (!i) return; if (i.type === 'checkbox') i.checked = !!draft[id]; else if (i.tagName === 'TEXTAREA' || i.tagName === 'INPUT' && i.type !== 'color' || i.id === 'mp-name' || i.id === 'mp-planet') i.value = draft[id]; });
     body.scrollTop = top; const nl = body.querySelector('.chatlog'); if (nl) nl.scrollTop = stick ? nl.scrollHeight : logTop;
@@ -13125,13 +13060,6 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
   const fieldCss = 'border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:inherit;padding:10px 12px;font-size:16px';
   function renderLobbyHome(body) {
     const L = myLook();
-    /* si te llegó un enlace de invitación, lo primero es entrar */
-    if (M.codeHint) {
-      const ic = el('div', 'card mpinvite', '<h3>' + esc(X('¡Te invitaron a una sala!', 'You were invited to a room!')) + '</h3><div class="mpcode" id="mp-hint-code">' + esc(M.codeHint) + '</div>');
-      const jb = el('button', 'btn primary mpbig', esc(X('Entrar a la sala', 'Enter the room'))); jb.id = 'mp-join-link';
-      jb.onclick = () => { const nm = body.querySelector('#mp-name'); if (nm && nm.value.trim()) M.name = nm.value.trim().slice(0, 20); setLook({}); M.doJoin(M.codeHint); };
-      ic.append(jb); body.append(ic);
-    }
     /* tu nombre (ya viene uno puesto) y, si quieres, tu astronauta */
     const me = el('div', 'card');
     me.innerHTML = '<div class="row"><label class="label" for="mp-name">' + esc(X('Tu nombre', 'Your name')) + '</label><input id="mp-name" maxlength="20" autocomplete="off" autocapitalize="words" enterkeyhint="done" value="' + esc(L.name) + '" style="flex:1;min-width:140px;' + fieldCss + '"></div>' +
@@ -13154,7 +13082,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     const opt = el('details', 'mpopt', '<summary>' + esc(X('Opciones de la sala', 'Room options')) + '</summary><div class="row"><label class="label" for="mp-planet">' + esc(X('Lugar', 'Place')) + '</label><select id="mp-planet"><option value="moon">' + esc(X('Luna', 'Moon')) + '</option><option value="mars">Marte / Mars</option></select></div><div class="row"><label class="label" for="mp-max">' + esc(X('Jugadores (2 a 10)', 'Players (2 to 10)')) + '</label><input id="mp-max" type="number" min="2" max="10" value="4" style="width:80px;' + fieldCss + '"></div><label class="row" style="gap:8px"><input type="checkbox" id="mp-private"> ' + esc(X('Sala privada (no aparece en la lista de salas abiertas)', 'Private room (not shown in the open rooms list)')) + '</label>');
     opt.open = !!M._optOpen; opt.ontoggle = () => { M._optOpen = opt.open; }; mk.append(opt);
     /* unirse */
-    const jn = el('div', 'card', '<h3>' + esc(X('Unirme a una sala', 'Join a room')) + '</h3><p class="mpsub">' + esc(X('Escribe el código de 5 letras (o pega el enlace) o elige una sala abierta.', 'Type the 5-letter code (or paste the link) or pick an open room.')) + '</p>');
+    const jn = el('div', 'card', '<h3>' + esc(X('Unirme a una sala', 'Join a room')) + '</h3><p class="mpsub">' + esc(X('Escribe el código de 5 letras o elige una sala abierta.', 'Type the 5-letter code or pick an open room.')) + '</p>');
     const jr = el('div', 'row'); jr.style.flexWrap = 'nowrap';
     const ci = el('input'); ci.id = 'mp-code'; ci.maxLength = 120; ci.placeholder = 'ABCDE'; ci.autocomplete = 'off'; ci.autocapitalize = 'characters'; ci.setAttribute('autocorrect', 'off'); ci.spellcheck = false; ci.setAttribute('enterkeyhint', 'go');
     ci.style.cssText = 'width:130px;min-width:0;text-transform:uppercase;letter-spacing:.2em;font:700 20px ui-monospace,monospace;' + fieldCss;
@@ -13165,13 +13093,6 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     jr.append(ci, jb); jn.append(jr);
     if (M.available) { const box = el('div', 'mprooms'); box.id = 'mp-rooms'; jn.append(box); fillRooms(box); }
     grid.append(mk, jn); body.append(grid);
-    /* en la computadora que aloja: cómo entran los demás */
-    if (M.available && isLocalHost() && M.baseUrls().length && window.JSM_QR) {
-      const url = M.inviteUrl(''), hc = el('details', 'card mpopt', '<summary>' + esc(X('¿Cómo entran mis amigos desde otro dispositivo?', 'How do my friends join from another device?')) + '</summary>');
-      hc.id = 'mp-howto'; hc.open = !!M._howOpen; hc.ontoggle = () => { M._howOpen = hc.open; };
-      const row = el('div', 'mpinv-row'); row.append(qrBox(url));
-      const inf = el('div', 'mpinv-info', '<p style="margin:0 0 6px">' + esc(X('Con el celular en el mismo Wi-Fi, escanea el código o abre:', 'With the phone on the same Wi-Fi, scan the code or open:')) + '</p><div class="mpurl"></div>'); inf.querySelector('.mpurl').textContent = url; row.append(inf); hc.append(row); body.append(hc);
-    }
     (M.entryExtras || []).forEach(f => { try { f(body); } catch (e) { JSM.reportError('multi extras · ' + e.message, e.stack); } });
     const on = (M.online || []).filter(p => p.id !== M.me);
     if (M.available) body.append(el('p', '', '<span style="color:var(--muted)">' + esc(X('Jugadores conectados al servidor: ', 'Players connected to the server: ')) + (on.length + 1) + '</span>'));
@@ -13196,21 +13117,22 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     const tick = () => { const mo = UI.modalOpen; if (!mo || mo.name !== NAME_MODAL || M.room || M.status !== 'online') { clearInterval(M._rp); return; } send({ t: 'rooms' }); };
     tick(); M._rp = setInterval(tick, 3000);
   };
-  function qrBox(url) { const d = el('div', 'mpqr'); d.setAttribute('role', 'img'); d.setAttribute('aria-label', X('Código QR de invitación', 'Invitation QR code')); try { d.innerHTML = window.JSM_QR.svg(url, { label: 'QR' }); } catch (e) { d.textContent = ''; } return d; }
+  function qrBox() { return document.createDocumentFragment(); }       /* el código QR se quitó: se entra con el código de sala o el enlace */
   /* enlace + QR para invitar (el anfitrión lo comparte; los demás lo abren y entran directo a la sala) */
   function inviteCard(r) {
+    return null;     // sin enlace: solo código de sala
     const urls = M.baseUrls(); if (!urls.length || !window.JSM_QR) return null;
     const url = M.inviteUrl(r.code), c = el('div', 'card mpinv'); c.id = 'mp-invite';
     c.innerHTML = '<h3>' + esc(X('Invita a más personas', 'Invite more people')) + '</h3>';
     const row = el('div', 'mpinv-row'); row.append(qrBox(url));
-    const info = el('div', 'mpinv-info', '<p style="margin:0 0 6px">' + esc(X('Escanea el código con la cámara del celular o abre este enlace:', 'Scan the code with the phone camera or open this link:')) + '</p><div class="mpurl" id="mp-url"></div>');
+    const info = el('div', 'mpinv-info', '<p style="margin:0 0 6px">' + esc(X('Comparte el código de sala o abre este enlace:', 'Share the room code or open this link:')) + '</p><div class="mpurl" id="mp-url"></div>');
     info.querySelector('#mp-url').textContent = url;
     const btns = el('div', 'row'); btns.style.marginTop = '8px';
     const cb = el('button', 'btn small primary', esc(X('Copiar enlace', 'Copy link'))); cb.id = 'mp-copylink'; cb.onclick = () => M.copyToast(url); btns.append(cb);
     if (navigator.share && window.isSecureContext) { const sh = el('button', 'btn small', esc(X('Compartir', 'Share'))); sh.onclick = () => navigator.share({ title: 'Junior Mission Orión', text: X('Únete a mi sala ', 'Join my room ') + r.code, url }).catch(() => { }); btns.append(sh); }
     info.append(btns);
     if (urls.length > 1) { const w = el('div', 'row'); w.style.marginTop = '6px'; w.append(el('small', '', '<span style="color:var(--muted)">' + esc(X('Si no abre, prueba otra red:', 'If it does not open, try another network:')) + '</span>')); urls.forEach((u, i) => { const b = el('button', 'pill' + (i === Math.min(M.urlIdx, urls.length - 1) ? ' on' : ''), esc(u.replace(/^https?:\/\//, '').replace(/\/$/, ''))); b.onclick = () => { M.urlIdx = i; M.refresh(); }; w.append(b); }); info.append(w); }
-    const noLan = isLocalHost() && !(M.info && M.info.lan && M.info.lan.length);
+    const noLan = M.available && isLocalHost() && !(M.info && M.info.lan && M.info.lan.length);
     info.append(el('p', '', '<small style="color:' + (noLan ? '#ffb547' : 'var(--muted)') + '">' + esc(noLan ? X('No encuentro tu red Wi-Fi: conéctate para que otros dispositivos puedan entrar.', 'I cannot find your Wi-Fi network: connect so other devices can join.') : location.protocol === 'http:' ? X('Todos deben estar conectados al mismo Wi-Fi.', 'Everyone must be on the same Wi-Fi.') : X('Cualquiera con el enlace puede entrar.', 'Anyone with the link can join.')) + '</small>'));
     row.append(info); c.append(row); return c;
   }
@@ -13360,17 +13282,28 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
   });
 
   /* ---------- la sesión de juego en equipo ---------- */
-  M.begin = function () {
-    if (M.inGame) return; const r = M.room; if (!r) return;
+  M.begin = function (cine) {
+    if (M.inGame || M.cine) return; const r = M.room; if (!r) return;
     const look = myLook();
     const g = Sim.newGame(look); g.mp = { code: r.code, id: M.me }; g.flags.flownOrion = true; g.flags.earthUnlocked = false; g.player.level = 5; g.planet = r.planet; g.eduSeen = (g.eduSeen || []).concat(['gravity']); g.npcs.forEach(n => { n.planet = 'none'; });
     const mp = r.players.find(p => p.id === M.me); if (mp && mp.pos) { g.player.x = mp.pos.x; g.player.z = mp.pos.z; }
-    M.inGame = true; M.games = (M.games || 0) + 1; save(); M.wake();
-    UI.closeModal(true);
-    G.startPlay(g, false); g.mp.t0 = Date.now();
-    M.syncPlayers(); hudUpdate();
-    UI.toast(X('¡Misión en equipo! Pulsa Y para ver al equipo y Enter para chatear.', 'Team mission! Press Y for the team and Enter to chat.'), 'good', 'flag');
-    if (M.blist) applyBuildings(); if (M.last) applyColony();
+    const go = () => {
+      M.inGame = true; M.games = (M.games || 0) + 1; save(); M.wake();
+      UI.closeModal(true);
+      G.startPlay(g, false); g.mp.t0 = Date.now();
+      M.syncPlayers(); hudUpdate();
+      UI.toast(X('¡Misión en equipo! Pulsa Y para ver al equipo y Enter para chatear.', 'Team mission! Press Y for the team and Enter to chat.'), 'good', 'flag');
+      if (M.blist) applyBuildings(); if (M.last) applyColony();
+    };
+    /* cinemática de despegue al comenzar la misión (solo cuando la partida arranca ahora, no al reconectar) */
+    const F = JSM.Flight;
+    if (cine && F && F.start) {
+      M.cine = true; Sim.g = g; JSM.phase = 'flight'; UI.closeModal(true);
+      const done = () => { M.cine = false; if (M.inGame) return; if (!M.room || M.room.status !== 'play') { try { G.toMenu(); } catch (e) { } return; } go(); try { F.beginLanding && F.beginLanding(() => { }); } catch (e) { } };
+      try { F.start({ from: 'earth', to: g.planet, look: g.player.look, cinematic: true, onDone: done }); } catch (e) { M.cine = false; JSM.reportError('Cinemática: ' + e.message, e.stack); go(); }
+      return;
+    }
+    go();
   };
 
   /* aplicar el estado del servidor */
@@ -13384,29 +13317,56 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     const g = Sim.g; if (!M.inGame || !g || !g.mp || !M.blist || !G.world) return;
     const col = Sim.colony(g), have = {}; col.buildings.forEach(b => { have[b.id] = b; });
     const want = {}; M.blist.forEach(s => { want[s.id] = s; });
-    col.buildings.slice().forEach(b => { if (!want[b.id]) { G.removeBuildingObj(b); col.buildings.splice(col.buildings.indexOf(b), 1); } });
+    /* construcciones «en espera»: se muestran al instante al construir; cuando llega la real del servidor se reemplazan sin parpadeo */
+    (M.pend || []).slice().forEach(t => { if (M.blist.some(s => s.type === t.type && !have[s.id] && Math.hypot(s.x - t.x, s.z - t.z) < 0.06) || Date.now() - t.t > 4000) M.dropPending(t); });
+    col.buildings.slice().forEach(b => { if (b.pending) return; if (!want[b.id]) { G.removeBuildingObj(b); col.buildings.splice(col.buildings.indexOf(b), 1); } });
     M.blist.forEach(s => {
       let b = have[s.id];
       if (!b) { b = { id: s.id, type: s.type, x: s.x, z: s.z, rot: s.rot, color: BASE_COLOR, material: 'metal', broken: s.broken, lvl: s.lvl, maint: s.maint }; col.buildings.push(b); if (D.BUILDINGS[b.type]) { G.addBuildingObj(b); G.world.dust(b.x, G.world.heightAt(b.x, b.z), b.z, 24, 2); } }
       b.broken = s.broken; b.lvl = s.lvl; b.maint = s.maint; b.powered = s.powered; b.noWater = s.noWater;
     });
   }
+  /* gesto breve de «trabajo» que ven los demás cuando construyes, reparas, mejoras o das mantenimiento */
+  /* recurso agotado por otro jugador: se oculta la roca/hielo/muestra más cercana y reaparece con su temporizador */
+  M.applyMine = function (m, respawnSec) {
+    const w = G.world; if (!w) return;
+    let best = null, bd = 1.8;
+    const lists = (m.kind === 'rock' || !m.kind) ? [w.rocks, w.deposits] : [w.deposits, w.rocks];
+    lists.forEach(l => (l || []).forEach(rk => { if (!rk.alive) return; const d = Math.hypot(rk.x - m.x, rk.z - m.z); if (d < bd) { bd = d; best = rk; } }));
+    if (!best) return;
+    best.alive = false; best.respawn = respawnSec || 300; if (best.group) best.group.visible = false;
+    if (w.dust) w.dust(best.x, w.heightAt(best.x, best.z), best.z, 20, 2);
+    if (G.action && G.action.target === best && G.cancelAction) G.cancelAction();
+  };
+  M.fx = function (k, extra) { if (M.inGame && M.room && M.status === 'online') send(Object.assign({ t: 'fx', k, x: G.player ? Math.round(G.player.pos.x * 100) / 100 : 0, z: G.player ? Math.round(G.player.pos.z * 100) / 100 : 0 }, extra || {})); M.pulse('work', 900); };
+  M.pulse = function (a, ms) { M._pulse = { a: a || 'work', until: Date.now() + (ms || 1100) }; };
+  M.SHARED_ANIMS = { jump: 1, work: 1, sit: 1, sitg: 1, sleep: 1, talk: 1, wave: 1, cheer: 1, look: 1, inspect: 1 };
+  M.pulseAnim = function () { const p = M._pulse; return p && Date.now() < p.until ? p.a : null; };
+  M._tmpN = 0;
+  M.dropPending = function (t) {
+    const g = Sim.g, col = g && Sim.colony(g), list = t ? [t] : (M.pend || []).slice();
+    list.forEach(p => { try { if (col) { const i = col.buildings.indexOf(p); if (i >= 0) { G.removeBuildingObj(p); col.buildings.splice(i, 1); } } } catch (e) { } M.pend = (M.pend || []).filter(x => x !== p); });
+  };
   M.srvBroken = id => { const s = (M.blist || []).find(x => x.id === id); return s ? s.broken : false; };
 
   /* avatares remotos */
   function remoteLook(p) { return Object.assign(D.defaultAppearance(), p.look || {}, { name: p.name }); }
   M.syncPlayers = function () {
     if (!M.inGame || !G.world || !M.room) return;
-    const ids = {}; M.room.players.forEach(p => { if (p.id === M.me) return; ids[p.id] = p; let o = M.remote[p.id]; if (!o) { const a = new JSM.Astronaut(remoteLook(p)); G.world.scene.add(a.group); const x = p.pos ? p.pos.x : 0, z = p.pos ? p.pos.z : 6; a.group.position.set(x, G.world.heightAt(x, z), z); o = M.remote[p.id] = { astro: a, tx: x, tz: z, ry: 0, mode: 'idle', p, look: JSON.stringify(p.look) }; }
+    const ids = {}; M.room.players.forEach(p => { if (p.id === M.me) return; ids[p.id] = p; let o = M.remote[p.id]; if (!o) { const a = new JSM.Astronaut(remoteLook(p)); G.world.scene.add(a.group); const x = p.pos ? p.pos.x : 0, z = p.pos ? p.pos.z : 6; a.group.position.set(x, G.world.heightAt(x, z), z); o = M.remote[p.id] = { astro: a, tx: x, tz: z, ry: 0, mode: 'idle', p, look: JSON.stringify(p.look), buf: [{ t: performance.now(), x, z, ry: 0, y: null }], anim: null }; }
       o.p = p; o.astro.group.visible = p.online; });
     Object.keys(M.remote).forEach(id => { if (!ids[id]) { G.world.scene.remove(M.remote[id].astro.group); U.disposeTree(M.remote[id].astro.group); delete M.remote[id]; } });
   };
-  function setTarget(p) { const o = M.remote[p.id]; if (o) { o.tx = p.x; o.tz = p.z; o.ty = p.y !== undefined ? p.y : G.world.heightAt(p.x, p.z); o.ry = p.ry; o.mode = p.m; } else if (M.inGame && M.room) { const rp = M.room.players.find(q => q.id === p.id); if (rp) { rp.pos = { x: p.x, z: p.z }; M.syncPlayers(); } } }
+  /* identificador del edificio donde estás (el mismo en todos los dispositivos); null = afuera */
+  const bid = src => src ? String(src.id != null ? src.id : (src.kind || src.name || 'x')).replace(/[^\w.-]/g, '').slice(0, 24) : null;
+  M.myInside = () => { const I = JSM.Interior; return I && I.active && I.src && I.scene ? bid(I.src) : null; };
+  function setTarget(p) { const o = M.remote[p.id]; if (o) { const inn = p.in || null; if (inn !== (o.in || null)) { o.in = inn; o.buf = []; o.snap = true; } o.tx = p.x; o.tz = p.z; o.ry = p.ry; o.mode = p.m; o.anim = p.a || null; const b = o.buf || (o.buf = []); b.push({ t: performance.now(), x: p.x, z: p.z, ry: p.ry, y: p.y == null ? null : p.y }); if (b.length > 12) b.shift(); } else if (M.inGame && M.room) { const rp = M.room.players.find(q => q.id === p.id); if (rp) { rp.pos = { x: p.x, z: p.z }; M.syncPlayers(); } } }
   M.remoteList = () => Object.keys(M.remote).map(id => M.remote[id]);
   const prevTags = UI.updateTags;
   UI.updateTags = function (items, cam) {
     if (M.inGame && Game_settingsNames()) {
-      const extra = []; M.remoteList().forEach(o => { if (!o.p.online) return; const p = o.astro.group.position, d = cam.position.distanceTo(p); if (d > 80) return; const rl = o.p.role ? SH.ROLES[o.p.role] : null; extra.push({ pos: new THREE.Vector3(p.x, p.y + 2.3 * (o.astro.heightScale || 1), p.z), html: '<span>' + esc(o.p.name) + '</span>' + (rl ? '<span class="say">' + esc(X(rl.es, rl.en)) + '</span>' : ''), cls: 'remote', alpha: U.clamp(1.6 - d / 60, 0.45, 1) }); });
+      const inI = M.myInside(); if (inI) { cam = JSM.Interior.cam; items = []; }
+      const extra = []; M.remoteList().forEach(o => { if (!o.p.online || !o.astro.group.visible) return; const p = o.astro.group.position, d = cam.position.distanceTo(p); if (d > 80) return; const rl = o.p.role ? SH.ROLES[o.p.role] : null; extra.push({ pos: new THREE.Vector3(p.x, p.y + 2.3 * (o.astro.heightScale || 1), p.z), html: '<span>' + esc(o.p.name) + '</span>' + (rl ? '<span class="say">' + esc(X(rl.es, rl.en)) + '</span>' : ''), cls: 'remote', alpha: U.clamp(1.6 - d / 60, 0.45, 1) }); });
       items = (items || []).concat(extra);
     }
     return prevTags.call(this, items, cam);
@@ -13419,51 +13379,44 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     prevUpdate.apply(this, arguments);
     if (!M.inGame || !Sim.g || !Sim.g.mp) return;
     const P = G.player;
-    // avatares remotos: cero latencia con extrapolación predictiva (Dead Reckoning) y lerp ultra-fluido
+    // avatares remotos: interpolación entre las dos últimas muestras (se dibuja ~70 ms «en el pasado» para que el movimiento sea continuo)
+    // y, si el paquete se retrasa, se extrapola un poco con la velocidad; solo se corrige de golpe si hay un salto grande.
+    const now = performance.now(), rt = now - M.interpMs;
     Object.keys(M.remote).forEach(id => {
-      const o = M.remote[id], gp = o.astro.group.position, k = Math.min(1, dt * 30);
-      // Estimar velocidad basada en el último cambio de posición objetivo
-      if (!o._lx) { o._lx = o.tx; o._lz = o.tz; o._vx = 0; o._vz = 0; }
-      const vx = (o.tx - o._lx) / Math.max(0.01, dt);
-      const vz = (o.tz - o._lz) / Math.max(0.01, dt);
-      o._lx = o.tx; o._lz = o.tz;
-
-      // Extrapolación ligera para predecir y eliminar retraso de red
-      const predX = o.tx + vx * 0.05;
-      const predZ = o.tz + vz * 0.05;
-
-      const dx = predX - gp.x, dz = predZ - gp.z, dist = Math.hypot(dx, dz);
-      if (dist > 20) { gp.x = o.tx; gp.z = o.tz; } else { gp.x += dx * k; gp.z += dz * k; }
-      const targetY = o.ty !== undefined ? o.ty : G.world.heightAt(gp.x, gp.z);
-      gp.y += (targetY - gp.y) * k;
-
-      let da = o.ry - o.astro.group.rotation.y; while (da > Math.PI) da -= 2 * Math.PI; while (da < -Math.PI) da += 2 * Math.PI; o.astro.group.rotation.y += da * k;
-      const animMode = o.mode === 'work' ? 'work' : o.mode === 'jump' ? 'jump' : dist > 0.08 ? (o.mode === 'run' ? 'run' : 'walk') : 'idle';
-      o.astro.animate(dt, animMode, 1);
-    });
-    // envío optimizado de posición, saltos y acciones (baja latencia y filtrado de ruido)
-    acc += dt;
-    const currentActionActive = !!G.action;
-    const currentMode = currentActionActive ? 'work' : ((P.vel.y > 1.5 && !P.onGround) ? 'jump' : (Math.hypot(P.vel.x, P.vel.z) > 4 ? 'run' : Math.hypot(P.vel.x, P.vel.z) > 0.2 ? 'walk' : 'idle'));
-    if (acc >= 0.025) {
-      acc = 0; const x = P.pos.x, z = P.pos.z;
-      const moved = Math.hypot(x - lastSent.x, z - lastSent.z) > 0.005 || Math.abs(P.yaw - (lastSent.ry || 0)) > 0.02;
-      const stateChanged = currentMode !== lastSent.mode;
-      if (moved || stateChanged || Date.now() - lastSent.t > 1500) {
-        lastSent = { x, z, ry: P.yaw, mode: currentMode, t: Date.now() };
-        send({ t: 'move', x: Math.round(x * 1000) / 1000, z: Math.round(z * 1000) / 1000, y: Math.round((P.pos.y || 0) * 1000) / 1000, ry: Math.round(P.yaw * 100) / 100, m: currentMode });
+      const o = M.remote[id], grp = o.astro.group, gp = grp.position, bf = o.buf || [], myIn = M.myInside();
+      if (o.in) {                                                   // ese jugador está dentro de un edificio
+        if (myIn && myIn === o.in) { const sc = JSM.Interior.scene; if (grp.parent !== sc) sc.add(grp); grp.visible = true; }     // estoy en el mismo: lo veo dentro
+        else { grp.visible = false; if (grp.parent !== G.world.scene) G.world.scene.add(grp); return; }                              // afuera desaparece
+      } else { if (grp.parent !== G.world.scene) G.world.scene.add(grp); grp.visible = true; }
+      let tx = o.tx, tz = o.tz, try_ = o.ry, ty = null;
+      if (bf.length) {
+        let i = bf.length - 1; while (i > 0 && bf[i].t > rt) i--;
+        const a = bf[i], c = bf[Math.min(i + 1, bf.length - 1)];
+        if (c !== a && c.t > a.t && rt >= a.t) { const f = Math.min(1, (rt - a.t) / (c.t - a.t)); tx = a.x + (c.x - a.x) * f; tz = a.z + (c.z - a.z) * f; try_ = c.ry; ty = a.y != null && c.y != null ? a.y + (c.y - a.y) * f : c.y; }
+        else if (i === bf.length - 1) {                      // se acabaron las muestras: extrapolar hasta 120 ms con la última velocidad
+          const p = bf[i - 1 >= 0 ? i - 1 : i], dt2 = Math.max(16, a.t - p.t), ex = Math.min(120, Math.max(0, rt - a.t));
+          tx = a.x + (a.x - p.x) / dt2 * ex; tz = a.z + (a.z - p.z) / dt2 * ex; try_ = a.ry; ty = a.y;
+        } else { tx = a.x; tz = a.z; try_ = a.ry; ty = a.y; }
       }
-    }
-    // Detección y envío inmediato de saltos o cambios de acción clave
-    if (P.vel.y > 2.0 && !P._jumpSent && !P.onGround) {
-      P._jumpSent = true;
-      send({ t: 'jump', x: Math.round(P.pos.x * 100) / 100, z: Math.round(P.pos.z * 100) / 100 });
-    }
-    if (P.onGround) { P._jumpSent = false; }
-
-    if (currentActionActive !== lastSent.actionActive) {
-      lastSent.actionActive = currentActionActive;
-      send({ t: 'action', active: currentActionActive, mode: currentActionActive ? 'work' : 'idle' });
+      const dx = tx - gp.x, dz = tz - gp.z, dist = Math.hypot(dx, dz), k = Math.min(1, dt * 30);
+      if (dist > 12 || o.snap) { gp.x = tx; gp.z = tz; o.snap = false; } else { gp.x += dx * k; gp.z += dz * k; }
+      const gy = o.in ? 0 : G.world.heightAt(gp.x, gp.z);
+      gp.y = ty == null ? gy : gp.y + (Math.max(gy - 0.05, ty) - gp.y) * Math.min(1, dt * 30);     // altura real del otro jugador: se ve su salto
+      let da = try_ - o.astro.group.rotation.y; while (da > Math.PI) da -= 2 * Math.PI; while (da < -Math.PI) da += 2 * Math.PI; o.astro.group.rotation.y += da * Math.min(1, dt * 14);
+      const sp = Math.hypot(o.tx - (bf.length > 1 ? bf[bf.length - 2].x : o.tx), o.tz - (bf.length > 1 ? bf[bf.length - 2].z : o.tz));
+      const fresh = now - (bf.length ? bf[bf.length - 1].t : 0) < 400, A = (o.pulseUntil && Date.now() < o.pulseUntil) ? 'work' : o.anim, SHARED = { jump: 1, work: 1, sit: 1, sitg: 1, sleep: 1, talk: 1, wave: 1, cheer: 1, look: 1, inspect: 1 };
+      const air = ty != null && ty - gy > 0.25;                                   // en el aire = salto, aunque no llegue la etiqueta
+      const mode = fresh && A && SHARED[A] ? A : air ? 'jump' : (fresh && (sp > 0.01 || dist > 0.15)) ? (o.mode === 'run' || A === 'run' ? 'run' : 'walk') : 'idle';
+      o.astro.animate(dt, mode, mode === 'walk' ? Math.min(1.6, Math.max(0.5, sp * 20 / 4.2)) : 1);
+    });
+    // envío de mi posición (20 veces por segundo, solo si cambió)
+    acc += dt; if (acc >= 0.05) {
+      const el_ = acc; acc = 0; const inn = M.myInside(); const IN = JSM.Interior; const x = inn ? IN.x : P.pos.x, z = inn ? IN.z : P.pos.z, pyaw = inn ? IN.yaw : P.yaw;
+      const shown = P.astro && P.astro.mode, an = M.pulseAnim() || (shown && M.SHARED_ANIMS[shown] ? shown : null) || (G.action ? 'work' : null) || shown || 'idle', yy = inn ? Math.round((IN.sy || 0) * 100) / 100 : Math.round(P.pos.y * 100) / 100;
+      if (inn !== (lastSent.in || null) || Math.hypot(x - lastSent.x, z - lastSent.z) > 0.02 || Math.abs((pyaw || 0) - (lastSent.ry || 0)) > 0.03 || an !== lastSent.a || Math.abs(yy - (lastSent.y || 0)) > 0.03 || Date.now() - lastSent.t > 2000) {
+        const sp = Math.hypot(x - lastSent.x, z - lastSent.z) / Math.max(0.03, el_); lastSent = { x, z, t: Date.now(), ry: pyaw, a: an, y: yy, in: inn };
+        send({ t: 'move', x: Math.round(x * 100) / 100, z: Math.round(z * 100) / 100, y: yy, a: an, in: inn || undefined, ry: Math.round(pyaw * 100) / 100, m: sp > 6 ? 'run' : sp > 0.4 ? 'walk' : 'idle' });
+      }
     }
     // reaplicar banderas de avería del servidor (el reloj local no las decide)
     const col = Sim.colony(Sim.g); (M.blist || []).forEach(s => { const b = col.buildings.find(x => x.id === s.id); if (b) b.broken = s.broken; });
@@ -13476,7 +13429,21 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
   };
   const prevEmit = JSM.Events.emit;
   JSM.Events.emit = function (ev) { if (M._quiet && ev === 'broken') return; return prevEmit.apply(this, arguments); };
-  const prevCM = Sim.checkMissions; Sim.checkMissions = function () { if (Sim.g && Sim.g.mp) return null; return prevCM.apply(this, arguments); };
+  /* misiones en equipo: el avance sale de la colonia compartida; el servidor da la recompensa una sola vez y avisa a todos */
+  const prevCM = Sim.checkMissions;
+  Sim.checkMissions = function () {
+    const g = Sim.g; if (!g || !g.mp) return prevCM.apply(this, arguments);
+    if (M._mdone) { const l = M._mdone; M._mdone = null; l.forEach(id => M.missionDone(id, true)); }
+    const st = Sim.missionStatus(g, g.missions.idx);
+    if (st && st.done && !g.missions.done.includes(st.m.id) && g.missions._sent !== st.m.id && M.status === 'online') { g.missions._sent = st.m.id; send({ t: 'mission', id: st.m.id }); }
+    return null;
+  };
+  M.missionDone = function (id, quiet) {
+    const g = Sim.g; if (!g || !g.mp) return; const D_ = JSM.Data.MISSIONS, k = D_.findIndex(x => x.id === id); if (k < 0 || g.missions.done.includes(id)) return;
+    const m = D_[k]; g.missions.done.push(id);
+    let nx = g.missions.idx; while (D_[nx] && g.missions.done.includes(D_[nx].id)) nx++; Sim.activateMission(g, nx);
+    if (!quiet) { try { Sim.addXP((m.reward && m.reward.xp) || 0); } catch (e) { } G.missionDone(m); }
+  };
   /* la partida en equipo no toca el guardado individual */
   const prevSave = Sim.save; Sim.save = function () { if (Sim.g && Sim.g.mp) return true; return prevSave.apply(this, arguments); };
   /* acciones de la colonia: se piden al servidor */
@@ -13485,13 +13452,22 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     const g = Sim.g; if (!g || !g.mp) return prevClick.apply(this, arguments);
     if (!B.active || !hit || !B.type || !B.ghost) return;
     if (!B.valid) { JSM.Audio.sfx('error'); UI.toast(B.reason || X('No se puede colocar aquí', 'Cannot place it here'), 'bad'); return; }
-    send({ t: 'build', type: B.type, x: B.pos.x, z: B.pos.z, rot: B.rot }); JSM.Audio.sfx('place');
+    /* respuesta inmediata: el edificio aparece al instante en tu pantalla; el servidor lo confirma (o lo rechaza y desaparece) */
+    try {
+      if (D.BUILDINGS[B.type] && G.world) { const t = { id: 'tmp' + (++M._tmpN), type: B.type, x: B.pos.x, z: B.pos.z, rot: B.rot, color: BASE_COLOR, material: 'metal', pending: true, t: Date.now() }; Sim.colony(g).buildings.push(t); G.addBuildingObj(t); G.world.dust(t.x, G.world.heightAt(t.x, t.z), t.z, 14, 2); (M.pend = M.pend || []).push(t); }
+    } catch (e) { }
+    M.pulse('work', 1200); send({ t: 'build', type: B.type, x: B.pos.x, z: B.pos.z, rot: B.rot }); JSM.Audio.sfx('place');
   };
   const prevRepair = G.repair;
-  G.repair = function (b) { if (!Sim.g || !Sim.g.mp) return prevRepair.apply(this, arguments); send({ t: 'repair', id: b.id }); };
-  const prevRemove = B.remove; B.remove = function (b) { if (!Sim.g || !Sim.g.mp) return prevRemove.apply(this, arguments); send({ t: 'remove', id: b.id }); B.deselect(); };
-  const prevUp = Sim.upgrade; Sim.upgrade = function (b) { if (!Sim.g || !Sim.g.mp) return prevUp.apply(this, arguments); send({ t: 'upgrade', id: b.id }); return { ok: true }; };
-  const prevMt = Sim.maintain; Sim.maintain = function (b) { if (!Sim.g || !Sim.g.mp) return prevMt.apply(this, arguments); send({ t: 'maintain', id: b.id }); return { ok: true }; };
+  G.repair = function (b) { if (!Sim.g || !Sim.g.mp) return prevRepair.apply(this, arguments); M.pulse('work', 1500); send({ t: 'repair', id: b.id }); };
+  /* objetos y minería: el compañero ve el gesto y la roca desaparecer */
+  const prevUse = G.useItem;
+  if (prevUse) G.useItem = function (id) { if (Sim.g && Sim.g.mp) M.fx('item', { item: String(id) }); return prevUse.apply(this, arguments); };
+  const prevDone = G.completeReal;
+  if (prevDone) G.completeReal = function (a) { const t = a && a.target; if (Sim.g && Sim.g.mp && t && t.x != null) { send({ t: 'mine', kind: a.id === 'mine' ? 'rock' : a.id, x: Math.round(t.x * 100) / 100, z: Math.round(t.z * 100) / 100 }); M.pulse('work', 900); } return prevDone.apply(this, arguments); };
+  const prevRemove = B.remove; B.remove = function (b) { if (!Sim.g || !Sim.g.mp) return prevRemove.apply(this, arguments); M.pulse('work', 1000); send({ t: 'remove', id: b.id }); B.deselect(); };
+  const prevUp = Sim.upgrade; Sim.upgrade = function (b) { if (!Sim.g || !Sim.g.mp) return prevUp.apply(this, arguments); M.pulse('work', 1300); send({ t: 'upgrade', id: b.id }); return { ok: true }; };
+  const prevMt = Sim.maintain; Sim.maintain = function (b) { if (!Sim.g || !Sim.g.mp) return prevMt.apply(this, arguments); M.pulse('work', 1300); send({ t: 'maintain', id: b.id }); return { ok: true }; };
   /* lo que ganas o gastas con acciones personales (minar, cosechar, comer) va a la reserva común, con límites en el servidor */
   const prevGive = Sim.give;
   Sim.give = function (g, gain) { const r = prevGive.apply(this, arguments); if (g && g.mp && !M._applying) { const o = {}; ['materials', 'water', 'food', 'oxygen', 'power', 'credits', 'research'].forEach(k => { if (gain && gain[k] > 0) o[k] = gain[k]; }); if (Object.keys(o).length) send({ t: 'give', gain: o }); } return r; };
@@ -13519,15 +13495,6 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     } catch (e) { JSM.reportError('multi · ' + e.message, e.stack); }
     return r;
   };
-  /* con enlace de invitación (?sala=ABCDE): se salta el título y se abre el multijugador con el código ya puesto */
-  if (M.codeHint) {
-    let n = 0; const iv = setInterval(() => {
-      if (++n > 600) { clearInterval(iv); return; }
-      const T = JSM.Title; if (T && T.active && T._el) { try { T.dismiss(); } catch (e) { } return; }
-      const menu = document.getElementById('menu');
-      if (menu && !menu.classList.contains('hidden') && !(T && T.active) && !UI.modalOpen && !M.inGame && G.mode !== 'play') { clearInterval(iv); UI.openMulti(); }
-    }, 500);
-  }
   JSM.Net.status = X('sin servidor', 'no server');
   I18N.onChange(() => { if (M.status === 'off' && JSM.Net) JSM.Net.status = X('sin servidor', 'no server'); });
 
@@ -16465,6 +16432,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+
+
+
+
+
+
+
+
+
 <script>
 /* === BEGIN PROPUESTA ROBBIE INTEGRACION === */
 /* ============================================================================
@@ -16526,10 +16503,162 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     ETAPA 6: DETECCIÓN DEL DISPOSITIVO Y ADAPTACIÓN DE INSTRUCCIONES (JSM.Device)
+     ETAPA 6 + MODALIDAD EXCLUSIVA ANDROID HORIZONTAL (JSM.Device)
+     - Detecta Android exclusivamente (/android/i en userAgent o ?android=1).
+     - En Android: fuerza SIEMPRE orientación horizontal (nunca vertical):
+       1) Bloqueo nativo screen.orientation.lock('landscape') + Fullscreen.
+       2) Si el teléfono Android está físicamente en vertical (rawH > rawW),
+          rota automáticamente #app 90° a horizontal (body.android-rotated-90),
+          reporta innerWidth = max(rawW, rawH) e innerHeight = min(rawW, rawH)
+          a Three.js/WebGL, y remapea coordenadas táctiles para joystick y cámara.
      ========================================================================== */
+  const origWDesc = Object.getOwnPropertyDescriptor(window, 'innerWidth');
+  const origHDesc = Object.getOwnPropertyDescriptor(window, 'innerHeight');
+  const getRawW = () => {
+    if (window.visualViewport && window.visualViewport.width) return Math.round(window.visualViewport.width);
+    return (origWDesc && origWDesc.get) ? origWDesc.get.call(window) : (document.documentElement.clientWidth || 800);
+  };
+  const getRawH = () => {
+    if (window.visualViewport && window.visualViewport.height) return Math.round(window.visualViewport.height);
+    return (origHDesc && origHDesc.get) ? origHDesc.get.call(window) : (document.documentElement.clientHeight || 400);
+  };
+
+  const uaString = (navigator.userAgent || '').toLowerCase();
+  const isAndroidDevice = /android/i.test(uaString) || /[?&]android=1\b/i.test(window.location.search || '');
+
+  if (isAndroidDevice) {
+    try {
+      // Meta tags de orientación horizontal para navegadores Android / WebAPK
+      ['screen-orientation:landscape', 'x5-orientation:landscape', 'mobile-web-app-capable:yes'].forEach(kv => {
+        const [name, content] = kv.split(':');
+        const m = document.createElement('meta');
+        m.name = name;
+        m.content = content;
+        document.head.appendChild(m);
+      });
+      // Forzar que innerWidth siempre sea el lado largo horizontal e innerHeight el corto en Android
+      Object.defineProperty(window, 'innerWidth', {
+        configurable: true,
+        get() { return Math.max(getRawW(), getRawH()); }
+      });
+      Object.defineProperty(window, 'innerHeight', {
+        configurable: true,
+        get() { return Math.min(getRawW(), getRawH()); }
+      });
+    } catch (e) {}
+  }
+
+  function lockAndroidLandscape(withFullscreen) {
+    if (!isAndroidDevice) return;
+    try {
+      if (withFullscreen && document.documentElement && document.documentElement.requestFullscreen && !document.fullscreenElement) {
+        document.documentElement.requestFullscreen({ navigationUI: 'hide' }).then(() => {
+          if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock('landscape').catch(() => {});
+          }
+          setTimeout(syncAndroidOrientationState, 60);
+        }).catch(() => {});
+      }
+      if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock('landscape').catch(() => {});
+      }
+    } catch (e) {}
+  }
+
+  function syncAndroidOrientationState() {
+    if (!isAndroidDevice) return;
+    const rawW = getRawW();
+    const rawH = getRawH();
+    const horizW = Math.max(rawW, rawH);
+    const horizH = Math.min(rawW, rawH);
+    document.documentElement.style.setProperty('--and-w', horizW + 'px');
+    document.documentElement.style.setProperty('--and-h', horizH + 'px');
+    document.documentElement.style.setProperty('--and-raw-w', rawW + 'px');
+    document.documentElement.style.setProperty('--and-raw-h', rawH + 'px');
+    document.body.classList.add('is-android', 'is-touch');
+
+    const isPortraitPhysical = rawH > rawW;
+    document.body.classList.toggle('android-rotated-90', isPortraitPhysical);
+
+    const app = document.getElementById('app');
+    if (app) {
+      app.classList.add('is-android', 'is-touch', 'compact', 'wide');
+    }
+    G.isTouch = true;
+    try {
+      if (typeof G.bindTouch === 'function' && !G._touchBound) G.bindTouch();
+      if (typeof G.resize === 'function') G.resize();
+      if (JSM.Menu2D && typeof JSM.Menu2D.resize === 'function') JSM.Menu2D.resize();
+    } catch (e) {}
+  }
+
+  if (isAndroidDevice) {
+    // Remapeo transparente de coordenadas táctiles/puntero cuando el teléfono Android
+    // se sostiene verticalmente y #app está rotado 90° en modo horizontal forzado
+    const remapPointerEvent = (e) => {
+      if (!document.body.classList.contains('android-rotated-90')) return;
+      if (e.__androidRemapped) return;
+      const sx = e.clientX;
+      const sy = e.clientY;
+      const rawW = getRawW();
+      try {
+        Object.defineProperty(e, '__androidRemapped', { value: true });
+        Object.defineProperty(e, 'clientX', { configurable: true, get: () => sy });
+        Object.defineProperty(e, 'clientY', { configurable: true, get: () => rawW - sx });
+      } catch (err) {}
+    };
+    ['pointerdown', 'pointermove', 'pointerup', 'pointercancel', 'click'].forEach(evName => {
+      window.addEventListener(evName, remapPointerEvent, true);
+    });
+
+    // Ajustar getBoundingClientRect de los joysticks (#h-joy y #fl-joy) cuando android-rotated-90 está activo
+    const origGetBCR = Element.prototype.getBoundingClientRect;
+    Element.prototype.getBoundingClientRect = function () {
+      const r = origGetBCR.apply(this, arguments);
+      if (document.body && document.body.classList.contains('android-rotated-90') && (this.id === 'h-joy' || this.id === 'fl-joy')) {
+        const rawW = getRawW();
+        return {
+          left: r.top,
+          right: r.bottom,
+          top: rawW - r.right,
+          bottom: rawW - r.left,
+          width: r.height,
+          height: r.width,
+          x: r.top,
+          y: rawW - r.right
+        };
+      }
+      return r;
+    };
+
+    // Envolver Game.resize para que en Android NUNCA active diseño vertical (siempre compact + wide horizontal)
+    if (G.resize) {
+      const origResize = G.resize;
+      G.resize = function () {
+        const res = origResize.apply(this, arguments);
+        const app = document.getElementById('app');
+        if (app) {
+          app.classList.add('is-android', 'is-touch', 'compact', 'wide');
+        }
+        return res;
+      };
+    }
+
+    // Intentar bloqueo nativo de orientación horizontal en interacciones clave y cambios de pantalla completa
+    window.addEventListener('pointerdown', () => lockAndroidLandscape(false), { passive: true });
+    document.addEventListener('fullscreenchange', () => {
+      lockAndroidLandscape(false);
+      setTimeout(syncAndroidOrientationState, 60);
+    });
+    window.addEventListener('orientationchange', () => setTimeout(syncAndroidOrientationState, 80));
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', () => syncAndroidOrientationState());
+    }
+  }
+
   const Device = JSM.Device = {
     type: 'desktop',
+    isAndroid: isAndroidDevice,
     hasTouch: false,
     listeners: [],
 
@@ -16546,9 +16675,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const isTabletUA = isIPad || /tablet|playbook|silk/.test(ua) || (/android/.test(ua) && !/mobile/.test(ua));
       const isMobileUA = /iphone|ipod|windows phone/.test(ua) || (/android/.test(ua) && /mobile/.test(ua));
 
-      this.hasTouch = Boolean(coarse || touchPoints > 0 || 'ontouchstart' in window);
+      this.hasTouch = Boolean(isAndroidDevice || coarse || touchPoints > 0 || 'ontouchstart' in window);
 
-      if (JSM.Gamepad && JSM.Gamepad.connected) {
+      if (isAndroidDevice) {
+        this.type = 'mobile';
+      } else if (JSM.Gamepad && JSM.Gamepad.connected) {
         this.type = 'gamepad';
       } else if (isTabletUA || (this.hasTouch && coarse && minDim >= 540 && maxDim >= 760)) {
         this.type = 'tablet';
@@ -16558,16 +16689,22 @@ document.addEventListener('DOMContentLoaded', () => {
         this.type = 'desktop';
       }
 
-      const touchMode = (this.type === 'tablet' || this.type === 'mobile');
-      if (touchMode && !G.isTouch) {
+      const touchMode = (this.type === 'tablet' || this.type === 'mobile' || isAndroidDevice);
+      if (touchMode) {
         G.isTouch = true;
         document.body.classList.add('is-touch');
+        const app = document.getElementById('app');
+        if (app) app.classList.add('is-touch');
       }
-      document.body.setAttribute('data-device', this.type);
+      if (isAndroidDevice) {
+        syncAndroidOrientationState();
+      }
+      document.body.setAttribute('data-device', isAndroidDevice ? 'android' : this.type);
       return this.type;
     },
 
     getName() {
+      if (this.isAndroid) return tr('Android (Modo Horizontal)', 'Android (Landscape Mode)');
       switch (this.type) {
         case 'tablet': return tr('Tableta', 'Tablet');
         case 'mobile': return tr('Dispositivo móvil', 'Mobile device');
@@ -16577,6 +16714,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
 
     getIcon() {
+      if (this.isAndroid) return '🤖';
       switch (this.type) {
         case 'tablet': return '📱';
         case 'mobile': return '📲';
@@ -16586,6 +16724,12 @@ document.addEventListener('DOMContentLoaded', () => {
     },
 
     getSummary() {
+      if (this.isAndroid) {
+        return tr(
+          'Modo Android Horizontal activo: usa el joystick inferior izquierdo para moverte, los 4 botones táctiles derechos (Usar, Saltar, Escanear, Correr) y desliza la barra central para construir.',
+          'Android Landscape Mode active: use the bottom-left joystick to move, the 4 right touch buttons (Use, Jump, Scan, Run), and swipe the bottom toolbar to build.'
+        );
+      }
       if (this.type === 'tablet' || this.type === 'mobile') {
         const devLabel = this.type === 'tablet' ? tr('tableta', 'tablet') : tr('dispositivo táctil', 'touchscreen');
         return tr(
@@ -16606,7 +16750,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
 
     getFlightInstructions(phase) {
-      const isTouch = (this.type === 'tablet' || this.type === 'mobile');
+      const isTouch = (this.type === 'tablet' || this.type === 'mobile' || this.isAndroid);
       const devName = this.getName();
       if (phase === 'pad') {
         return isTouch
@@ -16624,15 +16768,14 @@ document.addEventListener('DOMContentLoaded', () => {
     },
 
     getControlsList() {
-      if (this.type === 'tablet' || this.type === 'mobile') {
+      if (this.type === 'tablet' || this.type === 'mobile' || this.isAndroid) {
         return [
-          [tr('Mover al astronauta / Pilotar nave', 'Move astronaut / Steer ship'), tr('Joystick táctil izquierdo', 'Left touch joystick')],
-          [tr('Girar la cámara 3D', 'Rotate 3D camera'), tr('Deslizar 1 dedo por la pantalla', 'Drag 1 finger on screen')],
-          [tr('Zoom de cámara', 'Camera zoom'), tr('Pellizcar con 2 dedos', 'Pinch with 2 fingers')],
-          [tr('Usar / Interactuar / Hablar', 'Use / Interact / Talk'), tr('Botón táctil «Usar» o tocar objeto', 'Tap "Use" button or tap object')],
-          [tr('Saltar en baja gravedad', 'Low-gravity jump'), tr('Botón táctil «Saltar»', 'Tap "Jump" button')],
-          [tr('Escanear / Construir / Mapa', 'Scan / Build / Map'), tr('Barra de herramientas inferior', 'Bottom toolbar')],
-          [tr('Panel e indicaciones de Robbie', 'Robbie panel & tips'), tr('Botón superior derecho y globo inferior derecho', 'Top-right button & bottom-right speech bubble')]
+          [tr('Mover al astronauta / Pilotar nave', 'Move astronaut / Steer ship'), tr('Joystick táctil inferior izquierdo', 'Bottom-left touch joystick')],
+          [tr('Girar la cámara 3D', 'Rotate 3D camera'), tr('Deslizar 1 dedo por la escena', 'Drag 1 finger on scene')],
+          [tr('Usar / Saltar / Escanear / Correr', 'Use / Jump / Scan / Run'), tr('4 botones táctiles inferiores derechos', '4 bottom-right touch buttons')],
+          [tr('Construir / Inventario / Mapa / Ciencia', 'Build / Inventory / Map / Science'), tr('Barra inferior deslizable al centro', 'Center swipeable bottom bar')],
+          [tr('Ver barra de necesidades del astronauta', 'View astronaut needs bars'), tr('Tocar retrato arriba a la izquierda', 'Tap top-left astronaut portrait')],
+          [tr('Panel e indicaciones de Robbie IA', 'Robbie AI panel & tips'), tr('Botón ROBBIE · IA arriba y globo a la derecha', 'Top ROBBIE · IA button & right speech bubble')]
         ];
       }
       if (this.type === 'gamepad') {
@@ -16663,6 +16806,7 @@ document.addEventListener('DOMContentLoaded', () => {
     notify() {
       const prev = this.type;
       this.detect();
+      if (isAndroidDevice) syncAndroidOrientationState();
       if (prev !== this.type) {
         this.listeners.forEach(fn => { try { fn(this.type); } catch (e) {} });
       }
@@ -16673,7 +16817,9 @@ document.addEventListener('DOMContentLoaded', () => {
   Device.detect();
   window.addEventListener('resize', () => Device.notify());
   window.addEventListener('touchstart', () => {
-    if (Device.type === 'desktop') {
+    if (isAndroidDevice) {
+      syncAndroidOrientationState();
+    } else if (Device.type === 'desktop') {
       const minDim = Math.min(window.innerWidth || 800, window.innerHeight || 600);
       Device.type = minDim >= 540 ? 'tablet' : 'mobile';
       G.isTouch = true;
@@ -17150,6 +17296,15 @@ document.addEventListener('DOMContentLoaded', () => {
     #flight .fl-robi > * {
       pointer-events: auto !important;
     }
+    #flight .fl-robi.hidden-dock,
+    body.is-android #flight .fl-robi.hidden-dock {
+      display: none !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+    #flight .fl-robi.hidden-dock > * {
+      pointer-events: none !important;
+    }
 
     /* Caja del Globo de Texto (inspirada en la captura: ancha, limpia, título centrado arriba y cola a la derecha) */
     .rb-speech-box {
@@ -17218,6 +17373,7 @@ document.addEventListener('DOMContentLoaded', () => {
       justify-content: center;
       gap: 8px;
       position: relative;
+      padding-right: 30px;
     }
     .rb-speech-name {
       font-family: var(--display);
@@ -17239,6 +17395,7 @@ document.addEventListener('DOMContentLoaded', () => {
       background: rgba(184, 77, 255, 0.22);
       color: #e8c5ff;
       border: 1px solid rgba(184, 77, 255, 0.45);
+      white-space: nowrap;
     }
     .cat-emergency .rb-speech-badge {
       background: rgba(255, 77, 109, 0.28);
@@ -17252,23 +17409,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     .rb-speech-close {
       position: absolute;
-      right: -4px;
+      right: -2px;
       top: -2px;
       appearance: none;
-      border: 0;
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--muted);
-      width: 22px;
-      height: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
-      font-size: 11px;
+      font-size: 12px;
+      font-weight: 700;
       cursor: pointer;
       display: grid;
       place-items: center;
+      z-index: 10;
+      pointer-events: auto !important;
+      touch-action: manipulation;
     }
-    .rb-speech-close:hover {
+    .rb-speech-close:hover,
+    .rb-speech-close:active {
       color: #fff;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 77, 109, 0.45);
+      border-color: rgba(255, 77, 109, 0.7);
     }
 
     /* Texto del mensaje dentro del globo */
@@ -17361,6 +17524,774 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     .robi-chip:hover {
       background: rgba(70, 227, 198, 0.24);
+    }
+
+    /* ==========================================================================
+       MODALIDAD ANDROID HORIZONTAL FORZADA Y UX MÓVIL ERGONÓMICA (SOLO ANDROID)
+       ========================================================================== */
+    body.is-android {
+      overflow: hidden !important;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Garantizar con máxima especificidad que cualquier capa con .hidden o [hidden]
+       permanezca 100% oculta en Android (evita que #creator aparezca sobre #menu) */
+    body.is-android .hidden,
+    body.is-android #app .hidden,
+    body.is-android #creator.hidden,
+    body.is-android #flight.hidden,
+    body.is-android #hud.hidden,
+    body.is-android #menu.hidden,
+    body.is-android #loading.hidden,
+    body.is-android [hidden]:not([hidden=until-found i]) {
+      display: none !important;
+    }
+
+    /* Cuando el teléfono Android está físicamente en vertical (rawH > rawW),
+       rotamos #app 90 grados usando las medidas exactas visibles (--and-w / --and-h)
+       para que SIEMPRE se vea y use en horizontal sin recortarse por la barra de Chrome */
+    body.is-android.android-rotated-90 #app {
+      position: fixed !important;
+      top: 0 !important;
+      left: var(--and-h, 100vw) !important;
+      width: var(--and-w, 100dvh) !important;
+      height: var(--and-h, 100vw) !important;
+      transform-origin: top left !important;
+      transform: rotate(90deg) !important;
+      overflow: hidden !important;
+    }
+
+    body.is-android:not(.android-rotated-90) #app {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: var(--and-w, 100vw) !important;
+      height: var(--and-h, 100dvh) !important;
+      overflow: hidden !important;
+    }
+
+    /* --- 0. PANTALLA DE TÍTULO (#title) EN ANDROID HORIZONTAL --- */
+    body.is-android #title .t-bar {
+      height: 6% !important;
+    }
+    body.is-android #title .t-box {
+      gap: 4px !important;
+    }
+    body.is-android #title .t-logo {
+      width: 52px !important;
+    }
+    body.is-android #title .t-kick {
+      font-size: 11px !important;
+    }
+    body.is-android #title h1 {
+      font-size: clamp(26px, 5vw, 40px) !important;
+    }
+    body.is-android #title .t-press {
+      margin-top: 8px !important;
+      font-size: 11.5px !important;
+    }
+    body.is-android #title .t-ver {
+      bottom: 6px !important;
+      font-size: 9px !important;
+    }
+
+    /* --- 1. MENÚ PRINCIPAL (#menu) EN ANDROID HORIZONTAL --- */
+    body.is-android #menu,
+    body.is-android #menu.m2,
+    body.is-android.vm #menu {
+      padding: 10px 16px !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      overflow: hidden !important;
+    }
+    body.is-android #menu .m2col,
+    body.is-android.vm #menu .m2col {
+      margin: auto auto auto 0 !important;
+      width: min(540px, 60%) !important;
+      max-width: 60% !important;
+      max-height: calc(var(--and-h, 340px) - 16px) !important;
+      align-items: flex-start !important;
+      text-align: left !important;
+      gap: 6px !important;
+      justify-content: center !important;
+    }
+    body.is-android #menu .m2patch,
+    body.is-android #menu .m2badge,
+    body.is-android #menu .m2sub,
+    body.is-android #menu .m2foot {
+      display: none !important;
+    }
+    body.is-android #menu .m2kick {
+      font-size: 10.5px !important;
+      letter-spacing: 0.35em !important;
+      padding-left: 0 !important;
+    }
+    body.is-android #menu .m2title {
+      font-size: clamp(22px, 4.2vw, 32px) !important;
+      line-height: 0.95 !important;
+      margin: 0 0 2px 0 !important;
+    }
+    /* Cuadrícula amplia y cómoda de 6 columnas:
+       - Botones principales (CONTINUAR / NUEVA PARTIDA) ocupan 3 columnas cada uno (2 por fila) con altura 46px.
+       - Botones secundarios ocupan 2 columnas cada uno (3 por fila) con separación de 8pxx10px y tarjetas bien definidas. */
+    body.is-android #menu .vmenu {
+      display: grid !important;
+      grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+      gap: 8px 10px !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      margin-top: 2px !important;
+    }
+    body.is-android #menu .vmenu .vitem {
+      padding: 7px 10px !important;
+      min-height: 35px !important;
+      font-size: 10.5px !important;
+      letter-spacing: 0.04em !important;
+      border-radius: 11px !important;
+      background: rgba(14, 22, 48, 0.72) !important;
+      border: 1px solid rgba(130, 165, 255, 0.24) !important;
+      border-left: 3px solid rgba(111, 182, 255, 0.6) !important;
+      justify-content: flex-start !important;
+      text-align: left !important;
+      gap: 7px !important;
+    }
+    body.is-android #menu .vmenu .vitem .vtxt {
+      align-items: flex-start !important;
+    }
+    body.is-android #menu .vmenu .vitem small {
+      font-size: 9px !important;
+      line-height: 1.15 !important;
+      margin-top: 2px !important;
+    }
+    body.is-android #menu .vmenu .vitem svg {
+      width: 15px !important;
+      height: 15px !important;
+      flex: none !important;
+    }
+    body.is-android #menu .vmenu .vitem.m2btn {
+      grid-column: span 3 !important;
+      padding: 9px 12px !important;
+      min-height: 46px !important;
+      font-size: 11.5px !important;
+      border-radius: 12px !important;
+      background: linear-gradient(90deg, rgba(70, 227, 198, 0.18), rgba(16, 24, 52, 0.85)) !important;
+      border: 1px solid rgba(70, 227, 198, 0.42) !important;
+      border-left: 3.5px solid #46E3C6 !important;
+    }
+    body.is-android #menu .vmenu .vitem.m2btn.primary,
+    body.is-android #menu .vmenu .vitem.m2btn.lead {
+      background: linear-gradient(90deg, rgba(255, 181, 71, 0.26), rgba(16, 24, 52, 0.88)) !important;
+      border: 1px solid rgba(255, 181, 71, 0.5) !important;
+      border-left: 3.5px solid #FFB547 !important;
+    }
+    body.is-android #menu .vmenu .vitem.m2chip {
+      grid-column: span 2 !important;
+      padding: 7px 9px !important;
+      min-height: 35px !important;
+      font-size: 10px !important;
+    }
+    body.is-android #menu .vmenu .vitem[hidden] {
+      display: none !important;
+    }
+
+    /* Derecha del Menú Principal en Android:
+       Arriba a la derecha: Selector de idioma compacto (ES | EN) + Botón ROBBIE IA a su izquierda sin solaparse.
+       Abajo a la derecha: Globo de bienvenida de Robbie compacto. */
+    body.is-android #menu .m2lang {
+      top: 10px !important;
+      right: 12px !important;
+      left: auto !important;
+    }
+    body.is-android #menu .m2lang .langsw {
+      padding: 2px !important;
+    }
+    body.is-android #menu .m2lang .langsw button {
+      min-height: 28px !important;
+      padding: 4px 10px !important;
+      font-size: 10.5px !important;
+      min-width: 38px !important;
+      justify-content: center !important;
+    }
+    body.is-android #menu .m2lang .langsw button span {
+      display: none !important;
+    }
+    body.is-android #menu > #robbie-menu-right {
+      top: 10px !important;
+      right: 108px !important;
+      bottom: auto !important;
+      left: auto !important;
+    }
+    body.is-android .robbie-min-btn {
+      padding: 4px 10px 4px 6px !important;
+      gap: 6px !important;
+    }
+    body.is-android .robbie-min-btn .rb-ico {
+      width: 26px !important;
+      height: 24px !important;
+    }
+    body.is-android .robbie-min-btn .rb-meta b {
+      font-size: 10.5px !important;
+    }
+    body.is-android .robbie-min-btn .rb-meta small {
+      display: none !important;
+    }
+    body.is-android .rm-card {
+      width: min(330px, calc(var(--and-w, 640px) - 20px)) !important;
+      max-height: calc(var(--and-h, 340px) - 52px) !important;
+      overflow-y: auto !important;
+      padding: 10px 12px !important;
+      gap: 8px !important;
+    }
+    body.is-android .rm-top {
+      grid-template-columns: 64px 1fr auto !important;
+      gap: 8px !important;
+    }
+    body.is-android .rm-stage {
+      width: 64px !important;
+      height: 60px !important;
+    }
+    body.is-android .rm-stage .rm-svg-fallback {
+      width: 56px !important;
+      height: 52px !important;
+    }
+    body.is-android .rm-identity h3 {
+      font-size: 14px !important;
+    }
+    body.is-android .rm-identity p {
+      font-size: 10.5px !important;
+    }
+
+    body.is-android #menu > #robbie-menu-speech {
+      bottom: 10px !important;
+      right: 12px !important;
+      top: auto !important;
+      left: auto !important;
+      max-width: min(330px, 37%) !important;
+      gap: 6px !important;
+    }
+    body.is-android #menu > #robbie-menu-speech .rb-speech-box {
+      width: min(265px, 100%) !important;
+      padding: 8px 10px !important;
+      border-radius: 14px !important;
+    }
+    body.is-android #menu > #robbie-menu-speech .rb-speech-header {
+      margin-bottom: 3px !important;
+      gap: 5px !important;
+      padding-right: 28px !important;
+    }
+    body.is-android #menu > #robbie-menu-speech .rb-speech-name {
+      font-size: 12.5px !important;
+    }
+    body.is-android #menu > #robbie-menu-speech .rb-speech-badge {
+      font-size: 7.5px !important;
+      padding: 1.5px 5px !important;
+    }
+    body.is-android #menu > #robbie-menu-speech .rb-speech-text {
+      font-size: 10.5px !important;
+      line-height: 1.25 !important;
+    }
+    body.is-android #menu > #robbie-menu-speech .rb-speech-foot {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      margin-top: 6px !important;
+      gap: 4px !important;
+    }
+    body.is-android #menu > #robbie-menu-speech #robbie-menu-next {
+      grid-column: 1 / -1 !important;
+    }
+    body.is-android #menu > #robbie-menu-speech .rb-speech-foot button {
+      padding: 4px 6px !important;
+      font-size: 9.5px !important;
+      justify-content: center !important;
+    }
+    body.is-android #menu > #robbie-menu-speech .rb-speech-char {
+      width: 52px !important;
+      height: 48px !important;
+      flex: none !important;
+    }
+
+    /* --- 2. CREADOR DE PERSONAJE (#creator:not(.hidden)) EN ANDROID HORIZONTAL --- */
+    body.is-android #creator:not(.hidden) {
+      display: grid !important;
+      grid-template-columns: minmax(230px, 45%) 1fr !important;
+      grid-template-rows: 1fr !important;
+    }
+    body.is-android #creator .side {
+      order: 1 !important;
+      grid-column: 1 !important;
+      grid-row: 1 !important;
+      margin: 6px 0 6px 8px !important;
+      max-height: calc(var(--and-h, 340px) - 12px) !important;
+    }
+    body.is-android #creator .stage {
+      order: 2 !important;
+      grid-column: 2 !important;
+      grid-row: 1 !important;
+    }
+    body.is-android #creator .side header {
+      padding: 6px 12px 4px !important;
+      gap: 1px !important;
+    }
+    body.is-android #creator .side header .label {
+      font-size: 9px !important;
+    }
+    body.is-android #creator #cr-title {
+      font-size: 14px !important;
+    }
+    body.is-android #creator #cr-tabs {
+      padding: 0 10px !important;
+      margin-bottom: 6px !important;
+      gap: 4px !important;
+      flex-wrap: nowrap !important;
+      overflow-x: auto !important;
+      scrollbar-width: none !important;
+    }
+    body.is-android #creator #cr-tabs::-webkit-scrollbar {
+      display: none !important;
+    }
+    body.is-android #creator #cr-tabs button {
+      padding: 4px 8px !important;
+      font-size: 10.5px !important;
+      flex: none !important;
+    }
+    body.is-android #creator #cr-body {
+      padding: 0 10px 6px !important;
+    }
+    body.is-android #creator .opt-group {
+      padding: 6px 0 !important;
+      gap: 4px !important;
+    }
+    body.is-android #creator .sw {
+      width: 22px !important;
+      height: 22px !important;
+    }
+    body.is-android #creator .pill {
+      padding: 4px 8px !important;
+      font-size: 10.5px !important;
+    }
+    body.is-android #creator .side footer {
+      padding: 6px 10px !important;
+      gap: 6px !important;
+    }
+    body.is-android #creator .side footer .btn {
+      padding: 5px 10px !important;
+      font-size: 11px !important;
+    }
+    body.is-android #creator .stage .hint {
+      display: none !important;
+    }
+    body.is-android #creator .stage .animbar {
+      bottom: 6px !important;
+      padding: 4px 6px !important;
+      gap: 4px !important;
+      flex-wrap: nowrap !important;
+      overflow-x: auto !important;
+      max-width: calc(100% - 12px) !important;
+    }
+
+    /* --- 3. VUELO / DESPEGUE (#flight) EN ANDROID HORIZONTAL --- */
+    body.is-android #flight .fl-top {
+      top: 6px !important;
+      gap: 4px !important;
+    }
+    body.is-android #flight .fl-tag {
+      display: none !important;
+    }
+    body.is-android #flight .fl-route {
+      width: min(340px, 52%) !important;
+      padding: 4px 10px !important;
+    }
+    body.is-android #flight .fl-stats > div {
+      padding: 2px 7px !important;
+      min-width: 0 !important;
+    }
+    body.is-android #flight .fl-stats b {
+      font-size: 11.5px !important;
+    }
+    body.is-android #flight .fl-skip {
+      top: 6px !important;
+      right: 8px !important;
+      bottom: auto !important;
+      padding: 5px 10px !important;
+      font-size: 11px !important;
+    }
+    body.is-android #flight #fl-robi-top {
+      top: 38px !important;
+      right: 8px !important;
+      bottom: auto !important;
+    }
+    body.is-android #flight .fl-check {
+      top: 8px !important;
+      left: 8px !important;
+      bottom: auto !important;
+      padding: 6px 10px !important;
+      gap: 3px !important;
+    }
+    body.is-android #flight .fl-check li {
+      font-size: 11px !important;
+    }
+    body.is-android #flight .fl-go {
+      bottom: 8px !important;
+      padding: 8px 18px !important;
+      min-width: 220px !important;
+    }
+    body.is-android #flight .fl-go b {
+      font-size: 16px !important;
+    }
+    body.is-android #flight[data-state="space"] .fl-joy {
+      display: block !important;
+      left: 12px !important;
+      bottom: 12px !important;
+      width: 96px !important;
+      height: 96px !important;
+    }
+    body.is-android #flight .fl-joy i {
+      width: 40px !important;
+      height: 40px !important;
+      margin: -20px !important;
+    }
+    body.is-android #flight[data-state="space"] .fl-btns {
+      display: flex !important;
+      right: 12px !important;
+      bottom: 12px !important;
+      gap: 8px !important;
+    }
+    body.is-android #flight .fl-btns button {
+      width: 56px !important;
+      height: 56px !important;
+    }
+    body.is-android #flight #fl-boost {
+      width: 64px !important;
+      height: 64px !important;
+    }
+    body.is-android #flight .fl-robi,
+    body.is-android #flight[data-state^="pad"] .fl-robi,
+    body.is-android #flight[data-state="count"] .fl-robi {
+      right: 10px !important;
+      left: auto !important;
+      bottom: 10px !important;
+      width: auto !important;
+      max-width: min(320px, 46%) !important;
+      padding: 0 !important;
+      gap: 6px !important;
+    }
+    body.is-android #flight[data-state="space"] .fl-robi,
+    body.is-android #flight[data-state="approach"] .fl-robi,
+    body.is-android #flight[data-state="arrive"] .fl-robi {
+      bottom: 84px !important;
+    }
+    body.is-android #flight .fl-robi .rb-speech-box {
+      width: min(245px, 100%) !important;
+      padding: 8px 10px !important;
+      border-radius: 14px !important;
+    }
+    body.is-android #flight .fl-robi .rb-speech-header {
+      margin-bottom: 3px !important;
+      gap: 5px !important;
+      padding-right: 28px !important;
+    }
+    body.is-android #flight .fl-robi .rb-speech-name {
+      font-size: 12px !important;
+    }
+    body.is-android #flight .fl-robi .rb-speech-badge {
+      font-size: 7.5px !important;
+      padding: 1.5px 5px !important;
+    }
+    body.is-android #flight .fl-robi #fl-say {
+      font-size: 10.5px !important;
+      line-height: 1.25 !important;
+    }
+    body.is-android #flight .fl-robi .rb-speech-foot {
+      margin-top: 6px !important;
+      gap: 4px !important;
+    }
+    body.is-android #flight .fl-robi .rb-speech-foot button {
+      padding: 3px 6px !important;
+      font-size: 9px !important;
+      flex: 1 1 auto !important;
+      justify-content: center !important;
+    }
+    body.is-android #flight .fl-robi .rb-speech-char {
+      width: 52px !important;
+      height: 48px !important;
+      flex: none !important;
+    }
+
+    /* --- 4. HUD DE JUEGO (#hud) EN ANDROID HORIZONTAL --- */
+    /* Esquina superior izquierda: Retrato circular + Necesidades desplegables */
+    body.is-android #hud .hud-tl {
+      top: 6px !important;
+      left: 6px !important;
+      width: auto !important;
+      gap: 0 !important;
+    }
+    body.is-android #hud .who {
+      padding: 3px !important;
+      border-radius: 999px !important;
+      gap: 0 !important;
+    }
+    body.is-android #hud .who .meta {
+      display: none !important;
+    }
+    body.is-android #hud .portrait {
+      width: 40px !important;
+      height: 40px !important;
+    }
+    body.is-android #hud .needs {
+      display: none !important;
+      position: absolute !important;
+      top: 48px !important;
+      left: 0 !important;
+      width: 230px !important;
+      max-height: calc(var(--and-h, 340px) - 56px) !important;
+      overflow-y: auto !important;
+      z-index: 25 !important;
+      padding: 8px 10px !important;
+    }
+    body.is-android #hud.needs-open .needs {
+      display: grid !important;
+    }
+
+    /* Centro superior: Barra de recursos vitales */
+    body.is-android #hud .hud-top {
+      top: 6px !important;
+      bottom: auto !important;
+      left: 54px !important;
+      right: 225px !important;
+      transform: none !important;
+      max-width: none !important;
+      padding: 3px 6px !important;
+      gap: 2px !important;
+      flex-wrap: nowrap !important;
+      overflow-x: auto !important;
+      scrollbar-width: none !important;
+    }
+    body.is-android #hud .hud-top::-webkit-scrollbar {
+      display: none !important;
+    }
+    body.is-android #hud.building .hud-top {
+      display: none !important;
+    }
+    body.is-android #hud .res {
+      padding: 2px 4px !important;
+      gap: 3px !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      flex: 1 0 auto !important;
+    }
+    body.is-android #hud .res .icon {
+      width: 14px !important;
+      height: 14px !important;
+    }
+    body.is-android #hud .res .val {
+      font-size: 11px !important;
+    }
+    body.is-android #hud .res .rate {
+      display: none !important;
+    }
+
+    /* Derecha superior: Reloj Solar + Botón ROBBIE IA debajo del reloj */
+    body.is-android #hud .hud-tr {
+      top: 6px !important;
+      right: 6px !important;
+      width: auto !important;
+      display: flex !important;
+      gap: 4px !important;
+      align-items: center !important;
+    }
+    body.is-android #hud #minimap {
+      display: none !important;
+    }
+    body.is-android #hud .clock {
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      padding: 4px 8px !important;
+      border-radius: 999px !important;
+      width: auto !important;
+    }
+    body.is-android #hud .clock .t {
+      font-size: 14px !important;
+    }
+    body.is-android #hud .clock #h-day {
+      font-size: 9px !important;
+      max-width: 72px !important;
+    }
+    body.is-android #hud .speed button {
+      padding: 2px 5px !important;
+      font-size: 10px !important;
+    }
+    body.is-android #hud #robbie-top-panel {
+      top: 42px !important;
+      right: 6px !important;
+      left: auto !important;
+      bottom: auto !important;
+    }
+
+    /* Esquina inferior izquierda: Joystick táctil ergonómico */
+    body.is-android #hud:not(.sheet):not(.building) .joy {
+      display: block !important;
+      left: 10px !important;
+      bottom: 10px !important;
+      width: 92px !important;
+      height: 92px !important;
+    }
+    body.is-android #hud .joy i {
+      width: 38px !important;
+      height: 38px !important;
+      margin: -19px !important;
+    }
+
+    /* Esquina inferior derecha: Cuadrícula 2x2 de botones de acción para el pulgar derecho */
+    body.is-android #hud:not(.sheet):not(.building) .touchbtns {
+      display: grid !important;
+      grid-template-columns: repeat(2, 46px) !important;
+      gap: 6px !important;
+      right: 10px !important;
+      bottom: 10px !important;
+    }
+    body.is-android #hud .touchbtns button {
+      width: 46px !important;
+      height: 46px !important;
+      font-size: 10px !important;
+    }
+
+    /* Centro inferior (entre el joystick y los botones de acción): Dock de herramientas deslizable */
+    body.is-android #hud .hud-bottom {
+      bottom: 8px !important;
+      left: 112px !important;
+      right: 114px !important;
+      transform: none !important;
+      width: auto !important;
+      max-width: none !important;
+      padding: 3px 6px !important;
+      gap: 2px !important;
+      overflow-x: auto !important;
+      justify-content: flex-start !important;
+      scrollbar-width: none !important;
+    }
+    body.is-android #hud .hud-bottom::-webkit-scrollbar {
+      display: none !important;
+    }
+    body.is-android #hud #t-heart,
+    body.is-android #hud #t-research,
+    body.is-android #hud #t-scan,
+    body.is-android #hud #t-camera {
+      display: grid !important;
+    }
+    body.is-android #hud .tool {
+      min-width: 48px !important;
+      flex: 0 0 auto !important;
+      padding: 4px 5px !important;
+    }
+    body.is-android #hud .tool .icon {
+      width: 16px !important;
+      height: 16px !important;
+    }
+    body.is-android #hud .tool span:not(.icon):not(.kbd) {
+      display: block !important;
+      font-size: 8.5px !important;
+    }
+    body.is-android #hud .tool .kbd {
+      display: none !important;
+    }
+
+    /* Barra de construcción y menús contextuales en Android */
+    body.is-android #hud .buildbar:not(.hidden) {
+      bottom: 56px !important;
+      left: 10px !important;
+      right: 10px !important;
+      transform: none !important;
+      width: auto !important;
+      padding: 6px 8px !important;
+      gap: 4px !important;
+    }
+    body.is-android #hud .bcard {
+      width: 96px !important;
+      padding: 5px !important;
+    }
+    body.is-android #hud .bcard canvas {
+      height: 38px !important;
+    }
+    body.is-android #hud .ctxmenu:not(.hidden),
+    body.is-android #hud .dialog:not(.hidden) {
+      left: 50% !important;
+      right: auto !important;
+      transform: translateX(-50%) !important;
+      width: min(420px, calc(var(--and-w, 640px) - 24px)) !important;
+      bottom: 58px !important;
+      max-height: calc(var(--and-h, 340px) - 104px) !important;
+    }
+    body.is-android #hud .prompt:not(.hidden),
+    body.is-android #hud .actbar:not(.hidden) {
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      bottom: 60px !important;
+      max-width: calc(var(--and-w, 640px) - 230px) !important;
+      font-size: 11.5px !important;
+      padding: 5px 10px !important;
+    }
+
+    /* Globos de texto de Robbie en HUD de Android (abajo a la derecha, encima de los botones de acción) */
+    body.is-android #hud > #robbie-companion {
+      bottom: 112px !important;
+      right: 8px !important;
+      left: auto !important;
+      top: auto !important;
+      max-width: min(310px, 46%) !important;
+      gap: 6px !important;
+    }
+    body.is-android #hud > #robbie-companion .rb-speech-box {
+      width: min(235px, 100%) !important;
+      padding: 7px 10px !important;
+      border-radius: 14px !important;
+    }
+    body.is-android #hud > #robbie-companion .rb-speech-name {
+      font-size: 12px !important;
+    }
+    body.is-android #hud > #robbie-companion .rb-speech-text {
+      font-size: 10px !important;
+      line-height: 1.22 !important;
+    }
+    body.is-android #hud > #robbie-companion .rb-speech-foot {
+      margin-top: 5px !important;
+      gap: 4px !important;
+    }
+    body.is-android #hud > #robbie-companion .rb-speech-foot button {
+      padding: 3px 6px !important;
+      font-size: 9px !important;
+    }
+    body.is-android #hud > #robbie-companion .rb-speech-char {
+      width: 52px !important;
+      height: 48px !important;
+    }
+
+    /* Modales y Chat de Robbie adaptados a la altura horizontal de Android */
+    body.is-android .modal-back:not(.hidden) {
+      padding: 6px !important;
+    }
+    body.is-android .modal {
+      width: min(560px, calc(var(--and-w, 640px) - 16px)) !important;
+      max-height: calc(var(--and-h, 340px) - 12px) !important;
+    }
+    body.is-android .modal header {
+      padding: 8px 12px !important;
+    }
+    body.is-android .modal header h2 {
+      font-size: 15px !important;
+    }
+    body.is-android .modal .body {
+      padding: 8px 12px !important;
+    }
+    body.is-android .modal footer {
+      padding: 6px 12px !important;
+    }
+    body.is-android #modal-robi-chat .body {
+      height: calc(var(--and-h, 340px) - 70px) !important;
+      max-height: calc(var(--and-h, 340px) - 70px) !important;
+      gap: 6px !important;
     }
   `;
   (document.body || document.head).appendChild(styleEl);
@@ -17499,7 +18430,7 @@ document.addEventListener('DOMContentLoaded', () => {
       try { JSM.Audio && JSM.Audio.sfx && JSM.Audio.sfx('click'); } catch (e) {}
       const isMin = wrap.classList.toggle('minimized');
       wrap.classList.toggle('robbie-open', !isMin);
-      speechDock.classList.remove('hidden-dock');
+      speechDock.classList.toggle('hidden-dock', !isMin);
     };
 
     document.getElementById('robbie-menu-toggle').addEventListener('click', toggleMenuPanel);
@@ -17507,9 +18438,15 @@ document.addEventListener('DOMContentLoaded', () => {
       wrap.classList.add('minimized');
       wrap.classList.remove('robbie-open');
     });
-    document.getElementById('rm-speech-close').addEventListener('click', () => {
+    const closeMenuSpeech = (e) => {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
       speechDock.classList.add('hidden-dock');
-    });
+    };
+    const rmCloseBtn = document.getElementById('rm-speech-close');
+    if (rmCloseBtn) {
+      rmCloseBtn.addEventListener('click', closeMenuSpeech);
+      rmCloseBtn.addEventListener('pointerdown', closeMenuSpeech);
+    }
 
     const setMenuBubble = (text, mood, badgeText) => {
       speechDock.classList.remove('hidden-dock');
@@ -17882,11 +18819,13 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       document.getElementById('fl-top-show-bub').addEventListener('click', (e) => {
         e.stopPropagation();
-        flRobi.style.display = '';
+        flRobi.classList.remove('hidden-dock');
+        flRobi.style.removeProperty('display');
       });
     }
 
     // 2. Globo de texto ABAJO A LA DERECHA (estilo captura de referencia) con #fl-say adentro
+    flRobi.classList.add('robbie-speech-dock');
     flRobi.innerHTML = `
       <div class="rb-speech-box">
         <div class="rb-speech-header">
@@ -17908,7 +18847,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let fIdx = 0;
     const triggerFlightFact = (e) => {
       if (e) e.stopPropagation();
-      flRobi.style.display = '';
+      flRobi.classList.remove('hidden-dock');
+      flRobi.style.removeProperty('display');
       const f = SPACE_FUN_FACTS[fIdx % SPACE_FUN_FACTS.length];
       fIdx++;
       const sayEl = document.getElementById('fl-say');
@@ -17925,10 +18865,16 @@ document.addEventListener('DOMContentLoaded', () => {
       e.stopPropagation();
       openRobbieChatModal();
     });
-    document.getElementById('fl-speech-close').addEventListener('click', (e) => {
-      e.stopPropagation();
-      flRobi.style.display = 'none';
-    });
+    const closeFlightBubble = (e) => {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
+      flRobi.classList.add('hidden-dock');
+      flRobi.style.setProperty('display', 'none', 'important');
+    };
+    const flCloseBtn = document.getElementById('fl-speech-close');
+    if (flCloseBtn) {
+      flCloseBtn.addEventListener('click', closeFlightBubble);
+      flCloseBtn.addEventListener('pointerdown', closeFlightBubble);
+    }
   }
 
   if (JSM.Flight && JSM.Flight.start) {
@@ -17939,7 +18885,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const applyFlightRobbie = () => {
         upgradeFlightCompanionUI();
         const flRobi = document.querySelector('#flight .fl-robi');
-        if (flRobi) flRobi.style.display = '';
+        if (flRobi && !flRobi.classList.contains('hidden-dock')) {
+          flRobi.style.removeProperty('display');
+        }
         const sayEl = document.getElementById('fl-say');
         const subEl = document.getElementById('fl-robi-device-tip');
         const helpEl = document.getElementById('fl-help');
@@ -18085,7 +19033,7 @@ document.addEventListener('DOMContentLoaded', () => {
       try { JSM.Audio && JSM.Audio.sfx && JSM.Audio.sfx('click'); } catch (err) {}
       const isMin = topPanel.classList.toggle('minimized');
       topPanel.classList.toggle('robbie-open', !isMin);
-      speechEl.classList.remove('hidden-dock');
+      speechEl.classList.toggle('hidden-dock', !isMin);
     };
 
     document.getElementById('rc-top-toggle').addEventListener('click', toggleTopPanel);
@@ -18095,10 +19043,15 @@ document.addEventListener('DOMContentLoaded', () => {
       topPanel.classList.remove('robbie-open');
     });
 
-    document.getElementById('rc-close').addEventListener('click', (e) => {
-      e.stopPropagation();
+    const closeHudSpeech = (e) => {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
       speechEl.classList.add('hidden-dock');
-    });
+    };
+    const rcCloseBtn = document.getElementById('rc-close');
+    if (rcCloseBtn) {
+      rcCloseBtn.addEventListener('click', closeHudSpeech);
+      rcCloseBtn.addEventListener('pointerdown', closeHudSpeech);
+    }
 
     let hudFactIdx = 0;
     const triggerHudFact = () => {
@@ -18470,6 +19423,16 @@ document.addEventListener('DOMContentLoaded', () => {
       if (origUpdateCreator) origUpdateCreator.apply(this, arguments);
       const cr = G.cr;
       if (!cr) return;
+      // En Android horizontal mantenemos el astronauta centrado en la mitad derecha (sin desplazarlo hacia arriba)
+      if (Device.isAndroid && cr.cam && G.renderer) {
+        const Wd = window.innerWidth;
+        const Hd = window.innerHeight;
+        if (cr.zoom > 6.8) cr.zoom = 5.3;
+        cr.cam.aspect = Wd / Hd;
+        const ox = -Math.min(180, Wd * 0.18);
+        cr.cam.setViewOffset(Wd, Hd, ox, 0, Wd, Hd);
+        cr.cam.updateProjectionMatrix();
+      }
       // Animar el fondo del espacio dinámico en tiempo real
       if (cr.skyDome) cr.skyDome.rotation.y += dt * 0.018;
       if (cr.ring2) cr.ring2.rotation.z -= dt * 0.45;
@@ -18808,6 +19771,186 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('[JSM.Robbie Propuesta] Globos abajo a la derecha + botón superior derecho activos.');
 })(window.JSM);
 /* === END PROPUESTA ROBBIE INTEGRACION === */
+
+/* === PANELES DE ROBBIE Y ERRORES: uno a la vez, sin desbordar === */
+(function () {
+  'use strict';
+  const css = document.createElement('style'); css.id = 'jsm-panel-fit';
+  css.textContent = `
+    .rm-card, #diag .panel { box-sizing: border-box; max-width: calc(100vw - 24px) !important; overflow-x: hidden !important; overflow-y: auto !important; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+    .rm-card { max-height: calc(100vh - 96px) !important; max-height: calc(100dvh - 96px) !important; }
+    .rb-speech-box { box-sizing: border-box; max-width: calc(100vw - 24px) !important; overflow: visible !important; }
+    .rb-speech-text, #flight #fl-say { max-height: calc(100vh - 170px) !important; max-height: calc(100dvh - 170px) !important; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+    .rb-speech-header { flex-wrap: wrap !important; min-width: 0; }
+    #diag .panel { max-height: calc(100vh - 24px); max-height: calc(100dvh - 24px); }
+    .rm-card *, .rb-speech-box *, #diag .panel * { min-width: 0; overflow-wrap: anywhere; }
+    #diag .panel pre { white-space: pre-wrap; word-break: break-word; max-height: 40vh; overflow: auto; }
+    .rm-actions, .rb-speech-foot { flex-wrap: wrap !important; }
+    .rm-btn, .rb-speech-foot button { white-space: normal !important; max-width: 100%; }
+    @media (max-height: 520px) { .rm-card { padding: 10px 12px !important; gap: 8px !important; } .rb-speech-box { padding: 9px 12px !important; } }
+  `;
+  document.head.appendChild(css);
+
+  /* un solo panel de Robbie a la vez por pantalla: el que se abre último cierra al otro */
+  const CARDS = '#robbie-menu-right, #robbie-top-panel, #fl-robi-top', DOCKS = '.robbie-speech-dock, #flight .fl-robi';
+  const isCardOpen = el => !el.classList.contains('minimized'), isDockOpen = el => !el.classList.contains('hidden-dock');
+  const root = el => el.closest('#menu, #hud, #flight') || el.parentElement;
+  const state = new WeakMap();
+  function scan() {
+    const cards = Array.from(document.querySelectorAll(CARDS)), docks = Array.from(document.querySelectorAll(DOCKS));
+    const opened = [];
+    cards.forEach(c => { const o = isCardOpen(c), was = state.get(c); if (o && was === false) opened.push(['card', c]); state.set(c, o); });
+    docks.forEach(d => { const o = isDockOpen(d), was = state.get(d); if (o && was === false) opened.push(['dock', d]); state.set(d, o); });
+    opened.forEach(([k, el]) => {
+      const r = root(el);
+      if (k === 'card') docks.forEach(d => { if (root(d) === r && isDockOpen(d)) { d.classList.add('hidden-dock'); state.set(d, false); } });
+      else cards.forEach(c => { if (root(c) === r && isCardOpen(c)) { c.classList.add('minimized'); c.classList.remove('robbie-open'); state.set(c, false); } });
+    });
+  }
+  let queued = false;
+  new MutationObserver(() => { if (queued) return; queued = true; Promise.resolve().then(() => { queued = false; scan(); }); })
+    .observe(document.documentElement, { subtree: true, childList: true, attributes: true, attributeFilter: ['class'] });
+  scan();
+
+  /* errores: un solo panel a la vez; si llega otro, reemplaza al anterior en lugar de apilarse */
+  if (window.JSM && JSM.fatal && !JSM.fatal._one) {
+    const f = JSM.fatal; JSM.fatal = function () { const d = document.getElementById('diag'); if (d) d.innerHTML = ''; return f.apply(this, arguments); }; JSM.fatal._one = true;
+  }
+})();
+
+/* ===================== COLISIONES · la silueta real de cada edificio (sin «hitbox» invisible) =====================
+   Se «huella» el modelo 3D una vez por tipo: cada triángulo que está a la altura del cuerpo (0.3 – 2.6 m) se pinta en una
+   rejilla de 0.2 m vista desde arriba; los huecos cerrados se rellenan y de ahí sale un campo de distancias. Así bloquea
+   exactamente lo que se ve (cúpula, túnel, entrada) y NO lo que no hay (esquinas vacías de una caja o de un círculo).
+   Sirve para empujar al jugador y para saber a qué distancia real del borde estás (el cartel «Usar» sale solo pegado). */
+(function (JSM) {
+  const G = JSM.Game, THREE = window.THREE;
+  const FP = {};                                   // campo de distancias por tipo (coordenadas locales del modelo)
+  const PLAYER_R = 0.4, USE_RANGE = 1.5, Y0 = 0.3, Y1 = 2.6, MARGIN = 2.2;
+  const groupOf = (kind, ref) => kind === 'b' ? (G.bObjs[ref.id] && G.bObjs[ref.id].group) : (ref.obj && ref.obj.group);
+
+  function chamfer(solid, W, H, target) {          // distancia (en celdas) hasta la celda más cercana con valor `target`
+    const INF = 1e6, d = new Float32Array(W * H), D2 = 1.4142;
+    for (let i = 0; i < W * H; i++) d[i] = solid[i] === target ? 0 : INF;
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+      const i = y * W + x; let v = d[i]; if (v === 0) continue;
+      if (x > 0) v = Math.min(v, d[i - 1] + 1); if (y > 0) { v = Math.min(v, d[i - W] + 1); if (x > 0) v = Math.min(v, d[i - W - 1] + D2); if (x < W - 1) v = Math.min(v, d[i - W + 1] + D2); } d[i] = v;
+    }
+    for (let y = H - 1; y >= 0; y--) for (let x = W - 1; x >= 0; x--) {
+      const i = y * W + x; let v = d[i]; if (v === 0) continue;
+      if (x < W - 1) v = Math.min(v, d[i + 1] + 1); if (y < H - 1) { v = Math.min(v, d[i + W] + 1); if (x < W - 1) v = Math.min(v, d[i + W + 1] + D2); if (x > 0) v = Math.min(v, d[i + W - 1] + D2); } d[i] = v;
+    }
+    return d;
+  }
+
+  function measure(grp) {
+    grp.updateMatrixWorld(true);
+    const inv = new THREE.Matrix4().copy(grp.matrixWorld).invert(), m4 = new THREE.Matrix4(), tris = [], all = [];
+    let x0 = 1e9, x1 = -1e9, z0 = 1e9, z1 = -1e9;
+    const va = new THREE.Vector3(), vb = new THREE.Vector3(), vc = new THREE.Vector3();
+    grp.traverse(o => {
+      if (!o.isMesh || !o.geometry || !o.visible) return;
+      const pos = o.geometry.attributes && o.geometry.attributes.position; if (!pos) return;
+      const idx = o.geometry.index; m4.multiplyMatrices(inv, o.matrixWorld);
+      const n = idx ? idx.count : pos.count;
+      for (let i = 0; i + 2 < n; i += 3) {
+        const a = idx ? idx.getX(i) : i, b = idx ? idx.getX(i + 1) : i + 1, c = idx ? idx.getX(i + 2) : i + 2;
+        va.fromBufferAttribute(pos, a).applyMatrix4(m4); vb.fromBufferAttribute(pos, b).applyMatrix4(m4); vc.fromBufferAttribute(pos, c).applyMatrix4(m4);
+        const lo = Math.min(va.y, vb.y, vc.y), hi = Math.max(va.y, vb.y, vc.y);
+        if (hi > Y0) all.push(va.x, va.z, va.y, vb.x, vb.z, vb.y, vc.x, vc.z, vc.y);     // para la altura del techo
+        if (hi < Y0 || lo > Y1) continue;           // el piso de la obra y lo que queda sobre la cabeza no cuentan
+        tris.push(va.x, va.z, vb.x, vb.z, vc.x, vc.z);
+        x0 = Math.min(x0, va.x, vb.x, vc.x); x1 = Math.max(x1, va.x, vb.x, vc.x); z0 = Math.min(z0, va.z, vb.z, vc.z); z1 = Math.max(z1, va.z, vb.z, vc.z);
+      }
+    });
+    if (tris.length < 18 || x1 - x0 < 0.4 || z1 - z0 < 0.4) return false;
+    let res = 0.2; while ((x1 - x0 + 2 * MARGIN) / res > 360 || (z1 - z0 + 2 * MARGIN) / res > 360) res *= 1.5;
+    const ox = x0 - MARGIN, oz = z0 - MARGIN, W = Math.ceil((x1 - x0 + 2 * MARGIN) / res) + 1, H = Math.ceil((z1 - z0 + 2 * MARGIN) / res) + 1;
+    const solid = new Uint8Array(W * H), mark = (x, z) => { const cx = Math.floor((x - ox) / res), cz = Math.floor((z - oz) / res); if (cx >= 0 && cz >= 0 && cx < W && cz < H) solid[cz * W + cx] = 1; };
+    for (let t = 0; t < tris.length; t += 6) {
+      const ax = tris[t], az = tris[t + 1], bx = tris[t + 2], bz = tris[t + 3], cx = tris[t + 4], cz = tris[t + 5];
+      [[ax, az, bx, bz], [bx, bz, cx, cz], [cx, cz, ax, az]].forEach(([px, pz, qx, qz]) => { const L = Math.hypot(qx - px, qz - pz), n = Math.max(1, Math.ceil(L / (res * 0.5))); for (let k = 0; k <= n; k++) mark(px + (qx - px) * k / n, pz + (qz - pz) * k / n); });   // bordes (paredes verticales)
+      const mnx = Math.min(ax, bx, cx), mxx = Math.max(ax, bx, cx), mnz = Math.min(az, bz, cz), mxz = Math.max(az, bz, cz);
+      const den = (bz - cz) * (ax - cx) + (cx - bx) * (az - cz); if (Math.abs(den) < 1e-9) continue;
+      for (let zc = Math.floor((mnz - oz) / res); zc <= Math.floor((mxz - oz) / res); zc++) for (let xc = Math.floor((mnx - ox) / res); xc <= Math.floor((mxx - ox) / res); xc++) {
+        if (xc < 0 || zc < 0 || xc >= W || zc >= H) continue;
+        const px = ox + (xc + 0.5) * res, pz = oz + (zc + 0.5) * res, l1 = ((bz - cz) * (px - cx) + (cx - bx) * (pz - cz)) / den, l2 = ((cz - az) * (px - cx) + (ax - cx) * (pz - cz)) / den, l3 = 1 - l1 - l2;
+        if (l1 >= -0.02 && l2 >= -0.02 && l3 >= -0.02) solid[zc * W + xc] = 1;
+      }
+    }
+    // los huecos cerrados (p. ej. el centro de una cúpula, cuya parte alta está sobre los 2.6 m) son parte del edificio
+    const seen = new Uint8Array(W * H), q = []; for (let i = 0; i < W * H; i++) { const x = i % W, y = (i / W) | 0; if ((x === 0 || y === 0 || x === W - 1 || y === H - 1) && !solid[i]) { seen[i] = 1; q.push(i); } }
+    while (q.length) { const i = q.pop(), x = i % W, y = (i / W) | 0; [[x - 1, y], [x + 1, y], [x, y - 1], [x, y + 1]].forEach(([nx, ny]) => { if (nx < 0 || ny < 0 || nx >= W || ny >= H) return; const j = ny * W + nx; if (!solid[j] && !seen[j]) { seen[j] = 1; q.push(j); } }); }
+    let cells = 0; for (let i = 0; i < W * H; i++) { if (!solid[i] && !seen[i]) solid[i] = 1; if (solid[i]) cells++; }
+    if (cells < 6) return false;
+    // altura del techo de cada celda (la superficie más alta del modelo): sirve para poder pasar por arriba del edificio
+    const top = new Float32Array(W * H).fill(-1e9);
+    for (let t = 0; t < all.length; t += 9) {
+      const ax = all[t], az = all[t + 1], ay = all[t + 2], bx = all[t + 3], bz = all[t + 4], by = all[t + 5], cx = all[t + 6], cz = all[t + 7], cy = all[t + 8];
+      const mnx = Math.min(ax, bx, cx), mxx = Math.max(ax, bx, cx), mnz = Math.min(az, bz, cz), mxz = Math.max(az, bz, cz), den = (bz - cz) * (ax - cx) + (cx - bx) * (az - cz);
+      const put = (px, pz, y) => { const xc = Math.floor((px - ox) / res), zc = Math.floor((pz - oz) / res); if (xc >= 0 && zc >= 0 && xc < W && zc < H && y > top[zc * W + xc]) top[zc * W + xc] = y; };
+      [[ax, az, ay, bx, bz, by], [bx, bz, by, cx, cz, cy], [cx, cz, cy, ax, az, ay]].forEach(([px, pz, py, qx, qz, qy]) => { const L = Math.hypot(qx - px, qz - pz), n = Math.max(1, Math.ceil(L / (res * 0.5))); for (let k = 0; k <= n; k++) put(px + (qx - px) * k / n, pz + (qz - pz) * k / n, py + (qy - py) * k / n); });
+      if (Math.abs(den) < 1e-9) continue;
+      for (let zc = Math.floor((mnz - oz) / res); zc <= Math.floor((mxz - oz) / res); zc++) for (let xc = Math.floor((mnx - ox) / res); xc <= Math.floor((mxx - ox) / res); xc++) {
+        if (xc < 0 || zc < 0 || xc >= W || zc >= H) continue;
+        const px = ox + (xc + 0.5) * res, pz = oz + (zc + 0.5) * res, l1 = ((bz - cz) * (px - cx) + (cx - bx) * (pz - cz)) / den, l2 = ((cz - az) * (px - cx) + (ax - cx) * (pz - cz)) / den, l3 = 1 - l1 - l2;
+        if (l1 >= -0.02 && l2 >= -0.02 && l3 >= -0.02) { const y = l1 * ay + l2 * by + l3 * cy; if (y > top[zc * W + xc]) top[zc * W + xc] = y; }
+      }
+    }
+    for (let i = 0; i < W * H; i++) if (solid[i] && top[i] < 0) top[i] = Y1;
+    const outD = chamfer(solid, W, H, 1), inD = chamfer(solid, W, H, 0), f = new Float32Array(W * H);
+    for (let i = 0; i < W * H; i++) f[i] = solid[i] ? -(Math.min(inD[i], 1e3) - 0.5) * res : (outD[i] - 0.5) * res;
+    return { f, top, W, H, res, ox, oz, x0, x1, z0, z1 };
+  }
+  function fpOf(kind, ref) {
+    const key = kind + ':' + (ref.type || ref.kind);
+    if (FP[key] !== undefined) return FP[key];
+    const grp = groupOf(kind, ref); if (!grp) return null;       // todavía no está dibujado: se vuelve a intentar
+    return (FP[key] = measure(grp));
+  }
+  function field(fp, lx, lz) {                      // distancia con signo, interpolada
+    const gx = (lx - fp.ox) / fp.res - 0.5, gz = (lz - fp.oz) / fp.res - 0.5;
+    if (gx < 0 || gz < 0 || gx > fp.W - 1.001 || gz > fp.H - 1.001) {
+      const dx = Math.max(fp.x0 - lx, 0, lx - fp.x1), dz = Math.max(fp.z0 - lz, 0, lz - fp.z1); return Math.max(MARGIN - 0.1, Math.hypot(dx, dz) + MARGIN - 0.1);
+    }
+    const ix = Math.floor(gx), iz = Math.floor(gz), tx = gx - ix, tz = gz - iz, W = fp.W, f = fp.f, i = iz * W + ix;
+    return (f[i] * (1 - tx) + f[i + 1] * tx) * (1 - tz) + (f[i + W] * (1 - tx) + f[i + W + 1] * tx) * tz;
+  }
+  /* distancia con signo (negativa = dentro) y normal hacia afuera, en coordenadas del mundo */
+  function sdf(kind, ref, px, pz, wantNormal) {
+    const fp = fpOf(kind, ref), grp = groupOf(kind, ref); if (!fp || !grp) return null;
+    const a = grp.rotation.y, c = Math.cos(a), s = Math.sin(a), dx = px - grp.position.x, dz = pz - grp.position.z;
+    const lx = c * dx - s * dz, lz = s * dx + c * dz, d = field(fp, lx, lz);
+    if (!wantNormal) return { d, lx, lz, fp, grp };
+    const e = fp.res; let gx = field(fp, lx + e, lz) - field(fp, lx - e, lz), gz = field(fp, lx, lz + e) - field(fp, lx, lz - e), l = Math.hypot(gx, gz);
+    if (l < 1e-4) { gx = lx - (fp.x0 + fp.x1) / 2; gz = lz - (fp.z0 + fp.z1) / 2; l = Math.hypot(gx, gz) || 1; }
+    gx /= l; gz /= l;
+    return { d, nx: c * gx + s * gz, nz: -s * gx + c * gz };            // normal de vuelta al mundo
+  }
+  const STEP = 0.5;                                 // lo que puedes subir caminando
+  function roofOf(r, px, pz) {                      // altura absoluta del techo en ese punto (null si no hay edificio debajo)
+    const fp = r.fp; if (!fp || r.d > 0) return null;
+    const gx = (r.lx - fp.ox) / fp.res - 0.5, gz = (r.lz - fp.oz) / fp.res - 0.5, ix = Math.max(0, Math.min(fp.W - 2, Math.floor(gx))), iz = Math.max(0, Math.min(fp.H - 2, Math.floor(gz))), W = fp.W, i = iz * W + ix;
+    const t = Math.max(fp.top[i], fp.top[i + 1], fp.top[i + W], fp.top[i + W + 1]); return t > 0 ? r.grp.position.y + t : null;
+  }
+  /* el suelo bajo tus pies: el techo de un edificio si vas por arriba de él */
+  G.roofAt = function (px, pz, feetY, blds) {
+    let best = null;
+    const test = (ref, kind) => { const r = sdf(kind, ref, px, pz, false); if (!r) return; const y = roofOf(r, px, pz); if (y != null && feetY >= y - STEP && (best == null || y > best)) best = y; };
+    (blds || []).forEach(b => test(b, 'b')); (G.world ? G.world.landmarks : []).forEach(l => test(l, 'l'));
+    return best;
+  };
+  /* empuja al jugador fuera del edificio; devuelve false si no hay silueta (entonces se usa el círculo de siempre) */
+  G.footPush = function (ref, pos, kind) {
+    const r0 = sdf(kind || 'b', ref, pos.x, pos.z, false); if (!r0) return false;
+    const roof = roofOf(r0, pos.x, pos.z); if (roof != null && pos.y >= roof - STEP) return true;     // vas por arriba del edificio: no estorba
+    if (r0.d < PLAYER_R) { const r = sdf(kind || 'b', ref, pos.x, pos.z, true), k = PLAYER_R - r.d; pos.x += r.nx * k; pos.z += r.nz * k; }
+    return true;
+  };
+  /* distancia del jugador al borde del edificio y alcance para «Usar» */
+  G.footDist = function (ref, px, pz, kind) { const r = sdf(kind || 'b', ref, px, pz, false); return r ? r.d : null; };
+  G.footRange = USE_RANGE;
+})(window.JSM);
 </script>
 
 </body></html>
