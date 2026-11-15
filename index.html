@@ -706,6 +706,11 @@ body{font-size:15px}
 .plrow .dot2{width:10px;height:10px;border-radius:50%;background:var(--mint)}.plrow.off .dot2{background:#888}
 .chatlog{height:170px;overflow:auto;display:flex;flex-direction:column;gap:3px;padding:6px;background:rgba(0,0,0,.25);border-radius:8px;font-size:12.5px}
 .chatlog p{margin:0}.chatlog .sys{color:var(--muted);font-style:italic}
+#modal-robi-chat .chatlog,#robi-chat-log{font-size:16px!important;line-height:1.55!important;gap:10px!important}
+#modal-robi-chat .chatlog p,#robi-chat-log p{font-size:16px!important;line-height:1.55!important;margin:0 0 6px 0!important}
+#modal-robi-chat .chatlog .sys,#robi-chat-log .sys{font-size:15px!important;font-style:normal!important}
+#modal-robi-chat .chatlog b,#robi-chat-log b{font-size:16px!important}
+#modal-robi-chat input#robi-chat-input{font-size:15px!important;padding:11px 12px!important}
 .mpcode{font:700 28px/1 ui-monospace,monospace;letter-spacing:.2em;color:var(--accent)}
 .mphud{position:absolute;left:10px;top:92px;z-index:20;padding:6px 10px;font-size:12px;display:flex;gap:8px;align-items:center;cursor:pointer}
 .rtag{position:absolute;transform:translate(-50%,-100%);font-size:11px;font-weight:700;padding:1px 6px;border-radius:6px;background:rgba(0,0,0,.6);color:#fff;pointer-events:none;white-space:nowrap}
@@ -982,7 +987,7 @@ body.fxblur #hud .panel,body.fxblur .panel{backdrop-filter:blur(8px)}
       </header>
       <div class="body" style="display: grid; gap: 12px; grid-template-rows: 1fr auto; height: min(380px, 62vh);">
         <div id="robi-chat-log" class="chatlog" style="height: 100%; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px;">
-          <p class="sys"><b>Robbie:</b> ¡Hola, astronauta! Soy Robbie, tu asistente de la misión Orión. Pregúntame sobre soporte vital, energía, radiación o cómo sobrevivir en la Luna y Marte usando los recursos oficiales de la NASA (<a href="https://www.spaceappschallenge.org/2026/challenges/junior-astronaut-mission-trainer/?tab=resources" target="_blank" style="color:var(--mint)">Junior Astronaut Mission Trainer</a>).</p>
+          <p class="sys"><b>Robbie:</b> ¡Hola, astronauta! Soy Robbie 🤖 Solo sé de Junior Mission Orión (mecánicas del juego) y de los recursos oficiales de NASA Space Apps. Pregúntame sobre oxígeno, energía, hábitats, radiación, DONKI, OSDR, Mars Trek o cómo jugar. <a href="https://www.spaceappschallenge.org/2026/challenges/junior-astronaut-mission-trainer/?tab=resources" target="_blank" style="color:var(--mint)">Resources oficiales</a>.</p>
         </div>
         <div style="display: flex; gap: 8px;">
           <input type="text" id="robi-chat-input" placeholder="Pregúntale a Robbie sobre la misión espacial..." autocomplete="off">
@@ -2131,6 +2136,33 @@ window.JSM = window.JSM || {};
  */
 (function (JSM) {
   JSM.I18N.addPhrases('en-US', {
+  "Polo Sur · Cresta Shackleton (Artemis)": "South Pole · Shackleton Ridge (Artemis)",
+  "Base lunar: Polo Sur": "Moon base: South Pole",
+  "Cresta Shackleton": "Shackleton Ridge",
+  "En el Polo Sur el Sol da casi siempre, pero rasante; en modo Cadete hay unas 19 h de luz y 5 h de eclipse al día de juego.": "At the South Pole the Sun shines almost always, but low on the horizon; in Cadet mode there are about 19 h of light and 5 h of eclipse per game day.",
+  "Cráteres en sombra permanente": "Permanently shadowed craters",
+  "−233 °C (40 K)": "−233 °C (40 K)",
+  "Donde está el hielo hace tanto frío que el traje gasta más oxígeno y calefacción.": "Where the ice is, it is so cold that the suit uses more oxygen and heating.",
+  "Calefacción de un módulo": "Module heating",
+  "0,008 kW por cada °C bajo 20 °C": "0.008 kW per °C below 20 °C",
+  "Cada módulo presurizado gasta energía para mantener 20 °C; con regolito encima gasta un 40 % menos.": "Each pressurized module uses power to stay at 20 °C; with regolith on top it uses 40 % less.",
+  "Reactor de fisión": "Fission reactor",
+  "Reactor Kilopower: 10 kW constantes, de día y de noche, con polvo o sin él. Necesita 20 de investigación.": "Kilopower reactor: a constant 10 kW, day and night, with or without dust. Needs 20 research.",
+  "La NASA prueba pequeños reactores de fisión (Kilopower, de 1 a 10 kW) para dar energía continua en la Luna y en Marte, donde la noche dura dos semanas o una tormenta tapa el Sol.": "NASA is testing small fission reactors (Kilopower, 1 to 10 kW) to give continuous power on the Moon and Mars, where the night lasts two weeks or a storm hides the Sun.",
+  "Investigación ": "Research ",
+  "Panel limpio: sin polvo, vuelve a rendir al 100 %": "Panel clean: no dust, back to 100 % output",
+  "Cráter −233 °C": "Crater −233 °C",
+  "Cráter en sombra permanente: ≈ −233 °C. El traje gasta más oxígeno.": "Permanently shadowed crater: ≈ −233 °C. The suit uses more oxygen.",
+  "Realismo": "Realism",
+  "Artemis realista": "Realistic Artemis",
+  "Cadete: eclipses cortos y calefacción a la mitad. Artemis realista: eclipses de 24 a 72 h, tormentas de polvo globales y toda la calefacción": "Cadet: short eclipses and half the heating. Realistic Artemis: 24 to 72 h eclipses, global dust storms and full heating",
+  "Base lunar": "Moon base",
+  "Polo Sur": "South Pole",
+  "Ecuador": "Equator",
+  "Polo Sur: Sol rasante casi siempre · Ecuador: 354 h de día y 354 h de noche": "South Pole: low Sun almost always · Equator: 354 h of day and 354 h of night",
+  "</b>! Soy <b>Robi</b>, tu robot ayudante. Llegaste a la Luna con 4 amigos y solo tienen su nave. ¡Vamos a construir una casa!</p></div>": "</b>! I'm <b>Robi</b>, your helper robot. You reached the Moon with 4 friends and all you have is your ship. Let's build a house!</p></div>",
+  "</span><p style=\"margin:0;font-size:16px;line-height:1.5\">¡Hola! Soy <b>Robi</b>. Tu trabajo es construir una colonia y cuidar a tu equipo. Arriba siempre te digo qué hacer.</p></div>": "</span><p style=\"margin:0;font-size:16px;line-height:1.5\">Hi! I'm <b>Robi</b>. Your job is to build a colony and take care of your crew. Up above I always tell you what to do.</p></div>",
+  "Robi está revisando tu misión…": "Robi is reviewing your mission…",
   " % CO₂. MOXIE separó el oxígeno y produjo ": " % CO₂. MOXIE separated the oxygen and produced ",
   " % de la Luna) y hay tormentas de polvo. El aire es ": " % of the Moon's) and there are dust storms. The air is ",
   " % de lo que usa la tripulación; también puedes extraer hielo de los cráteres.": " % of what the crew uses; you can also mine ice from the craters.",
@@ -4089,10 +4121,10 @@ window.JSM = window.JSM || {};
   N.moxie = { totalG: 122, peakGph: 12, purity: 0.98, runs: 16, src: 'moxie' };
 
   /* ---- valores derivados que usa el juego ---- */
-  const G_SCALE = 2.5;                       // escala de juego común a los tres mundos (mantiene las proporciones reales)
+  const G_SCALE = 1.4;                       // escala de juego común a los tres mundos (mantiene las proporciones reales)
   N.gameGravity = p => N[p].g * G_SCALE;
-  N.JUMP_V = 7.2;                            // mismo impulso en todos lados: la altura cambia sólo por la gravedad real
-  N.jumpHeight = p => (N.JUMP_V * N.JUMP_V) / (2 * N.gameGravity(p)) / G_SCALE * 1; // metros "de juego"
+  N.JUMP_V = 3.55;                           // mismo impulso en todos lados: la altura cambia sólo por la gravedad real (Tierra 0,46 m · Marte 1,2 m · Luna 2,8 m)
+  N.jumpHeight = p => (N.JUMP_V * N.JUMP_V) / (2 * N.gameGravity(p)); // metros "de juego"
   N.solarFactor = p => p === 'mars' ? N.mars.irradiance / N.moon.irradiance : p === 'earth' ? 0.73 : 1; // Tierra: aprox. tras la atmósfera
   N.dayMinutes = p => p === 'mars' ? N.mars.dayHours * 60 : 1440;
   N.perHour = { o2: N.crew.o2 / 24, water: (N.crew.drink + N.crew.hygiene) / 24, food: N.crew.food / 24 };
@@ -4108,6 +4140,9 @@ window.JSM = window.JSM || {};
 
   /* Tabla que muestra el panel «Ciencia» del juego: dato → dónde se usa → fuente */
   N.TABLE = [
+    { k: __t('Base lunar: Polo Sur'), v: __t('Cresta Shackleton'), use: __t('En el Polo Sur el Sol da casi siempre, pero rasante; en modo Cadete hay unas 19 h de luz y 5 h de eclipse al día de juego.'), src: 'moonFact' },
+    { k: __t('Cráteres en sombra permanente'), v: __t('−233 °C (40 K)'), use: __t('Donde está el hielo hace tanto frío que el traje gasta más oxígeno y calefacción.'), src: 'moonFact' },
+    { k: __t('Calefacción de un módulo'), v: __t('0,008 kW por cada °C bajo 20 °C'), use: __t('Cada módulo presurizado gasta energía para mantener 20 °C; con regolito encima gasta un 40 % menos.'), src: 'moonFact' },
     { k: __t('Gravedad de la Luna'), v: __live(() => f(N.moon.g, 2) + ' m/s²'), use: __t('Física del salto y la caída del astronauta en la Luna.'), src: 'moonFact' },
     { k: __t('Gravedad de Marte'), v: __live(() => f(N.mars.g, 2) + ' m/s²'), use: __t('Física del salto en Marte (2,3 veces más fuerte que en la Luna).'), src: 'marsFact' },
     { k: __t('Gravedad de la Tierra'), v: __live(() => f(N.earth.g, 2) + ' m/s²'), use: __t('Física del salto en el Centro Espacial: el salto más bajo.'), src: 'earthFact' },
@@ -4135,7 +4170,7 @@ window.JSM = window.JSM || {};
 
   D.PLANETS = {
     moon: {
-      id: 'moon', name: __t('Luna'), sub: __t('Colonia Tranquilidad'), gravity: NA.gameGravity('moon'), realG: __live(() => nf(NA.moon.g, 2) + ' m/s²'), jump: NA.JUMP_V,
+      id: 'moon', name: __t('Luna'), sub: __t('Polo Sur · Cresta Shackleton (Artemis)'), gravity: NA.gameGravity('moon'), realG: __live(() => nf(NA.moon.g, 2) + ' m/s²'), jump: NA.JUMP_V,
       color: '#c9ccd6', breathable: false, travelCost: 0,
       ground: [[0.34, 0.34, 0.37], [0.5, 0.5, 0.53], [0.66, 0.66, 0.69]],
       skyDay: [0.01, 0.012, 0.03], skyHorizon: [0.06, 0.07, 0.12], skyNight: [0.0, 0.0, 0.01], horizonNight: [0.02, 0.025, 0.05],
@@ -4187,10 +4222,12 @@ window.JSM = window.JSM || {};
       desc: __t('Ejercicio diario para mantener músculos y huesos fuertes.'), edu: __t('Con poca gravedad los huesos pierden densidad; los astronautas hacen unas 2 horas de ejercicio al día.') },
     lab: { name: __t('Laboratorio'), r: 4.6, cost: { materials: 70, credits: 160 }, power: 3, prod: { research: 1 }, level: 2, pressurized: true, actions: ['research'],
       desc: __t('Genera investigación pasiva y permite investigar activamente.'), edu: __t('La investigación en la Luna estudia la radiación, el regolito y cómo crecen las plantas con baja gravedad.') },
+    fission: { name: __t('Reactor de fisión'), r: 4.4, cost: { materials: 120, credits: 300 }, power: 0, prod: { power: 10 }, level: 3, research: 20, actions: [],
+      desc: __t('Reactor Kilopower: 10 kW constantes, de día y de noche, con polvo o sin él. Necesita 20 de investigación.'), edu: __t('La NASA prueba pequeños reactores de fisión (Kilopower, de 1 a 10 kW) para dar energía continua en la Luna y en Marte, donde la noche dura dos semanas o una tormenta tapa el Sol.') },
     research: { name: __t('Estación de investigación'), r: 3.8, cost: { materials: 60, credits: 150 }, power: 2, prod: { research: 1 }, level: 3, actions: ['soil'],
       desc: __t('Taladro y espectrómetro para analizar muestras de suelo.'), edu: __t('El suelo marciano contiene percloratos, sales tóxicas que deben lavarse antes de usarlo para cultivar.') }
   };
-  D.BUILD_ORDER = ['habitat', 'dorm', 'canteen', 'solar', 'oxygen', 'water', 'greenhouse', 'antenna', 'gym', 'lab', 'research'];
+  D.BUILD_ORDER = ['habitat', 'dorm', 'canteen', 'solar', 'oxygen', 'water', 'greenhouse', 'antenna', 'gym', 'lab', 'research', 'fission'];
   D.POWER_PRIORITY = ['oxygen', 'water', 'habitat', 'greenhouse', 'dorm', 'canteen', 'antenna', 'lab', 'research', 'gym'];
 
   D.COLORS = ['#e9edf5', '#FFB547', '#46E3C6', '#6E9BFF', '#FF7EB6', '#FF5D73', '#B58CFF', '#5EE39A', '#3a4566', '#c9a27a'];
@@ -4646,7 +4683,79 @@ window.JSM = window.JSM || {};
     ]
   };
 
-  return { ROLES, ROLE_ORDER, COOP, MAX_PLAYERS: 10, MIN_PLAYERS: 2, CODE_LEN: 5, CODE_CHARS: 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789', VERSION: 1 };
+  /* ---------- FÍSICA DE SUPERFICIE COMPARTIDA (Fase 1 · métricas realistas) ----------
+   * Funciones puras: las usan el cliente (Sim.tick, mundo 3D) y el servidor (colony.tick) para que Solo y Multijugador coincidan.
+   *  · sunAt      → dirección del Sol y luz disponible según el emplazamiento (Luna: Polo Sur «Cresta Shackleton» o Ecuador).
+   *  · tempC      → temperatura exterior; PSR = cráter en sombra permanente (≈ 40 K, −233 °C, NASA LRO/LCROSS).
+   *  · thermalKw  → calefacción de un módulo presurizado con aislamiento MLI: k · (20 − T_ext).
+   *  · tauFactor  → fracción de luz solar que llega al panel con opacidad de polvo τ (Marte).
+   *  · stormPlan  → próxima tormenta de polvo: τ máximo y duración, según el modo. */
+  const PHYS = (function () {
+    const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+    const SYN = 29.53;                                         // periodo sinódico lunar (días)
+    const hash = n => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+    const smooth = (a, b, v) => { const t = clamp((v - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+    const simOf = s => { const mode = s && s.mode === 'realista' ? 'realista' : 'cadete'; return { mode, site: mode === 'realista' && s && s.site === 'equator' ? 'equator' : 'pole' }; };
+    const ILLUM = 0.92;                                        // luz rasante del Polo Sur: ~92 % de un Sol a pleno ángulo (con 19 h de 24 → 79 % medio)
+    function sunAt(planet, absMin, hourOfDay, s) {
+      const sm = simOf(s);
+      if (planet === 'moon') {
+        if (sm.site === 'equator') {                           // ecuador: 354 h de día y 354 h de noche
+          const a = (absMin / 1440 / SYN) * Math.PI * 2, x = Math.cos(a) * 0.82, y = Math.sin(a), z = 0.38, l = Math.hypot(x, y, z);
+          return { x: x / l, y: y / l, z: z / l, lit: clamp(y / l * 1.4, 0, 1), eclipse: false };
+        }
+        let y, az, lit;
+        const h = ((absMin / 60) % 24 + 24) % 24;
+        if (sm.mode === 'cadete') {                            // ~19 h de luz rasante y ~5 h de eclipse corto cada día de juego
+          const inL = h < 19;
+          lit = inL ? ILLUM * smooth(0, 0.8, h) * smooth(0, 0.8, 19 - h) : 0;
+          y = inL ? 0.06 + 0.26 * Math.sin(Math.PI * h / 19) : -0.12 - 0.1 * Math.sin(Math.PI * (h - 19) / 5);
+          az = h / 24 * Math.PI * 2;
+        } else {                                               // realista: eclipses de 24 a 72 h, uno por ciclo lunar
+          const cyc = Math.floor(absMin / 1440 / SYN), hc = absMin / 60 - cyc * SYN * 24;
+          const st = (3 + hash(cyc) * (SYN - 8)) * 24, len = 24 + hash(cyc + 7) * 48;
+          const ecl = smooth(st - 1, st, hc) * (1 - smooth(st + len, st + len + 1, hc));
+          lit = ILLUM * (1 - ecl);
+          y = 0.12 + 0.07 * Math.sin(absMin / 1440 * 1.3) - ecl * 0.3;
+          az = (absMin / 1440 / SYN) * Math.PI * 2;
+        }
+        const c = Math.sqrt(Math.max(0, 1 - y * y));
+        return { x: Math.cos(az) * c, y, z: Math.sin(az) * c, lit, eclipse: lit < 0.05 };
+      }
+      const a = (hourOfDay - 6) / 24 * Math.PI * 2, x = Math.cos(a) * 0.82, y = Math.sin(a), z = 0.38, l = Math.hypot(x, y, z);
+      return { x: x / l, y: y / l, z: z / l, lit: clamp(y / l * 1.4, 0, 1), eclipse: false };
+    }
+    /* temperatura exterior (°C). daylight 0..1; psr = dentro de un cráter con hielo */
+    function tempC(planet, daylight, s, psr) {
+      const sm = simOf(s);
+      if (planet === 'moon') { if (psr) return -233; return sm.site === 'equator' ? Math.round(-178 + 295 * daylight) : Math.round(-50 + 80 * clamp(daylight / ILLUM, 0, 1)); }
+      if (planet === 'mars') return Math.round(-89 + 58 * daylight);
+      return null;
+    }
+    const K_MLI = 0.008;                                       // kW por °C de diferencia (≈1.6 kW a −178 °C, ≈0.9 kW a −89 °C)
+    function thermalKw(extC, shielded, s) { if (extC == null) return 0; return Math.max(0, 20 - extC) * K_MLI * (shielded ? 0.6 : 1) * (simOf(s).mode === 'realista' ? 1 : 0.5); }
+    function tauFactor(tau) { return tau <= 0.5 ? 1 : clamp(0.02 + 0.98 * Math.exp(-0.8 * (tau - 0.5)), 0.02, 1); }
+    function stormPlan(s, rnd) {
+      rnd = rnd || Math.random;
+      if (simOf(s).mode === 'cadete') return { tau: 2.4 + 0.6 * rnd(), hours: 6 + 12 * rnd(), next: 20 + 30 * rnd() };
+      return rnd() < 0.7 ? { tau: 2 + 2 * rnd(), hours: 12 + 18 * rnd(), next: 40 + 80 * rnd() } : { tau: 8 + 2.8 * rnd(), hours: 72 + 130 * rnd(), next: 40 + 80 * rnd(), global: true };
+    }
+    /* un paso del clima de Marte (horas de juego). W = { tau, stormLeft, nextStorm, storm }; devuelve 'storm' | 'stormEnd' | null */
+    function weatherStep(W, dtH, s, rnd) {
+      let ev = null; if (W.tau == null) W.tau = 0.5;
+      if (W.stormLeft > 0) { W.stormLeft -= dtH; if (W.stormLeft <= 0) { W.nextStorm = stormPlan(s, rnd).next; W.target = 0.5; ev = 'stormEnd'; } }
+      else { W.nextStorm -= dtH; if (W.nextStorm <= 0) { const p = stormPlan(s, rnd); W.stormLeft = p.hours; W.target = p.tau; W.global = !!p.global; ev = 'storm'; } }
+      const tgt = W.stormLeft > 0 ? W.target : 0.5, rate = tgt > W.tau ? 0.45 : 0.25;
+      W.tau += (tgt - W.tau) * (1 - Math.exp(-rate * dtH)); if (Math.abs(W.tau - tgt) < 0.01) W.tau = tgt;
+      W.storm = clamp((W.tau - 0.5) / 2.5, 0, 1);              // 0..1 para el cielo, el polvo y los avisos
+      return ev;
+    }
+    /* polvo sobre un panel (fracción de luz perdida, máx. 35 %): −1.5 %/día en calma, −12 %/día en tormenta (la Luna: −0.5 %/día) */
+    function dustStep(dust, dtH, planet, storm) { const perDay = planet === 'mars' ? 0.015 + 0.105 * storm : 0.005; return clamp((dust || 0) + perDay / 24 * dtH, 0, 0.35); }
+    return { sunAt, tempC, thermalKw, tauFactor, stormPlan, weatherStep, dustStep, simOf, ILLUM, SYN };
+  })();
+
+  return { PHYS, ROLES, ROLE_ORDER, COOP, MAX_PLAYERS: 10, MIN_PLAYERS: 2, CODE_LEN: 5, CODE_CHARS: 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789', VERSION: 1 };
 });
 
 </script>
@@ -4654,12 +4763,13 @@ window.JSM = window.JSM || {};
 (function(){const defs={},cache={};
 const cryptoShim={randomBytes(n){const u=new Uint8Array(n);crypto.getRandomValues(u);return{toString(){return Array.from(u,b=>b.toString(16).padStart(2,'0')).join('')}}}};
 function req(n){n=String(n).replace(/^\.\//,'').replace(/\.js$/,'');if(n==='crypto')return cryptoShim;if(n==='../src/js/02c-shared')return window.JSM_SHARED;if(n==='colony-data.json'||n==='colony-data')return JSON.parse(defs['colony-data.json']);if(!cache[n]){const m={exports:{}};cache[n]=m.exports;defs[n](m,m.exports,req);cache[n]=m.exports}return cache[n]}
-defs['colony-data.json']='{\n "generated": "tools/gen_server_data.js",\n "buildings": {\n  "habitat": {\n   "r": 5.2,\n   "cost": {\n    "materials": 60,\n    "credits": 120\n   },\n   "power": 2,\n   "prod": null,\n   "use": null,\n   "cap": {\n    "oxygen": 30\n   },\n   "level": 1,\n   "pressurized": true\n  },\n  "dorm": {\n   "r": 4.4,\n   "cost": {\n    "materials": 40,\n    "credits": 80\n   },\n   "power": 1,\n   "prod": null,\n   "use": null,\n   "cap": null,\n   "level": 1,\n   "pressurized": true\n  },\n  "canteen": {\n   "r": 4.4,\n   "cost": {\n    "materials": 40,\n    "credits": 80\n   },\n   "power": 1,\n   "prod": null,\n   "use": null,\n   "cap": null,\n   "level": 1,\n   "pressurized": true\n  },\n  "solar": {\n   "r": 2.4,\n   "cost": {\n    "materials": 20,\n    "credits": 40\n   },\n   "power": 0,\n   "prod": {\n    "power": 6\n   },\n   "use": null,\n   "cap": {\n    "power": 40\n   },\n   "level": 1,\n   "pressurized": false\n  },\n  "oxygen": {\n   "r": 3.2,\n   "cost": {\n    "materials": 40,\n    "credits": 100\n   },\n   "power": 3,\n   "prod": {\n    "oxygen": 0.25\n   },\n   "use": {\n    "water": 0.28\n   },\n   "cap": null,\n   "level": 1,\n   "pressurized": false\n  },\n  "water": {\n   "r": 3.6,\n   "cost": {\n    "materials": 45,\n    "credits": 110\n   },\n   "power": 2,\n   "prod": null,\n   "use": null,\n   "cap": {\n    "water": 100\n   },\n   "level": 1,\n   "pressurized": false\n  },\n  "greenhouse": {\n   "r": 5,\n   "cost": {\n    "materials": 50,\n    "credits": 120\n   },\n   "power": 2,\n   "prod": {\n    "food": 0.12,\n    "oxygen": 0.03\n   },\n   "use": {\n    "water": 0.05\n   },\n   "cap": {\n    "food": 40\n   },\n   "level": 1,\n   "pressurized": true\n  },\n  "antenna": {\n   "r": 2.8,\n   "cost": {\n    "materials": 35,\n    "credits": 90\n   },\n   "power": 1,\n   "prod": {\n    "credits": 4\n   },\n   "use": null,\n   "cap": null,\n   "level": 1,\n   "pressurized": false\n  },\n  "gym": {\n   "r": 4.4,\n   "cost": {\n    "materials": 45,\n    "credits": 100\n   },\n   "power": 1,\n   "prod": null,\n   "use": null,\n   "cap": null,\n   "level": 2,\n   "pressurized": true\n  },\n  "lab": {\n   "r": 4.6,\n   "cost": {\n    "materials": 70,\n    "credits": 160\n   },\n   "power": 3,\n   "prod": {\n    "research": 1\n   },\n   "use": null,\n   "cap": null,\n   "level": 2,\n   "pressurized": true\n  },\n  "research": {\n   "r": 3.8,\n   "cost": {\n    "materials": 60,\n    "credits": 150\n   },\n   "power": 2,\n   "prod": {\n    "research": 1\n   },\n   "use": null,\n   "cap": null,\n   "level": 3,\n   "pressurized": false\n  },\n  "warehouse": {\n   "r": 3.8,\n   "cost": {\n    "materials": 50,\n    "credits": 90\n   },\n   "power": 0.5,\n   "prod": null,\n   "use": null,\n   "cap": {\n    "food": 40,\n    "water": 100,\n    "oxygen": 20\n   },\n   "level": 2,\n   "pressurized": false\n  }\n },\n "buildOrder": [\n  "habitat",\n  "dorm",\n  "canteen",\n  "solar",\n  "oxygen",\n  "water",\n  "greenhouse",\n  "antenna",\n  "gym",\n  "lab",\n  "research",\n  "warehouse"\n ],\n "powerPriority": [\n  "oxygen",\n  "water",\n  "habitat",\n  "greenhouse",\n  "dorm",\n  "canteen",\n  "antenna",\n  "lab",\n  "research",\n  "gym",\n  "warehouse"\n ],\n "nasa": {\n  "perHour": {\n   "o2": 0.034999999999999996,\n   "water": 0.09999999999999999,\n   "food": 0.09833333333333333\n  },\n  "waterRecovery": 0.98,\n  "solarFactor": {\n   "moon": 1,\n   "mars": 0.43071271124173405,\n   "earth": 0.73\n  },\n  "dayMinutes": {\n   "moon": 1440,\n   "mars": 1479.582,\n   "earth": 1440\n  }\n },\n "colonyR": 62,\n "gameMinPerSec": 2,\n "baseCaps": {\n  "oxygen": 40,\n  "water": 150,\n  "food": 60,\n  "power": 100,\n  "materials": 9999\n },\n "start": {\n  "credits": 650,\n  "moon": {\n   "oxygen": 30,\n   "water": 120,\n   "food": 40,\n   "power": 70,\n   "materials": 240\n  },\n  "mars": {\n   "oxygen": 28,\n   "water": 100,\n   "food": 35,\n   "power": 60,\n   "materials": 200\n  },\n  "marsBuildings": [\n   {\n    "type": "greenhouse",\n    "x": 14,\n    "z": -12,\n    "rot": 0.4\n   }\n  ]\n }\n}';
+defs['colony-data.json']='{\n "generated": "tools/gen_server_data.js",\n "buildings": {\n  "habitat": {\n   "r": 5.2,\n   "cost": {\n    "materials": 60,\n    "credits": 120\n   },\n   "power": 2,\n   "prod": null,\n   "use": null,\n   "cap": {\n    "oxygen": 30\n   },\n   "level": 1,\n   "research": 0,\n   "pressurized": true\n  },\n  "dorm": {\n   "r": 4.4,\n   "cost": {\n    "materials": 40,\n    "credits": 80\n   },\n   "power": 1,\n   "prod": null,\n   "use": null,\n   "cap": null,\n   "level": 1,\n   "research": 0,\n   "pressurized": true\n  },\n  "canteen": {\n   "r": 4.4,\n   "cost": {\n    "materials": 40,\n    "credits": 80\n   },\n   "power": 1,\n   "prod": null,\n   "use": null,\n   "cap": null,\n   "level": 1,\n   "research": 0,\n   "pressurized": true\n  },\n  "solar": {\n   "r": 2.4,\n   "cost": {\n    "materials": 20,\n    "credits": 40\n   },\n   "power": 0,\n   "prod": {\n    "power": 6\n   },\n   "use": null,\n   "cap": {\n    "power": 40\n   },\n   "level": 1,\n   "research": 0,\n   "pressurized": false\n  },\n  "oxygen": {\n   "r": 3.2,\n   "cost": {\n    "materials": 40,\n    "credits": 100\n   },\n   "power": 3,\n   "prod": {\n    "oxygen": 0.25\n   },\n   "use": {\n    "water": 0.28\n   },\n   "cap": null,\n   "level": 1,\n   "research": 0,\n   "pressurized": false\n  },\n  "water": {\n   "r": 3.6,\n   "cost": {\n    "materials": 45,\n    "credits": 110\n   },\n   "power": 2,\n   "prod": null,\n   "use": null,\n   "cap": {\n    "water": 100\n   },\n   "level": 1,\n   "research": 0,\n   "pressurized": false\n  },\n  "greenhouse": {\n   "r": 5,\n   "cost": {\n    "materials": 50,\n    "credits": 120\n   },\n   "power": 2,\n   "prod": {\n    "food": 0.12,\n    "oxygen": 0.03\n   },\n   "use": {\n    "water": 0.05\n   },\n   "cap": {\n    "food": 40\n   },\n   "level": 1,\n   "research": 0,\n   "pressurized": true\n  },\n  "antenna": {\n   "r": 2.8,\n   "cost": {\n    "materials": 35,\n    "credits": 90\n   },\n   "power": 1,\n   "prod": {\n    "credits": 4\n   },\n   "use": null,\n   "cap": null,\n   "level": 1,\n   "research": 0,\n   "pressurized": false\n  },\n  "gym": {\n   "r": 4.4,\n   "cost": {\n    "materials": 45,\n    "credits": 100\n   },\n   "power": 1,\n   "prod": null,\n   "use": null,\n   "cap": null,\n   "level": 2,\n   "research": 0,\n   "pressurized": true\n  },\n  "lab": {\n   "r": 4.6,\n   "cost": {\n    "materials": 70,\n    "credits": 160\n   },\n   "power": 3,\n   "prod": {\n    "research": 1\n   },\n   "use": null,\n   "cap": null,\n   "level": 2,\n   "research": 0,\n   "pressurized": true\n  },\n  "fission": {\n   "r": 4.4,\n   "cost": {\n    "materials": 120,\n    "credits": 300\n   },\n   "power": 0,\n   "prod": {\n    "power": 10\n   },\n   "use": null,\n   "cap": null,\n   "level": 3,\n   "research": 20,\n   "pressurized": false\n  },\n  "research": {\n   "r": 3.8,\n   "cost": {\n    "materials": 60,\n    "credits": 150\n   },\n   "power": 2,\n   "prod": {\n    "research": 1\n   },\n   "use": null,\n   "cap": null,\n   "level": 3,\n   "research": 0,\n   "pressurized": false\n  },\n  "warehouse": {\n   "r": 3.8,\n   "cost": {\n    "materials": 50,\n    "credits": 90\n   },\n   "power": 0.5,\n   "prod": null,\n   "use": null,\n   "cap": {\n    "food": 40,\n    "water": 100,\n    "oxygen": 20\n   },\n   "level": 2,\n   "pressurized": false\n  }\n },\n "buildOrder": [\n  "habitat",\n  "dorm",\n  "canteen",\n  "solar",\n  "oxygen",\n  "water",\n  "greenhouse",\n  "antenna",\n  "gym",\n  "lab",\n  "research",\n  "fission",\n  "warehouse"\n ],\n "powerPriority": [\n  "oxygen",\n  "water",\n  "habitat",\n  "greenhouse",\n  "dorm",\n  "canteen",\n  "antenna",\n  "lab",\n  "research",\n  "gym",\n  "warehouse"\n ],\n "nasa": {\n  "perHour": {\n   "o2": 0.034999999999999996,\n   "water": 0.09999999999999999,\n   "food": 0.09833333333333333\n  },\n  "waterRecovery": 0.98,\n  "solarFactor": {\n   "moon": 1,\n   "mars": 0.43071271124173405,\n   "earth": 0.73\n  },\n  "dayMinutes": {\n   "moon": 1440,\n   "mars": 1479.582,\n   "earth": 1440\n  }\n },\n "colonyR": 62,\n "gameMinPerSec": 2,\n "baseCaps": {\n  "oxygen": 40,\n  "water": 150,\n  "food": 60,\n  "power": 100,\n  "materials": 9999\n },\n "start": {\n  "credits": 650,\n  "moon": {\n   "oxygen": 30,\n   "water": 120,\n   "food": 40,\n   "power": 70,\n   "materials": 240\n  },\n  "mars": {\n   "oxygen": 28,\n   "water": 100,\n   "food": 35,\n   "power": 60,\n   "materials": 200\n  },\n  "marsBuildings": [\n   {\n    "type": "greenhouse",\n    "x": 14,\n    "z": -12,\n    "rot": 0.4\n   }\n  ]\n }\n}';
 defs['colony']=function(module,exports,require){'use strict';
 /* Simulación de la colonia compartida (versión del servidor). Usa las MISMAS tablas del juego (colony-data.json, generado por
  * tools/gen_server_data.js) y repite las reglas de Sim.tick de src/js/06-sim.js: energía, agua, oxígeno, alimentos, créditos,
  * investigación, tormentas de Marte y averías. No hay gráficos ni terreno: el servidor valida recursos, posiciones y radios. */
 const DATA = require('./colony-data.json');
+const PH = require('../src/js/02c-shared').PHYS;      // física de superficie compartida con el cliente (Sol, temperatura, calefacción, polvo τ)
 const B = DATA.buildings;
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const MAXLV = 3, MAINT_DAYS = 5;
@@ -4667,7 +4777,7 @@ const MAXLV = 3, MAINT_DAYS = 5;
 function newColony(planet) {
   planet = planet === 'mars' ? 'mars' : 'moon';
   const c = { planet, res: Object.assign({}, DATA.start[planet]), credits: DATA.start.credits, research: 0, time: { day: 1, min: 7 * 60 + 30 }, buildings: [], bver: 1, seq: 1,
-    weather: { storm: 0, stormLeft: 0, nextStorm: 18 }, flow: {}, noWater: {}, powered: {}, alerts: [], stats: { built: 0, repaired: 0, upgrades: 0, maint: 0 } };
+    weather: { storm: 0, tau: 0.5, stormLeft: 0, nextStorm: 18 }, sim: { mode: 'cadete', site: 'pole' }, flow: {}, noWater: {}, powered: {}, alerts: [], stats: { built: 0, repaired: 0, upgrades: 0, maint: 0 } };
   if (planet === 'mars') DATA.start.marsBuildings.forEach(b => addBuilding(c, b.type, b.x, b.z, b.rot, 'base'));
   return c;
 }
@@ -4693,9 +4803,14 @@ function canAfford(c, cost) { return (cost.materials || 0) <= c.res.materials &&
 function pay(c, cost) { c.res.materials -= cost.materials || 0; c.credits -= cost.credits || 0; }
 
 const dayLen = c => DATA.nasa.dayMinutes[c.planet];
+function sunState(c) {                       // Sol de este instante: dirección, luz disponible y temperatura exterior (igual que el mundo 3D del cliente)
+  const hour = c.time.min / dayLen(c) * 24, s = PH.sunAt(c.planet, c.time.day * 1440 + c.time.min, hour, c.sim);
+  const dl = c.planet === 'moon' && PH.simOf(c.sim).site === 'pole' ? s.lit : clamp(s.y * 1.15, 0, 1);
+  return { lit: s.lit, y: s.y, extC: PH.tempC(c.planet, dl, c.sim, false) };
+}
 function sunFactor(c) {
-  const hour = c.time.min / dayLen(c) * 24, a = (hour - 6) / 24 * Math.PI * 2, y = Math.sin(a) / Math.hypot(Math.cos(a) * 0.82, Math.sin(a), 0.38);
-  return clamp(y * 1.4, 0, 1) * (1 - c.weather.storm * 0.7);
+  const s = sunState(c).lit;
+  return c.planet === 'mars' ? s * PH.tauFactor(c.weather.tau != null ? c.weather.tau : 0.5) : s * (1 - c.weather.storm * 0.7);
 }
 
 /* dtMin = minutos de juego; players = cuántas personas viven en la colonia. rnd permite pruebas repetibles. */
@@ -4706,15 +4821,17 @@ function tick(c, dtMin, players, rnd) {
   const dtH = dtMin / 60, r = c.res, cp = caps(c), col = players + 2;           // +2 tripulantes de la base (como los NPC del juego)
   const live = c.buildings.filter(b => !b.broken), events = [];
   // tormentas de Marte
-  if (c.planet === 'mars') {
-    const W = c.weather;
-    if (W.stormLeft > 0) { W.stormLeft -= dtH; W.storm = clamp(W.storm + dtH * 0.6, 0, 1); if (W.stormLeft <= 0) { W.nextStorm = 20 + rnd() * 30; events.push({ k: 'stormEnd' }); } }
-    else { W.storm = clamp(W.storm - dtH * 0.5, 0, 1); W.nextStorm -= dtH; if (W.nextStorm <= 0) { W.stormLeft = 4 + rnd() * 5; events.push({ k: 'storm' }); } }
-  }
-  const sun = sunFactor(c), sf = DATA.nasa.solarFactor[c.planet];
+  if (c.planet === 'mars') { const ev = PH.weatherStep(c.weather, dtH, c.sim, rnd); if (ev) events.push({ k: ev }); }
+  const sun = sunFactor(c), sf = DATA.nasa.solarFactor[c.planet], extC = sunState(c).extC;
   // energía
-  let prod = 1.5, cons = 0;
-  live.forEach(b => { const d = B[b.type]; if (b.type === 'solar') prod += 6 * sun * sf * (1 + bonus(b)); cons += d.power || 0; });
+  let prod = 1.5, cons = 0, thermal = 0;
+  live.forEach(b => {
+    const d = B[b.type];
+    if (b.type === 'solar') { b.dust = PH.dustStep(b.dust, dtH, c.planet, c.weather.storm || 0); prod += 6 * sun * sf * (1 + bonus(b)) * (1 - (b.dust || 0)); }
+    else if (b.type === 'fission') prod += d.prod.power;                       // reactor: no depende del Sol
+    cons += d.power || 0;
+    if (d.pressurized) { const t = PH.thermalKw(extC, b.shielded, c.sim); thermal += t; cons += t; }       // calefacción del módulo (MLI)
+  });
   const net = prod - cons, powered = {};
   if (r.power + net * dtH > 0) { live.forEach(b => powered[b.id] = true); r.power = clamp(r.power + net * dtH, 0, cp.power); }
   else {
@@ -4743,7 +4860,7 @@ function tick(c, dtMin, players, rnd) {
   r.oxygen = clamp(r.oxygen + (oProd - oUse) * dtH, 0, cp.oxygen);
   r.food = clamp(r.food + fProd * dtH, 0, cp.food);
   c.credits += cr * dtH; c.research += rs * dtH;
-  c.flow = { power: net, prod, cons, water: wProd - wUse, oxygen: oProd - oUse, food: fProd, credits: cr, research: rs, sun };
+  c.flow = { power: net, prod, cons, water: wProd - wUse, oxygen: oProd - oUse, food: fProd, credits: cr, research: rs, sun, thermal };
   // averías (doble riesgo si no hay mantenimiento)
   if (T.day > 1 || T.min > 16 * 60) c.buildings.forEach(b => { const k = neglected(c, b) ? 2 : 1; if (!b.broken && rnd() < 0.004 * 0.5 * k * dtH) { b.broken = true; c.bver++; events.push({ k: 'broken', id: b.id, type: b.type }); } });
   // alertas
@@ -4756,7 +4873,7 @@ function tick(c, dtMin, players, rnd) {
 
 function snapshot(c) {
   return { planet: c.planet, res: Object.fromEntries(Object.keys(c.res).map(k => [k, Math.round(c.res[k] * 100) / 100])), caps: caps(c), credits: Math.round(c.credits * 100) / 100, research: Math.round(c.research * 100) / 100,
-    time: { day: c.time.day, min: Math.round(c.time.min * 10) / 10 }, flow: c.flow, weather: { storm: Math.round(c.weather.storm * 100) / 100 }, alerts: c.alerts, bver: c.bver, stats: c.stats };
+    time: { day: c.time.day, min: Math.round(c.time.min * 10) / 10 }, flow: c.flow, weather: { storm: Math.round(c.weather.storm * 100) / 100, tau: Math.round((c.weather.tau != null ? c.weather.tau : 0.5) * 100) / 100 }, alerts: c.alerts, bver: c.bver, stats: c.stats };
 }
 function buildingsOf(c) { return c.buildings.map(b => ({ id: b.id, type: b.type, x: b.x, z: b.z, rot: b.rot, lvl: lvl(b), broken: !!b.broken, powered: c.powered[b.id] !== false, noWater: !!c.noWater[b.id], by: b.by, maint: b.maint })); }
 
@@ -4974,6 +5091,7 @@ class Hub {
     if (!this.reach(ss, x, z)) return this.errTo(ss, 'too_far');
     if (c.buildings.length >= MAX_BUILDINGS) return this.errTo(ss, 'too_many');
     for (const b of c.buildings) if (Math.hypot(x - b.x, z - b.z) < d.r + C.B[b.type].r + 0.6) return this.errTo(ss, 'overlap');
+    if (d.research && c.research < d.research) return this.errTo(ss, 'needs_research');
     const cost = C.buildCost(type); if (!C.canAfford(c, cost)) return this.errTo(ss, 'no_resources', { cost });
     C.pay(c, cost); const b = C.addBuilding(c, type, Math.round(x * 100) / 100, Math.round(z * 100) / 100, rot, ss.id); c.stats.built++; ss.stats.built++;
     this.xp(ss, ss.role === 'engineer' ? 20 : 15);
@@ -5737,6 +5855,15 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
         parts.beacon = add(g, sph(), t.cyanGlow, 0.13, 0.13, 0.13, -2.6, 3.4, 1.5);
         break;
       }
+      case 'fission': {      // Kilopower: núcleo en un cilindro blindado y radiadores en abanico
+        add(g, cyl(20), dark, 4.2, 0.3, 4.2, 0, 0.15, 0);
+        add(g, cyl(16), paint, 1.5, 2.2, 1.5, 0, 1.4, 0);
+        add(g, cyl(16), t.gold, 1.1, 0.35, 1.1, 0, 2.7, 0);
+        for (let i = 0; i < 8; i++) { const a = i / 8 * Math.PI * 2; add(g, box(), metal, 0.05, 2.6, 1.3, Math.cos(a) * 1.5, 3.4, Math.sin(a) * 1.5, { ry: -a + Math.PI / 2, rz: Math.cos(a) * 0.0 }).rotation.x = -0.35; }
+        add(g, cyl(12), metal, 0.5, 1.6, 0.5, 0, 4.4, 0);
+        parts.beacon = add(g, sph(), t.amberGlow, 0.15, 0.15, 0.15, 0, 5.3, 0);
+        break;
+      }
       case 'research': {
         add(g, cyl(8), dark, 3.0, 0.25, 3.0, 0, 0.12, 0);
         for (let i = 0; i < 3; i++) { const a = i / 3 * Math.PI * 2; const l = add(g, cyl(6), paint, 0.1, 4.6, 0.1, Math.cos(a) * 1.0, 2.2, Math.sin(a) * 1.0); l.rotation.z = Math.cos(a) * 0.22; l.rotation.x = -Math.sin(a) * 0.22; }
@@ -6253,7 +6380,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
           const g = new THREE.Group();
           for (let i = 0; i < 6; i++) { const m = new THREE.Mesh(crystalGeo, iceMat); m.scale.set(0.4 + rnd() * 0.5, 0.6 + rnd() * 0.9, 0.4 + rnd() * 0.5); m.position.set((rnd() - 0.5) * 2, 0.3, (rnd() - 0.5) * 2); m.rotation.set(rnd() - 0.5, rnd() * 3, rnd() - 0.5); m.castShadow = true; g.add(m); }
           g.position.set(c.x, world.heightAt(c.x, c.z), c.z); scene.add(g);
-          world.deposits.push({ kind: 'ice', x: c.x, z: c.z, r: 2.4, group: g, alive: true, respawn: 0, name: __t('Hielo de cráter') });
+          (world.psr = world.psr || []).push({ x: c.x, z: c.z, R: c.R }); world.deposits.push({ kind: 'ice', x: c.x, z: c.z, r: 2.4, group: g, alive: true, respawn: 0, name: __t('Hielo de cráter') });
         });
       }
       if (planetId === 'mars') {
@@ -6291,12 +6418,15 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     const cTop = new THREE.Color(), cHor = new THREE.Color();
     world.update = function (dt, hour, focus, camera) {
       world.t += dt;
-      const a = (hour - 6) / 24 * Math.PI * 2;
-      const sd = world.sunDir.set(Math.cos(a) * 0.82, Math.sin(a), 0.38).normalize();
+      const SG = !opts.menu && JSM.Sim && JSM.Sim.g, PH = window.JSM_SHARED && window.JSM_SHARED.PHYS;
+      let sd, lit;
+      if (SG && PH && SG.planet === planetId) { const r = PH.sunAt(planetId, SG.time.day * 1440 + SG.time.min, hour, SG.sim); sd = world.sunDir.set(r.x, r.y, r.z); lit = r.lit; }   // Polo Sur / Ecuador / Marte
+      else { const a = (hour - 6) / 24 * Math.PI * 2; sd = world.sunDir.set(Math.cos(a) * 0.82, Math.sin(a), 0.38).normalize(); lit = U.clamp(sd.y * 1.4, 0, 1); }
+      world.lit = lit;
       const day = U.smooth(-0.12, 0.22, sd.y);
       world.daylight = day;
       const storm = world.storm;
-      world.solarFactor = U.clamp(sd.y * 1.4, 0, 1) * (1 - storm * 0.7);
+      world.solarFactor = lit * (planetId === 'mars' && PH ? PH.tauFactor(SG && SG.weather && SG.weather.tau != null ? SG.weather.tau : 0.5 + storm * 2.5) : 1 - storm * 0.7);   // el polvo (τ) tapa el Sol
       sun.intensity = P.sunI * U.smooth(-0.05, 0.15, sd.y) * (1 - storm * 0.55);
       hemi.intensity = U.lerp(P.ambNight, P.ambDay, day) * (1 - storm * 0.2);
       fill.intensity = 0.12 + (1 - day) * 0.22;
@@ -6386,7 +6516,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
       robiChatHistory: [
         {
           role: "system",
-          content: "Eres Robbie, el robot asistente y entrenador oficial experto tanto en el juego Junior Mission Orión como en los recursos oficiales de entrenamiento de la NASA (Junior Astronaut Mission Trainer en spaceappschallenge.org/2026/challenges/junior-astronaut-mission-trainer/?tab=resources). Conoces el 100% de las funciones, mecánicas y secretos del juego (nave Orión, Luna, Marte, hábitats, invernaderos, agua, energía, tripulación, controles, emergencias) y además integras información científica real de la NASA sobre soporte vital, radiación y exploración espacial. Da respuestas súper resumidas, ultra compactas, en renglones separados, ESTRICTAMENTE SIN ASTERISCOS (*), con tono alegre y emojis (🚀, 🌙, 🤖, ✨)."
+          content: "Eres Robbie, el robot asistente oficial de Junior Mission Orion. Puedes hablar SOLO de estas areas: 1) TODAS las mecanicas, funciones, edificios, recursos, misiones, controles, emergencias, multijugador y secretos del juego Junior Mission Orion (Luna, Marte, Tierra/entrenamiento, habitats, invernaderos, generador de O2, paneles, agua, comida, energia, radiacion, tripulacion, NPCs, construccion, inventario, vuelo Orion, etc.). 2) Los recursos oficiales de https://www.spaceappschallenge.org/2026/challenges/junior-astronaut-mission-trainer/?tab=resources : NASA Open APIs (APOD, Mars Rover Photos, DONKI); DONKI (clima espacial); NASA OSDR; RadLab; Mars Trek; recursos CSA de STEM y comida en la Luna. 3) Espacio exterior y ciencia de la NASA: Sol, Luna, Marte, planetas, estrellas, galaxias, astronautas, cohetes, estaciones espaciales, gravedad, orbita, radiacion espacial, soporte vital, exploracion espacial y datos cientificos publicos de la NASA. REGLAS: Si la pregunta NO tiene relacion con el juego, el espacio, la NASA o esos recursos, responde solo: No puedo ayudarte con eso. Solo se del juego Junior Mission Orion, del espacio exterior y de datos cientificos de la NASA. No inventes datos falsos. Si no sabes un numero exacto, dilo con honestidad y explica la idea de forma simple. No des opiniones politicas ni temas ajenos. Respuestas claras y un poco resumidas, ESTRICTAMENTE SIN ASTERISCOS, tono alegre, con emojis y para publico de 7 a 12 anos. Cuando puedas, conecta el dato del espacio o de la NASA con una mecanica del juego (oxigeno, energia, radiacion, comida, etc.)."
         }
       ],
       colonies: {
@@ -6400,7 +6530,8 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
       timers: { o2Hours: 0 },
       stats: { distance: 0, built: 0, rocksMined: 0, iceMined: 0, waterProduced: 0, foodProduced: 0, harvests: 0, soilCollected: 0, soilAnalyzed: 0, meals: 0, moonJumps: 0, researchTotal: 0, talks: 0 },
       achievements: [], discoveries: [], eduSeen: [], log: [],
-      weather: { storm: 0, stormLeft: 0, nextStorm: 18 }
+      weather: { storm: 0, tau: 0.5, stormLeft: 0, nextStorm: 18 },
+      sim: { mode: 'cadete', site: 'pole' }
     };
     g.npcs.forEach(n => D.NPCS.forEach(o => { if (o.id !== n.id) n.rels[o.id] = 10 + Math.floor(Math.random() * 15); }));
     Sim.activateMission(g, 0);
@@ -6488,11 +6619,14 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     const colonists = Sim.colonists(g);
     const live = col.buildings.filter(b => !b.broken);
     // ---- energía ----
-    let prod = 1.5, cons = 0;
+    let prod = 1.5, cons = 0, thermal = 0;
+    const PH = (window.JSM_SHARED && window.JSM_SHARED.PHYS) || null, W0 = g.weather;
     live.forEach(b => {
       const d = D.BUILDINGS[b.type];
-      if (b.type === 'solar') prod += 6 * env.solar * NA.solarFactor(g.planet) * (b.cleanUntil && b.cleanUntil > Sim.absMin() ? 1.2 : 1);
+      if (b.type === 'solar') { b.dust = PH ? PH.dustStep(b.dust, dtH, g.planet, W0.storm || 0) : 0; prod += 6 * env.solar * NA.solarFactor(g.planet) * (1 - (b.dust || 0)); }
+      else if (b.type === 'fission') prod += d.prod.power;                      // el reactor no depende del Sol ni del polvo
       cons += d.power || 0;
+      if (d.pressurized && PH && env.extC != null) { const t = PH.thermalKw(env.extC, b.shielded, g.sim); thermal += t; cons += t; }     // calefacción del módulo (aislamiento MLI)
     });
     let powered = new Set();
     const net = prod - cons;
@@ -6504,7 +6638,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
       r.power = 0;
     }
     col.buildings.forEach(b => b.powered = powered.has(b));
-    Sim.flow = { power: net, water: 0, oxygen: 0, food: 0, credits: 0, research: 0, prod, cons };
+    Sim.flow = { power: net, water: 0, oxygen: 0, food: 0, credits: 0, research: 0, prod, cons, thermal };
     // ---- agua (kg) · consumo real por persona y reciclaje del 98 % ----
     const crewWater = colonists * NA.perHour.water;
     const recycler = col.buildings.some(b => b.type === 'water' && b.powered && !b.broken);
@@ -6559,10 +6693,9 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     if (env.solar > 0.6 && net > 0 && Sim.countType('solar') >= 3) g.flags.powerSurplus = true;
     // ---- clima (tormentas en Marte) ----
     const W = g.weather;
-    if (g.planet === 'mars') {
-      if (W.stormLeft > 0) { W.stormLeft -= dtH; W.storm = U.clamp(W.storm + dtH * 0.6, 0, 1); if (W.stormLeft <= 0) { W.nextStorm = 20 + Math.random() * 30; JSM.Events.emit('stormEnd'); } }
-      else { W.storm = U.clamp(W.storm - dtH * 0.5, 0, 1); W.nextStorm -= dtH; if (W.nextStorm <= 0) { W.stormLeft = 4 + Math.random() * 5; JSM.Events.emit('storm'); } }
-    } else W.storm = 0;
+    if (g.planet === 'mars' && PH) {                  // opacidad del polvo τ: 0,5 cielo despejado · 2–4 regional · hasta 10,8 global (modo Realista)
+      const ev = PH.weatherStep(W, dtH, g.sim); if (ev === 'storm') JSM.Events.emit('storm'); else if (ev === 'stormEnd') JSM.Events.emit('stormEnd');
+    } else { W.storm = 0; W.tau = 0.5; }
     // ---- alertas ----
     const alerts = [];
     if (!P.breathable && r.oxygen / caps.oxygen < 0.15) alerts.push({ k: 'oxygenLow', t: __t('ALERTA: soporte vital bajo (') + NA.fmt(r.oxygen, 1) + __t(' kg de O₂)'), crit: true });
@@ -6575,6 +6708,12 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     if (crit && !g.flags.emergency) { g.flags.emergency = true; JSM.Events.emit('emergency'); }
     if (!crit && g.flags.emergency) { g.flags.emergency = false; g.flags.survivedEmergency = true; JSM.Events.emit('emergencyEnd'); }
     Sim.alerts = alerts;
+  };
+  /* temperatura exterior ahora mismo (°C) y si el jugador está en un cráter en sombra permanente */
+  Sim.extTemp = function (g, sunY, lit, psr) {
+    const PH = window.JSM_SHARED && window.JSM_SHARED.PHYS; if (!PH) return null;
+    const dl = g.planet === 'moon' && PH.simOf(g.sim).site === 'pole' ? lit : Math.max(0, Math.min(1, sunY * 1.15));
+    return PH.tempC(g.planet, dl, g.sim, psr);
   };
   Sim.absMin = () => Sim.g.time.day * 1440 + Sim.g.time.min;
   Sim.newDay = function () {
@@ -6844,7 +6983,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
           if (A.cost) { if (A.cost.food) col.res.food = Math.max(0, col.res.food - A.cost.food); if (A.cost.water) col.res.water = Math.max(0, col.res.water - A.cost.water); }
           if (A.gain && A.gain.research) { const k = 0.5 * (0.6 + 0.8 * mood.score); g.research += A.gain.research * k; g.stats.researchTotal += A.gain.research * k; }
           if (A.gain && A.gain.food) Sim.give(g, { food: A.gain.food * 0.6 });
-          if (A.clean && src.type === 'solar') src.cleanUntil = Sim.absMin() + 1440;
+          if (A.clean && src.type === 'solar') { src.cleanUntil = Sim.absMin() + 1440; src.dust = 0; }
           AI.cancel(npc); npc.decideT = 1 + Math.random() * 2;
         }
       }
@@ -7023,13 +7162,14 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
       $('.res[data-k="' + k + '"]').classList.toggle('crit', !!crit);
     });
     $('#h-planet').textContent = P.name;
-    const tC = JSM.NASA.tempC(g.planet, JSM.Game.world ? U.clamp(JSM.Game.world.sunDir.y * 1.15, 0, 1) : 1);
+    const tC = g.planet === 'earth' ? null : (JSM.Game.tempNow != null ? JSM.Game.tempNow : JSM.NASA.tempC(g.planet, 1));
     $('#h-day').textContent = Sim.dayWord() + ' ' + g.time.day + (tC !== null ? ' · ' + (tC < 0 ? '−' : '') + Math.abs(tC) + ' °C' : '');
-    $('#h-day').title = __t('Temperatura exterior según la hoja de datos de la NASA');
+    $('#h-day').title = JSM.Game.psrNow ? __t('Cráter en sombra permanente: ≈ −233 °C. El traje gasta más oxígeno.') : __t('Temperatura exterior según la hoja de datos de la NASA');
     $('#h-time').textContent = Sim.clockText();
     const h = Sim.hour(), w = JSM.Game.world;
     const sky = $('#h-sky');
-    if (g.weather.storm > 0.3) { sky.textContent = __t('Tormenta'); sky.className = 'chip bad'; }
+    if (JSM.Game.psrNow) { sky.textContent = __t('Cráter −233 °C'); sky.className = 'chip bad'; }
+    else if (g.weather.storm > 0.3) { sky.textContent = __t('Tormenta'); sky.className = 'chip bad'; }
     else if (w && w.daylight > 0.5) { sky.textContent = __t('Sol ') + Math.round(w.solarFactor * 100) + ' %'; sky.className = 'chip warn'; }
     else { sky.textContent = h > 4 && h < 12 ? __t('Amanecer') : __t('Noche'); sky.className = 'chip'; }
     $('#h-speed').querySelectorAll('button').forEach(b => b.classList.toggle('on', Number(b.dataset.v) === JSM.Game.speed));
@@ -7398,6 +7538,16 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     body.append(el('div', 'label', __t('Dificultad')));
     const md = el('div', 'pills'); [['junior', __t('Junior (fácil)')], ['experto', __t('Experto')]].forEach(([k, t]) => { const b = el('button', 'pill' + ((s.mode || 'junior') === k ? ' on' : ''), t); b.onclick = () => { s.mode = k; JSM.Game.applySettings(); md.querySelectorAll('.pill').forEach(x => x.classList.toggle('on', x === b)); }; md.appendChild(b); });
     row(__t('Modo de juego'), __t('Junior: las necesidades bajan más lento, el traje dura más y casi nada se descompone'), md);
+    if (Sim.g && !(JSM.Net && JSM.Net.inGame)) {          // realismo de la simulación (solo en partidas individuales; el multijugador usa Cadete)
+      const g0 = Sim.g; g0.sim = g0.sim || { mode: 'cadete', site: 'pole' };
+      const rm = el('div', 'pills'), rs = el('div', 'pills');
+      const paint = () => { rm.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.k === g0.sim.mode)); rs.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.k === g0.sim.site)); rsRow.style.display = g0.sim.mode === 'realista' ? '' : 'none'; };
+      [['cadete', __t('Cadete')], ['realista', __t('Artemis realista')]].forEach(([k, t]) => { const b = el('button', 'pill', t); b.dataset.k = k; b.onclick = () => { g0.sim.mode = k; if (k === 'cadete') g0.sim.site = 'pole'; paint(); }; rm.append(b); });
+      [['pole', __t('Polo Sur')], ['equator', __t('Ecuador')]].forEach(([k, t]) => { const b = el('button', 'pill', t); b.dataset.k = k; b.onclick = () => { g0.sim.site = k; paint(); }; rs.append(b); });
+      row(__t('Realismo'), __t('Cadete: eclipses cortos y calefacción a la mitad. Artemis realista: eclipses de 24 a 72 h, tormentas de polvo globales y toda la calefacción'), rm);
+      const rsRow = el('div', 'setting', '<div><b>' + __t('Base lunar') + '</b><small>' + __t('Polo Sur: Sol rasante casi siempre · Ecuador: 354 h de día y 354 h de noche') + '</small></div>'); rsRow.append(rs); body.append(rsRow);
+      paint();
+    }
     body.append(el('div', 'label', __t('Gráficos')));
     const q = el('div', 'pills'); ['baja', 'media', 'alta'].forEach(k => { const b = el('button', 'pill' + (s.quality === k ? ' on' : ''), ({ baja: __t('Baja'), media: __t('Media'), alta: __t('Alta') })[k]); b.onclick = () => { s.quality = k; JSM.Game.applySettings(); q.querySelectorAll('.pill').forEach(x => x.classList.toggle('on', x === b)); }; q.append(b); });
     row(__t('Calidad'), __t('Resolución interna y tamaño de las sombras'), q);
@@ -7585,9 +7735,9 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     const cat = UI.el('div', 'cat');
     D.BUILD_ORDER.forEach(type => {
       const def = D.BUILDINGS[type], cost = Sim.cost(g, type);
-      const locked = g.player.level < def.level, afford = Sim.canAfford(g, cost);
+      const locked = g.player.level < def.level || !!(def.research && g.research < def.research), afford = Sim.canAfford(g, cost);
       const b = UI.el('button', 'bcard' + (B.type === type ? ' on' : ''));
-      b.innerHTML = '<b>' + def.name + '</b><small class="num" style="color:' + (afford ? 'var(--muted)' : 'var(--danger)') + '">' + cost.materials + __t(' mat · ') + cost.credits + ' cr</small><small>' + (locked ? __t('Nivel ') + def.level : (def.prod && def.prod.power ? __t('+6 kW de día') : (def.power ? '−' + def.power + ' kW' : ''))) + '</small>';
+      b.innerHTML = '<b>' + def.name + '</b><small class="num" style="color:' + (afford ? 'var(--muted)' : 'var(--danger)') + '">' + cost.materials + __t(' mat · ') + cost.credits + ' cr</small><small>' + (locked ? (g.player.level < def.level ? __t('Nivel ') + def.level : __t('Investigación ') + def.research) : (def.prod && def.prod.power ? __t('+6 kW de día') : (def.power ? '−' + def.power + ' kW' : ''))) + '</small>';
       b.title = def.desc;
       b.disabled = locked;
       b.onclick = () => { if (!afford) { UI.toast(__t('Faltan recursos para ') + def.name + ': ' + cost.materials + __t(' materiales y ') + cost.credits + __t(' créditos.'), 'bad'); JSM.Audio.sfx('error'); return; } B.pick(type); };
@@ -7739,7 +7889,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
 
   const Game = JSM.Game = {
     mode: 'loading', speed: 1, npcs: [], bObjs: {}, pings: [], keys: {}, camMode: 'third', camYaw: 0.6, camPitch: 0.32, camDist: 9,
-    settings: Object.assign({ mode: 'junior', quality: /Mobi|Android/i.test(navigator.userAgent) ? 'media' : 'alta', shadows: true, names: true, master: 0.8, music: 0.5, sfx: 0.7, sens: 1, invertY: false, autosave: true, robbieMode: 'both' }, JSM.Store.get('jsm_settings_v1') || {}),
+    settings: Object.assign({ mode: 'junior', quality: /Mobi|Android/i.test(navigator.userAgent) ? 'media' : 'alta', shadows: true, names: true, master: 0.8, music: 0.5, sfx: 0.7, sens: 1, invertY: false, autosave: true, robbieMode: 'both', curiosMode: 'game' }, JSM.Store.get('jsm_settings_v1') || {}),
     player: { pos: new THREE.Vector3(), vel: new THREE.Vector3(), yaw: 0, onGround: true, astro: null, stepT: 0, lastPos: new THREE.Vector3() },
     action: null, timers: { ui: 0, mission: 0, ach: 0, save: 0, alarm: 0, tags: 0 }
   };
@@ -8400,7 +8550,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     if (A.discover) Sim.discover(A.discover);
     if (A.edu && a.src && a.src.type) UI.eduCard(D.BUILDINGS[a.src.type].name, D.BUILDINGS[a.src.type].edu);
     else if (A.edu && a.id === 'study') { const f = U.pick(D.NPCS.flatMap(n => n.facts)); UI.eduCard(__t('Clase de la Academia'), f); }
-    if (A.clean && a.src) { a.src.cleanUntil = Sim.absMin() + 1440; UI.toast(__t('Panel limpio: +20 % de energía durante un día'), 'good', 'power'); }
+    if (A.clean && a.src) { a.src.cleanUntil = Sim.absMin() + 1440; a.src.dust = 0; UI.toast(__t('Panel limpio: sin polvo, vuelve a rendir al 100 %'), 'good', 'power'); }
     if (a.id === 'sleep') { JSM.Audio.sfx('level'); if (Game.settings.autosave) Game.save(false); }
     if (a.id === 'telescope') UI.eduCard(__t('Observación'), D.DISCOVERIES.telescope.desc);
   };
@@ -8521,6 +8671,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     }
   };
 
+  Game.inPSR = function (x, z) { const w = Game.world; if (!w || !w.psr || Sim.g.planet !== 'moon') return false; return w.psr.some(c => Math.hypot(x - c.x, z - c.z) < c.R * 0.55); };
   Game.update = function (dt) {
     const g = Sim.g, P = Game.player, w = Game.world, planet = D.PLANETS[g.planet];
     const paused = !!UI.modalOpen;
@@ -8528,7 +8679,9 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     if (Game.action && Game.action.A && Game.action.A.timeScale && !paused) speed = Math.max(speed, 1) * Game.action.A.timeScale;
     const dtMin = dt * GAME_MIN_PER_SEC * speed;
     w.storm = g.weather.storm;
-    if (dtMin > 0) Sim.tick(dtMin, { solar: w.solarFactor });
+    const inPSR = Game.inPSR(P.pos.x, P.pos.z), extC = g.planet === 'earth' ? null : Sim.extTemp(g, w.sunDir.y, w.lit, false);
+    Game.psrNow = inPSR; Game.tempNow = g.planet === 'earth' ? null : (inPSR ? -233 : extC);
+    if (dtMin > 0) Sim.tick(dtMin, { solar: w.solarFactor, extC });
     // sincroniza estado visual de edificios
     Object.values(Game.bObjs).forEach(o => {
       const b = o.data;
@@ -8600,8 +8753,8 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     let mx = fx * iz + rx * ix, mz = fz * iz + rz * ix;
     const ml = Math.hypot(mx, mz); if (ml > 1) { mx /= ml; mz /= ml; }
     const lowEnergy = g.player.needs.energy < 10 ? 0.6 : 1;
-    const speedMax = (run ? 8.2 : 4.6) * (Game.padSpeed || 1) * lowEnergy * (planet.id === 'moon' ? 0.92 : 1);
-    const accel = P.onGround ? 14 : 3.5;
+    const speedMax = (run ? 5.0 : 3.0) * (Game.padSpeed || 1) * lowEnergy * (planet.id === 'moon' ? 0.85 : 1);
+    const accel = P.onGround ? 14 : 2.0;
     P.vel.x = U.damp(P.vel.x, mx * speedMax, accel, dt);
     P.vel.z = U.damp(P.vel.z, mz * speedMax, accel, dt);
     // salto
@@ -8646,7 +8799,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     let anim = 'idle';
     if (Game.action) anim = Game.action.real ? Game.realAnim(Game.action) : (Game.action.A.anim || 'work');
     else if (!P.onGround) anim = 'jump';
-    else if (hs > 5.5) anim = 'run';
+    else if (hs > 3.9) anim = 'run';
     else if (hs > 0.5) anim = 'walk';
     else if (Game.talking) anim = 'talk';
     else if (Game.poseA && performance.now() < Game.poseA.until) anim = Game.poseA.a;
@@ -8666,7 +8819,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
       Game.insideAir = inside;
       if (inside && col.res.oxygen > 0) { const add = Math.min(100 - n.oxygen, 30 * dt); n.oxygen += add; col.res.oxygen = Math.max(0, col.res.oxygen - add * 0.004); }
       else if (!paused && Game.speed > 0) {
-        const drain = 0.62 * (g.player.inv.o2tank ? 0.5 : 1) * (g.player.look.suit === 'explorer' ? 0.8 : 1) * (Sim.easy ? 0.55 : 1);
+        const drain = 0.62 * (Game.psrNow ? 1.35 : 1) * (g.player.inv.o2tank ? 0.5 : 1) * (g.player.look.suit === 'explorer' ? 0.8 : 1) * (Sim.easy ? 0.55 : 1);
         n.oxygen = Math.max(0, n.oxygen - drain * dt);
         if (n.oxygen < 30) UI.edu('suitO2');
         if (n.oxygen < 30 && !Game.o2warn) { Game.o2warn = true; UI.toast(__t('Oxígeno del traje bajo: vuelve a un módulo presurizado'), 'bad', 'oxygen'); JSM.Audio.sfx('alarm'); }
@@ -10633,7 +10786,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     }
     I.sy = (I.sy || 0) + ((I.seat ? I.seat.y : 0) - (I.sy || 0)) * (1 - Math.exp(-12 * dt));
     const grp = P.astro.group; grp.position.set(I.x, I.sy, I.z); grp.rotation.y = I.yaw;
-    let anim = 'idle'; if (G.action) { anim = G.action.real ? G.realAnim(G.action) : (G.action.A.anim || 'work'); if (anim === 'sit' && !I.seat) anim = 'work'; } else if (hs > 4) anim = 'run'; else if (hs > 0.4) anim = 'walk'; anim = G.idleLook(anim, dt);
+    let anim = 'idle'; if (G.action) { anim = G.action.real ? G.realAnim(G.action) : (G.action.A.anim || 'work'); if (anim === 'sit' && !I.seat) anim = 'work'; } else if (hs > 3.9) anim = 'run'; else if (hs > 0.4) anim = 'walk'; anim = G.idleLook(anim, dt);
     P.astro.setMood(Sim.mood(g.player.needs).score); P.astro.animate(dt, anim, anim === 'walk' ? hs / 3.2 : anim === 'run' ? hs / 5.2 : 1);
     R.anim.forEach(f => f(dt, I.t));
     // puntos de interés
@@ -12691,7 +12844,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
       if (b.broken) return;
       const x = bonus(b);
       if (x && b.powered !== false) {
-        if (b.type === 'solar') { const e = 6 * (env && env.solar || 0) * NA.solarFactor(g.planet) * x; r.power = U.clamp(r.power + e * dtH, 0, caps.power); f.power = (f.power || 0) + e; f.prod = (f.prod || 0) + e; }
+        if (b.type === 'solar') { const e = 6 * (env && env.solar || 0) * NA.solarFactor(g.planet) * x * (1 - (b.dust || 0)); r.power = U.clamp(r.power + e * dtH, 0, caps.power); f.power = (f.power || 0) + e; f.prod = (f.prod || 0) + e; }
         else if (b.type === 'oxygen' && !b.noWater) { const e = D.BUILDINGS.oxygen.prod.oxygen * x; if (!P.breathable) r.oxygen = U.clamp(r.oxygen + e * dtH, 0, caps.oxygen); f.oxygen = (f.oxygen || 0) + e; }
         else if (b.type === 'greenhouse' && !b.noWater) { const d = D.BUILDINGS.greenhouse.prod; if (!P.breathable) r.oxygen = U.clamp(r.oxygen + d.oxygen * x * dtH, 0, caps.oxygen); r.food = U.clamp(r.food + d.food * x * dtH, 0, caps.food); f.food = (f.food || 0) + d.food * x; g.stats.foodProduced += d.food * x * dtH; }
         else if (b.type === 'antenna') { g.credits += 4 * x * dtH; f.credits = (f.credits || 0) + 4 * x; }
@@ -12843,7 +12996,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
     room_not_found: ['No existe una sala con ese código.', 'No room has that code.'], room_full: ['La sala está llena.', 'The room is full.'], room_started: ['Esa misión ya empezó.', 'That mission already started.'],
     already_in_room: ['Ya estás en una sala.', 'You are already in a room.'], role_taken: ['Ese rol ya lo tiene otra persona.', 'Someone else has that role.'], not_host: ['Solo el anfitrión puede hacer eso.', 'Only the host can do that.'],
     need_players: ['Se necesitan al menos 2 jugadores conectados.', 'At least 2 connected players are needed.'], no_resources: ['Faltan recursos en la colonia compartida.', 'The shared colony lacks resources.'],
-    overlap: ['Ahí ya hay un edificio.', 'There is already a building there.'], out_of_area: ['Fuera del área de la colonia.', 'Outside the colony area.'], too_far: ['Estás muy lejos de ese lugar.', 'You are too far from that spot.'],
+    needs_research: ['Falta investigación para construir eso.', 'More research is needed to build that.'], overlap: ['Ahí ya hay un edificio.', 'There is already a building there.'], out_of_area: ['Fuera del área de la colonia.', 'Outside the colony area.'], too_far: ['Estás muy lejos de ese lugar.', 'You are too far from that spot.'],
     slow_down: ['Más despacio: espera un momento.', 'Slow down: wait a moment.'], not_your_role: ['Ese paso le toca a otro rol.', 'That step belongs to another role.'], invite_expired: ['La invitación ya venció.', 'The invitation expired.'],
     no_player: ['Ese jugador ya no está.', 'That player is gone.'], max_level: ['Ya está al máximo.', 'Already at the maximum.'], is_broken: ['Primero repáralo.', 'Repair it first.'], not_broken: ['No está averiado.', 'It is not broken.'],
     too_many: ['La colonia ya tiene demasiados edificios.', 'The colony has too many buildings.'], coop_running: ['La misión ya está en marcha.', 'The mission is already running.'], not_playing: ['La misión aún no empieza.', 'The mission has not started yet.']
@@ -13310,7 +13463,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
   function applyColony() {
     const g = Sim.g, c = M.last; if (!M.inGame || !g || !g.mp || !c) return;
     const col = Sim.colony(g), r = col.res;
-    Object.keys(c.res).forEach(k => { r[k] = c.res[k]; }); g.credits = c.credits; g.research = c.research; g.time.day = c.time.day; g.time.min = c.time.min; g.weather.storm = c.weather.storm; g.weather.stormLeft = c.weather.storm > 0.05 ? 1 : 0;
+    Object.keys(c.res).forEach(k => { r[k] = c.res[k]; }); g.credits = c.credits; g.research = c.research; g.time.day = c.time.day; g.time.min = c.time.min; g.weather.storm = c.weather.storm; g.weather.tau = c.weather.tau != null ? c.weather.tau : 0.5; g.weather.stormLeft = c.weather.storm > 0.05 ? 1 : 0;
   }
   const BASE_COLOR = '#e9edf5';
   function applyBuildings() {
@@ -13415,7 +13568,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
       const shown = P.astro && P.astro.mode, an = M.pulseAnim() || (shown && M.SHARED_ANIMS[shown] ? shown : null) || (G.action ? 'work' : null) || shown || 'idle', yy = inn ? Math.round((IN.sy || 0) * 100) / 100 : Math.round(P.pos.y * 100) / 100;
       if (inn !== (lastSent.in || null) || Math.hypot(x - lastSent.x, z - lastSent.z) > 0.02 || Math.abs((pyaw || 0) - (lastSent.ry || 0)) > 0.03 || an !== lastSent.a || Math.abs(yy - (lastSent.y || 0)) > 0.03 || Date.now() - lastSent.t > 2000) {
         const sp = Math.hypot(x - lastSent.x, z - lastSent.z) / Math.max(0.03, el_); lastSent = { x, z, t: Date.now(), ry: pyaw, a: an, y: yy, in: inn };
-        send({ t: 'move', x: Math.round(x * 100) / 100, z: Math.round(z * 100) / 100, y: yy, a: an, in: inn || undefined, ry: Math.round(pyaw * 100) / 100, m: sp > 6 ? 'run' : sp > 0.4 ? 'walk' : 'idle' });
+        send({ t: 'move', x: Math.round(x * 100) / 100, z: Math.round(z * 100) / 100, y: yy, a: an, in: inn || undefined, ry: Math.round(pyaw * 100) / 100, m: sp > 3.9 ? 'run' : sp > 0.4 ? 'walk' : 'idle' });
       }
     }
     // reaplicar banderas de avería del servidor (el reloj local no las decide)
@@ -15543,26 +15696,25 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
 })(window.JSM);
 
 
-/* --- Robbie Chat Integration --- */
-const GROQ_API_KEY = (typeof localStorage !== "undefined" && localStorage.getItem("JSM_GROQ_KEY")) || "";
+/* --- Robbie Chat Integration (Groq) --- */
+const GROQ_API_KEY = (typeof localStorage !== "undefined" && localStorage.getItem("JSM_GROQ_KEY")) || "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";
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
 
+const ROBBIE_SYSTEM = "Eres Robbie, el robot asistente oficial de Junior Mission Orion. Puedes hablar SOLO de estas areas: 1) TODAS las mecanicas, funciones, edificios, recursos, misiones, controles, emergencias, multijugador y secretos del juego Junior Mission Orion (Luna, Marte, Tierra/entrenamiento, habitats, invernaderos, generador de O2, paneles, agua, comida, energia, radiacion, tripulacion, NPCs, construccion, inventario, vuelo Orion, etc.). 2) Los recursos oficiales de https://www.spaceappschallenge.org/2026/challenges/junior-astronaut-mission-trainer/?tab=resources : NASA Open APIs (APOD, Mars Rover Photos, DONKI); DONKI (clima espacial); NASA OSDR; RadLab; Mars Trek; recursos CSA de STEM y comida en la Luna. 3) Espacio exterior y ciencia de la NASA: Sol, Luna, Marte, planetas, estrellas, galaxias, astronautas, cohetes, estaciones espaciales, gravedad, orbita, radiacion espacial, soporte vital, exploracion espacial y datos cientificos publicos de la NASA. REGLAS: Si la pregunta NO tiene relacion con el juego, el espacio, la NASA o esos recursos, responde solo: No puedo ayudarte con eso. Solo se del juego Junior Mission Orion, del espacio exterior y de datos cientificos de la NASA. No inventes datos falsos. Si no sabes un numero exacto, dilo con honestidad y explica la idea de forma simple. No des opiniones politicas ni temas ajenos. Respuestas claras y un poco resumidas, ESTRICTAMENTE SIN ASTERISCOS ni markdown (nada de ** ni *). Separa cada idea en un renglon nuevo con salto de linea, tono alegre, con emojis y para publico de 7 a 12 anos. Cuando puedas, conecta el dato del espacio o de la NASA con una mecanica del juego (oxigeno, energia, radiacion, comida, etc.).";
+
 let robiChatHistory = [
-  {
-    role: "system",
-    content: "Eres Robbie, el robot asistente y entrenador oficial experto tanto en el juego Junior Mission Orión como en los recursos oficiales de entrenamiento de la NASA (Junior Astronaut Mission Trainer en spaceappschallenge.org/2026/challenges/junior-astronaut-mission-trainer/?tab=resources). Conoces el 100% de las funciones, mecánicas y secretos del juego (nave Orión, Luna, Marte, hábitats, invernaderos, agua, energía, tripulación, controles, emergencias) y además integras información científica real de la NASA sobre soporte vital, radiación y exploración espacial. Da respuestas súper resumidas, ultra compactas, en renglones separados, ESTRICTAMENTE SIN ASTERISCOS (*), con tono alegre y emojis (🚀, 🌙, 🤖, ✨)."
-  }
+  { role: "system", content: ROBBIE_SYSTEM }
 ];
 
 function renderRobiChatLog() {
   const logEl = document.getElementById('robi-chat-log');
   if (!logEl) return;
-  let html = `<p class="sys"><b>Robbie:</b> ¡Hola, astronauta! Soy Robbie, tu asistente de la misión Orión. Pregúntame sobre soporte vital, energía, radiación o cómo sobrevivir en la Luna y Marte usando los recursos oficiales de la NASA (<a href="https://www.spaceappschallenge.org/2026/challenges/junior-astronaut-mission-trainer/?tab=resources" target="_blank" style="color:var(--mint)">Junior Astronaut Mission Trainer</a>).</p>`;
+  let html = `<p class="sys"><b>Robbie:</b> ¡Hola, astronauta! Soy Robbie 🤖 Solo sé de Junior Mission Orión (mecánicas del juego) y de los recursos oficiales de NASA Space Apps. Pregúntame sobre oxígeno, energía, hábitats, radiación, DONKI, OSDR, Mars Trek o cómo jugar.</p>`;
   robiChatHistory.forEach(msg => {
     if (msg.role === 'user') {
-      html += `<p><b>Tú:</b> ${msg.content.replace(/</g, "&lt;")}</p>`;
+      html += `<p><b>Tú:</b> ${String(msg.content).replace(/</g, "&lt;")}</p>`;
     } else if (msg.role === 'assistant') {
-      html += `<p><b>Robbie:</b> ${msg.content.replace(/</g, "&lt;")}</p>`;
+      html += `<p><b>Robbie:</b> ${String(msg.content).replace(/</g, "&lt;")}</p>`;
     }
   });
   logEl.innerHTML = html;
@@ -15580,7 +15732,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeBtn = document.getElementById('close-robi-chat');
   if (closeBtn) {
     closeBtn.addEventListener('click', () => {
-      document.getElementById('modal-robi-chat').classList.add('hidden');
+      const m = document.getElementById('modal-robi-chat');
+      if (m) m.classList.add('hidden');
     });
   }
 
@@ -15603,12 +15756,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  
   if (sendBtn && inputEl) {
     const sendQuery = async () => {
       const userText = inputEl.value.trim();
       const logEl = document.getElementById('robi-chat-log');
-      if (!userText) return;
+      if (!userText || !logEl) return;
 
       logEl.innerHTML += `<p><b>Tú:</b> ${userText.replace(/</g, "&lt;")}</p>`;
       inputEl.value = '';
@@ -15620,26 +15772,46 @@ document.addEventListener('DOMContentLoaded', () => {
       logEl.scrollTop = logEl.scrollHeight;
 
       try {
+        if (!GROQ_API_KEY) {
+          throw new Error('Falta API Key de Groq');
+        }
         const response = await fetch(GROQ_API_URL, {
           method: "POST",
           headers: {
-            "Authorization": `Bearer ${GROQ_API_KEY}`,
+            "Authorization": "Bearer " + GROQ_API_KEY,
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
             model: "openai/gpt-oss-120b",
             messages: robiChatHistory,
             temperature: 0.7,
-            max_tokens: 500
+            max_tokens: 2048
           })
         });
         const data = await response.json();
         const loadingElem = document.getElementById(loadingId);
         if (loadingElem) loadingElem.remove();
 
-        if (response.ok && data.choices && data.choices.length > 0) {
-          const botReply = data.choices[0].message.content;
-          logEl.innerHTML += `<p><b>Robbie:</b> ${botReply.replace(/</g, "&lt;")}</p>`;
+        let botReply = '';
+        if (response.ok && data.choices && data.choices[0] && data.choices[0].message) {
+          const msg = data.choices[0].message;
+          botReply = (msg.content || '').trim();
+          // algunos modelos razonan primero; si content viene vacío y hay reasoning corto, no lo usamos como respuesta final
+          if (!botReply && msg.reasoning && data.choices[0].finish_reason === 'stop') {
+            botReply = String(msg.reasoning).trim();
+          }
+        }
+        if (botReply) {
+          // Quitar markdown ** y * ; convertir separadores a saltos de línea legibles
+          botReply = String(botReply)
+            .replace(/\*\*/g, '')
+            .replace(/(^|\n)\s*\*\s+/g, '$1')
+            .replace(/\s*\*\s*/g, ' ')
+            .replace(/[ \t]+\n/g, '\n')
+            .replace(/\n{3,}/g, '\n\n')
+            .trim();
+          const safe = botReply.replace(/</g, "&lt;").replace(/\n/g, '<br>');
+          logEl.innerHTML += `<p><b>Robbie:</b> ${safe}</p>`;
           robiChatHistory.push({ role: "assistant", content: botReply });
           if (robiChatHistory.length > 21) {
             robiChatHistory = [robiChatHistory[0], ...robiChatHistory.slice(-20)];
@@ -15648,15 +15820,15 @@ document.addEventListener('DOMContentLoaded', () => {
             JSM.Sim.g.robiChatHistory = robiChatHistory;
           }
         } else {
-          const errMsg = data.error ? data.error.message : 'Error desconocido de API';
-          console.error("Groq API Error:", errMsg);
-          logEl.innerHTML += `<p class="sys"><b>Robbie:</b> Problema con los sensores (${errMsg}). Verifica la conexión o la API Key.</p>`;
+          const errMsg = (data.error && data.error.message) ? data.error.message : 'Respuesta vacía de Groq';
+          console.error("Groq API Error:", errMsg, data);
+          logEl.innerHTML += `<p class="sys"><b>Robbie:</b> Problema con los sensores (${String(errMsg).replace(/</g, "&lt;")}).</p>`;
         }
       } catch (err) {
         const loadingElem = document.getElementById(loadingId);
         if (loadingElem) loadingElem.remove();
         console.error("Fetch exception:", err);
-        logEl.innerHTML += `<p class="sys"><b>Robbie:</b> Error de red o bloqueo CORS al conectar con la API.</p>`;
+        logEl.innerHTML += `<p class="sys"><b>Robbie:</b> Error de red o bloqueo al conectar con Groq.</p>`;
       }
       logEl.scrollTop = logEl.scrollHeight;
     };
@@ -19950,6 +20122,180 @@ document.addEventListener('DOMContentLoaded', () => {
   /* distancia del jugador al borde del edificio y alcance para «Usar» */
   G.footDist = function (ref, px, pz, kind) { const r = sdf(kind || 'b', ref, px, pz, false); return r ? r.d : null; };
   G.footRange = USE_RANGE;
+})(window.JSM);
+</script>
+
+
+<script>
+/* Datos curiosos (Opciones) + formateo tips */
+(function (JSM) {
+  if (!JSM || !JSM.UI) return;
+  const G = JSM.Game, UI = JSM.UI, D = JSM.Data;
+
+  const REAL_TIPS = [
+    'El Sol es una estrella: una bola de gas caliente que nos da luz y calor.',
+    'La Luna tarda unos 27 dias en dar una vuelta a la Tierra.',
+    'En Marte un dia dura casi lo mismo que en la Tierra: unas 24 horas y media.',
+    'La ISS orbita la Tierra a unos 400 km de altura.',
+    'Sin traje espacial, un astronauta no podria respirar ni protegerse de la radiacion.',
+    'La gravedad en la Luna es unas 6 veces mas debil que en la Tierra.',
+    'La NASA estudia el clima espacial (DONKI) para cuidar a astronautas y satelites.',
+    'Los rayos del Sol tardan unos 8 minutos en llegar a la Tierra.',
+    'Marte tiene el volcan mas grande del Sistema Solar: el Olympus Mons.',
+    'El agua se recicla en las estaciones espaciales casi al maximo posible.'
+  ];
+
+  const GAME_TIPS_FALLBACK = [
+    'Construye un habitat pronto para proteger a tu tripulacion.',
+    'Los paneles solares no producen de noche: guarda energia.',
+    'Si baja el oxigeno, revisa el generador de O2 y el agua.',
+    'Habla con tus companeros: te dan pistas y datos del espacio.',
+    'Pulsa N para ver datos reales de la NASA en el juego.',
+    'En la Luna saltas mucho mas alto que en la Tierra.'
+  ];
+
+  function curiosMode() {
+    const s = (G && G.settings) || {};
+    const m = s.curiosMode || 'game';
+    return (m === 'real' || m === 'robbie' || m === 'game') ? m : 'game';
+  }
+
+  // Cache de tips generados por Robbie
+  const robbieCache = [];
+  async function fetchRobbieTip() {
+    try {
+      const key = (typeof GROQ_API_KEY !== 'undefined' && GROQ_API_KEY) || '';
+      if (!key) return null;
+      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'openai/gpt-oss-120b',
+          messages: [
+            { role: 'system', content: 'Eres Robbie. Inventa UN solo dato curioso corto (max 20 palabras) sobre el espacio o Junior Mission Orion, para ninos de 7-12 anos. Sin asteriscos. Solo el dato, nada mas.' },
+            { role: 'user', content: 'Dame un dato curioso nuevo.' }
+          ],
+          temperature: 0.9,
+          max_tokens: 80
+        })
+      });
+      const data = await res.json();
+      const t = data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
+      if (t) {
+        const clean = String(t).replace(/\*\*/g, '').replace(/\*/g, '').trim();
+        if (clean) { robbieCache.push(clean); if (robbieCache.length > 12) robbieCache.shift(); return clean; }
+      }
+    } catch (e) { console.warn('robbie tip', e); }
+    return null;
+  }
+
+  // API publica para tips
+  JSM.pickCuriosTip = function () {
+    const mode = curiosMode();
+    if (mode === 'real') {
+      return REAL_TIPS[Math.floor(Math.random() * REAL_TIPS.length)];
+    }
+    if (mode === 'robbie') {
+      if (robbieCache.length) return robbieCache[Math.floor(Math.random() * robbieCache.length)];
+      // pedir uno en background para la proxima
+      fetchRobbieTip();
+      return GAME_TIPS_FALLBACK[Math.floor(Math.random() * GAME_TIPS_FALLBACK.length)];
+    }
+    // game
+    try {
+      if (D && D.TIPS && D.TIPS.length) return D.TIPS[Math.floor(Math.random() * D.TIPS.length)];
+    } catch (e) {}
+    return GAME_TIPS_FALLBACK[Math.floor(Math.random() * GAME_TIPS_FALLBACK.length)];
+  };
+
+  // Precargar tips robbie si el modo es robbie
+  function warmRobbie() {
+    if (curiosMode() === 'robbie' && robbieCache.length < 3) {
+      fetchRobbieTip().then(() => { if (robbieCache.length < 3) fetchRobbieTip(); });
+    }
+  }
+  setTimeout(warmRobbie, 2000);
+
+  // Hook openOptions: seccion Datos curiosos
+  const prev = UI.openOptions;
+  UI.openOptions = function () {
+    const r = prev.apply(this, arguments);
+    try {
+      const mo = UI.modalOpen;
+      if (!mo || !mo.m) return r;
+      const body = mo.m.querySelector('.body');
+      if (!body || body.querySelector('[data-curios-section]')) return r;
+      const s = G.settings || {};
+      if (!s.curiosMode) s.curiosMode = 'game';
+
+      const lab = document.createElement('div');
+      lab.className = 'label';
+      lab.setAttribute('data-curios-section', '1');
+      lab.textContent = 'Datos curiosos';
+
+      const row = document.createElement('div');
+      row.className = 'setting';
+      row.innerHTML = '<div><b>Datos curiosos</b><small>Elige de que tratan los consejos y datos que muestra Robbie y el juego.</small></div>';
+      const pills = document.createElement('div');
+      pills.className = 'pills';
+      const opts = [
+        ['game', 'Solo Junior Mission Orion'],
+        ['real', 'Solo vida real / NASA'],
+        ['robbie', 'Generados por Robbie']
+      ];
+      opts.forEach(([k, label]) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'pill' + (s.curiosMode === k ? ' on' : '');
+        b.textContent = label;
+        b.onclick = () => {
+          s.curiosMode = k;
+          try { G.applySettings && G.applySettings(); } catch (e) {}
+          pills.querySelectorAll('.pill').forEach(x => x.classList.toggle('on', x === b));
+          if (k === 'robbie') warmRobbie();
+        };
+        pills.appendChild(b);
+      });
+      row.appendChild(pills);
+
+      const multi = Array.from(body.querySelectorAll('.label')).find(l => /Multijugador|Multiplayer|Robbie/i.test(l.textContent || ''));
+      if (multi) {
+        body.insertBefore(lab, multi);
+        body.insertBefore(row, multi);
+      } else {
+        body.appendChild(lab);
+        body.appendChild(row);
+      }
+    } catch (e) { console.warn('curios options', e); }
+    return r;
+  };
+
+  // Sustituir tips de carga cuando se muestren
+  try {
+    const tipEl = document.getElementById('load-tip');
+    if (tipEl && /Consejo:/.test(tipEl.innerHTML || '')) {
+      // leave as is on first load; subsequent tips use pickCuriosTip
+    }
+  } catch (e) {}
+
+  // Monkey-patch U.pick for D.TIPS when possible - wrap after load
+  const tryPatch = () => {
+    if (!JSM.U || !JSM.U.pick) return;
+    const orig = JSM.U.pick;
+    if (orig._curios) return;
+    JSM.U.pick = function (arr) {
+      try {
+        if (arr && D && D.TIPS && arr === D.TIPS) {
+          return JSM.pickCuriosTip();
+        }
+      } catch (e) {}
+      return orig.apply(this, arguments);
+    };
+    JSM.U.pick._curios = true;
+  };
+  tryPatch();
+  setTimeout(tryPatch, 1000);
+  setTimeout(tryPatch, 3000);
 })(window.JSM);
 </script>
 

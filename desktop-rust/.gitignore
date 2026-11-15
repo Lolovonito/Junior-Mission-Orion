@@ -1,0 +1,4 @@
+assets/game.html
+target/
+*.exe
+Cargo.lock

@@ -1,0 +1,15 @@
+[package]
+name = "junior-mission-orion"
+version = "29.0.0"
+edition = "2021"
+description = "Junior Mission Orion v29 - Native Desktop Wrapper (WebView2 + Embedded HTML5)"
+
+[dependencies]
+tao = "0.37.2"
+wry = "0.57.2"
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+strip = true

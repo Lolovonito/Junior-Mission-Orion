@@ -1,17 +1,31 @@
 # 🚀 Junior Mission Orión — Los Choyeros Galácticos
 
-![Versión](https://img.shields.io/badge/versi%C3%B3n-v28.0%20Multiplayer%20%26%20Mobile%20Edition-b84dff?style=for-the-badge)
+![Versión](https://img.shields.io/badge/versi%C3%B3n-v29.0%20Robbie%20AI%20%26%20F%C3%ADsica%20Artemis-b84dff?style=for-the-badge)
 ![NASA Space Apps](https://img.shields.io/badge/NASA%20Space%20Apps-Junior%20Astronaut%20Mission%20Trainer-ffb547?style=for-the-badge)
 ![Three.js](https://img.shields.io/badge/Motor%203D-Three.js%20r128%20WebGL-46e3c6?style=for-the-badge)
-![HTML5](https://img.shields.io/badge/Despliegue-Single--File%20HTML5-6fb6ff?style=for-the-badge)
+![HTML5](https://img.shields.io/badge/Despliegue-Single--File%20HTML5%20%2B%20Rust%20.exe-6fb6ff?style=for-the-badge)
 
 **Junior Mission Orión** es un simulador espacial educativo interactivo en 3D desarrollado para el reto **Junior Astronaut Mission Trainer (NASA Space Apps Challenge 2026)** por el equipo **Los Choyeros Galácticos**.
 
-Permite a niñas, niños, jóvenes y entusiastas del espacio personalizar a su astronauta, despegar desde la Tierra en la cápsula **Orión**, navegar hacia el **Polo Sur de la Luna** (y **Marte**), construir una colonia autosustentable con datos científicos reales de la NASA y aprender en todo momento junto a **Robbie**, el ajolote espacial con inteligencia artificial.
+Permite a niñas, niños, jóvenes y entusiastas del espacio personalizar a su astronauta, despegar desde la Tierra en la cápsula **Orión**, navegar hacia el **Polo Sur de la Luna (Cresta Shackleton)** y **Marte**, construir una colonia autosustentable con datos científicos reales de la NASA y aprender en todo momento junto a **Robbie**, el ajolote espacial con inteligencia artificial.
 
 ---
 
-## 🆕 Novedades de la versión `v28.0` (Multijugador + Colisiones SDF + Android Horizontal)
+## 🆕 Novedades de la versión `v29.0` (Robbie AI + Datos Curiosos + Física Realista Fase 1 + App Rust)
+
+1. **🤖 Robbie IA (`RobbieAI` + Tips Dinámicos):**
+   - Chat interactivo conectado a API (`Groq openai/gpt-oss-120b`, configurable con `localStorage.JSM_GROQ_KEY`) y enfocado en las mecánicas de **Junior Mission Orión** y los recursos oficiales de **NASA Space Apps Challenge 2026** (NASA Open APIs, DONKI, OSDR, RadLab, Mars Trek y CSA), con formato legible y modos configurables (`chat`, `both`, `physical`).
+   - Nueva sección **Datos curiosos** en Opciones para elegir entre consejos del juego, datos espaciales reales de la NASA o curiosidades generadas dinámicamente por Robbie.
+2. **🌖 Física de Superficie Realista Compartida (`JSM_SHARED.PHYS` — Solo y Multijugador):**
+   - **Polo Sur Lunar · Cresta Shackleton (Artemis):** Modo **Cadete** (`~19 h` de luz rasante y `~5 h` de eclipse por ciclo) y modo **Artemis realista** (eclipses de `24–72 h` u opción **Ecuador** de `29.53 días`).
+   - **Cráteres en Sombra Permanente (PSR a `−233 °C / 40 K`):** Zonas criogénicas alrededor del hielo que aumentan la demanda térmica y de $\text{O}_2$ del traje (`×1.35`).
+   - **Aislamiento MLI y Reactor Kilopower (`fission`):** Carga de calefacción en módulos presurizados (`0.008 kW/°C` bajo `20 °C`, `−40 %` con regolito) y **Reactor de Fisión Kilopower** (`10 kW` constantes 24/7, requiere `20` de investigación).
+   - **Clima Marciano ($\tau$) y Polvo en Paneles:** Atenuación exponencial por opacidad óptica $\tau$ y acumulación progresiva de polvo limpiable con `clean`.
+   - **Gravedad y Locomoción Calibrada (`G_SCALE = 1.4`, `JUMP_V = 3.55`):** Alturas de salto reales proporcionales (`0.46 m` Tierra, `1.2 m` Marte, `2.8 m` Luna) y caminata/trote calibrados (`3.0 / 5.0 m/s`, `×0.85` lunar).
+3. **🖥️ Lanzador Nativo de Escritorio en Rust ([`desktop-rust/`](./desktop-rust/)):**
+   - Binario nativo para Windows (`.exe` sin ventana de consola, usando **WebView2** mediante `tao` + `wry` y servidor HTTP loopback integrado con persistencia de partidas en `localStorage`).
+
+## ✨ Novedades heredadas de `v28.0` (Multijugador + Colisiones SDF + Android Horizontal)
 
 1. **🤝 Multijugador Cooperativo Sincronizado en Tiempo Real (`v28`):**
    - **Sincronización completa de acciones y animaciones (`ANIMS` + `FX`):** Los jugadores en la misma partida ven en tiempo real cuando un compañero extrae rocas, recolecta hielo lunar o muestras de suelo, repara módulos, investiga, descansa, saluda, observa con el telescopio o usa objetos/habilidades.
@@ -79,8 +93,10 @@ Permite a niñas, niños, jóvenes y entusiastas del espacio personalizar a su a
 
 El proyecto está empaquetado como una aplicación **100% autocontenida (Single-File HTML5)** sin dependencias externas obligatorias para que funcione de inmediato en cualquier navegador moderno, incluso sin servidor complejo:
 
-- [`index.html`](./index.html) — Versión principal lista para abrir en el navegador o servir en web.
-- [`MissionOrion.html`](./MissionOrion.html) / [`Junior_Mission_Orion_Robbie_Final.html`](./Junior_Mission_Orion_Robbie_Final.html) — Copia autocontenida de distribución directa.
+- [`index.html`](./index.html) — Versión principal (`v29.0`) lista para abrir en el navegador o servir en web.
+- [`Junior_Mission_Orion_v29_RobbieAI.html`](./Junior_Mission_Orion_v29_RobbieAI.html) / [`Junior_Mission_Orion_Robbie_Final.html`](./Junior_Mission_Orion_Robbie_Final.html) / [`MissionOrion.html`](./MissionOrion.html) — Copias autocontenidas de distribución directa.
+- [`desktop-rust/`](./desktop-rust/) — Proyecto Rust (`tao` + `wry` WebView2) para compilar el ejecutable nativo `.exe` incrustando el HTML.
+- [`Junior_Mission_Orion_v28_multijugador.html`](./Junior_Mission_Orion_v28_multijugador.html) — Versión anterior archivada (`v28.0`).
 - [`upgrade_robbie_propuesta.py`](./upgrade_robbie_propuesta.py) — Script automatizado de integración de las 6 etapas de Robbie, escenario espacial dinámico y empaquetado de versiones.
 
 ### Cómo ejecutarlo
@@ -89,6 +105,12 @@ El proyecto está empaquetado como una aplicación **100% autocontenida (Single-
    ```bash
    python3 -m http.server 8765
    # Abre http://localhost:8765 en tu navegador
+   ```
+3. **Compilar `.exe` nativo con Rust (desde Linux o Windows):**
+   ```bash
+   cd desktop-rust
+   # Cross-compilación desde Linux con cargo-xwin (CRT estático sin depender de VCRUNTIME140.dll):
+   cargo-xwin build --release --target x86_64-pc-windows-msvc --cross-compiler clang
    ```
 
 ---
