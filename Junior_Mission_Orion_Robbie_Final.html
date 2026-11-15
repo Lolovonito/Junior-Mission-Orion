@@ -11616,7 +11616,7 @@ window.JSM_SERVER={Hub:req('rooms').Hub};})();
   const ROUTES = {
     'earth-moon': { km: 384400, unit: 'km', opts: [{ id: 'fast', days: 3, dv: 3.3 }, { id: 'std', days: 5, dv: 3.1 }, { id: 'eco', days: 120, dv: 2.9, real: 'route.eco.real' }] },
     'earth-mars': { km: 225, unit: 'M', opts: [{ id: 'fast', days: 150, dv: 4.5 }, { id: 'std', days: 260, dv: 3.6, real: 'route.std.mars' }] },
-    'moon-mars': { km: 225, unit: 'M', opts: [{ id: 'fast', days: 150, dv: 4.2 }, { id: 'std', days: 260, dv: 3.3, real: 'route.std.mars' }] }
+    'mars-moon': { km: 225, unit: 'M', opts: [{ id: 'fast', days: 150, dv: 4.2 }, { id: 'std', days: 260, dv: 3.3, real: 'route.std.mars' }] }
   };
   const key = (a, b) => [a, b].sort().join('-');
   const routeOpts = (a, b) => ROUTES[key(a, b)].opts;
