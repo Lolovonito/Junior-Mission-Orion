@@ -13,12 +13,12 @@ Permite a niñas, niños, jóvenes y entusiastas del espacio personalizar a su a
 
 ## 🎬 Tráiler del Proyecto (30 s)
 
-* **Archivo en el repositorio:** [`video/trailer_junior_mission_orion_en_30s.mp4`](./video/trailer_junior_mission_orion_en_30s.mp4) (`5.7 MB`)
-* **Descarga directa (Release `v29.0.2`):** [Descargar `trailer_junior_mission_orion_en_30s.mp4`](https://github.com/Lolovonito/Junior-Mission-Orion/releases/download/v29.0.2/trailer_junior_mission_orion_en_30s.mp4)
+* **Archivo en el repositorio:** [`video/trailer_junior_mission_orion_30s.mp4`](./video/trailer_junior_mission_orion_30s.mp4) (`5.81 MiB`)
+* **Descarga directa (Release `v29.0.3`):** [Descargar `trailer_junior_mission_orion_30s.mp4`](https://github.com/Lolovonito/Junior-Mission-Orion/releases/download/v29.0.3/trailer_junior_mission_orion_30s.mp4)
 
-https://github.com/Lolovonito/Junior-Mission-Orion/releases/download/v29.0.2/trailer_junior_mission_orion_en_30s.mp4
+https://github.com/Lolovonito/Junior-Mission-Orion/releases/download/v29.0.3/trailer_junior_mission_orion_30s.mp4
 
-> **Descargas `v29.0.2`:** [Jugar en línea](https://orionbeta-165b9.web.app/) · [Android `.apk`](https://github.com/Lolovonito/Junior-Mission-Orion/releases/download/v29.0.2/JMO.apk) · [Windows PC `.exe`](https://github.com/Lolovonito/Junior-Mission-Orion/releases/download/v29.0.2/Junior_Mission_Orion_v29_RobbieAI.exe) · [Landing ES](https://junior-mission-orion.web.app/) · [Landing EN](https://junior-mision-orion.web.app/)
+> **Descargas `v29.0.3`:** [Jugar en línea](https://orionbeta-165b9.web.app/) · [Android `.apk`](https://github.com/Lolovonito/Junior-Mission-Orion/releases/download/v29.0.3/JMO.apk) · [Windows PC `.exe`](https://github.com/Lolovonito/Junior-Mission-Orion/releases/download/v29.0.3/Junior_Mission_Orion_v29_RobbieAI.exe) · [Landing ES](https://junior-mission-orion.web.app/) · [Landing EN](https://junior-mision-orion.web.app/)
 
 ---
 
@@ -107,7 +107,7 @@ El proyecto está empaquetado como una aplicación **100% autocontenida (Single-
 - [`index.html`](./index.html) — Versión principal (`v29.0`) lista para abrir en el navegador o servir en web.
 - [`Junior_Mission_Orion_v29_RobbieAI.html`](./Junior_Mission_Orion_v29_RobbieAI.html) / [`Junior_Mission_Orion_Robbie_Final.html`](./Junior_Mission_Orion_Robbie_Final.html) / [`MissionOrion.html`](./MissionOrion.html) — Copias autocontenidas de distribución directa.
 - [`desktop-rust/`](./desktop-rust/) — Proyecto Rust (`tao` + `wry` WebView2) para compilar el ejecutable nativo `.exe` incrustando el HTML.
-- [`video/trailer_junior_mission_orion_en_30s.mp4`](./video/trailer_junior_mission_orion_en_30s.mp4) — Tráiler oficial del proyecto en inglés (`30 s`, MP4).
+- [`video/trailer_junior_mission_orion_30s.mp4`](./video/trailer_junior_mission_orion_30s.mp4) — Tráiler oficial del proyecto (`30 s`, MP4).
 - [`Junior_Mission_Orion_v28_multijugador.html`](./Junior_Mission_Orion_v28_multijugador.html) — Versión anterior archivada (`v28.0`).
 - [`upgrade_robbie_propuesta.py`](./upgrade_robbie_propuesta.py) — Script automatizado de integración de las 6 etapas de Robbie, escenario espacial dinámico y empaquetado de versiones.
 
