@@ -1,0 +1,50 @@
+# Firebase caches y logs
+.firebase/
+**/.firebase/
+firebase-debug.log*
+ui-debug.log*
+
+# Credenciales y llaves sensibles
+*-firebase-adminsdk-*.json
+*.keystore
+*.jks
+*.pem
+.env
+.env.*
+
+# Compilados y copias generadas
+*.exe
+*.apk
+public/
+desktop-rust/target/
+desktop-rust/assets/game.html
+desktop-rust/Cargo.lock
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Bitácoras y scripts temporales de sesiones
+agent-session.jsonl
+build-activity.log
+craft.json
+feed.json
+questions.json
+usage.json
+capture/
+inbox/
+investigation.cany/
+app/
+reference/
+apply_fixes.py
+mp_sync_patch.py
+replace_mp.py
+update_v12_snap.py
+update_v15_k.py
+upgrade_mp_full.py
+upgrade_v11.py
+upgrade_v12.py
+upgrade_v13.py
+upgrade_v14.py
+upgrade_v15.py
+upgrade_v16.py

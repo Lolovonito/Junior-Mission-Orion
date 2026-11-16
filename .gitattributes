@@ -1,0 +1,12 @@
+# Tratar videos, binarios e imágenes como archivos binarios en Git
+*.mp4 binary
+*.mov binary
+*.mkv binary
+*.webm binary
+*.avi binary
+*.apk binary
+*.exe binary
+*.webp binary
+*.jpg binary
+*.jpeg binary
+*.png binary
