@@ -1,0 +1,77 @@
+name: Compilar Junior Mission Orion Blindado (.exe + Web)
+
+on:
+  workflow_dispatch:
+    inputs:
+      enable_license_gate:
+        description: "Activar bloqueo de licencia Ed25519 en el .exe (true/false)"
+        required: false
+        default: "false"
+        type: boolean
+      robbie_proxy_url:
+        description: "URL del Cloudflare Worker de Robbie IA (opcional)"
+        required: false
+        default: ""
+        type: string
+
+jobs:
+  build-shielded-release:
+    runs-on: windows-latest
+    steps:
+      - name: Descargar código fuente
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Configurar Rust (stable MSVC)
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-msvc
+
+      - name: Cache de dependencias Cargo
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: desktop-rust
+
+      - name: Instalar dependencias de blindaje JS
+        run: npm ci
+
+      - name: Blindar build Web y Desktop HTML5
+        env:
+          ORION_AI_PROXY_URL: ${{ inputs.robbie_proxy_url }}
+        run: |
+          if ("$env:ORION_AI_PROXY_URL" -ne "") {
+            node tools/shield-build.mjs --target=web --proxy-url="$env:ORION_AI_PROXY_URL"
+            node tools/shield-build.mjs --target=desktop --proxy-url="$env:ORION_AI_PROXY_URL"
+          } else {
+            node tools/shield-build.mjs --target=web
+            node tools/shield-build.mjs --target=desktop
+          }
+
+      - name: Verificar integridad del blindaje
+        run: npm run shield:verify
+
+      - name: Compilar .exe blindado con bóveda ChaCha20-Poly1305
+        working-directory: desktop-rust
+        run: |
+          if ("${{ inputs.enable_license_gate }}" -eq "true") {
+            cargo build --release --target x86_64-pc-windows-msvc --features license-gate
+          } else {
+            cargo build --release --target x86_64-pc-windows-msvc
+          }
+
+      - name: Preparar carpeta de artefactos
+        run: |
+          New-Item -ItemType Directory -Force -Path release-artifacts | Out-Null
+          Copy-Item "desktop-rust/target/x86_64-pc-windows-msvc/release/junior-mission-orion.exe" "release-artifacts/Junior_Mission_Orion_Protected.exe"
+          Compress-Archive -Path "dist-web/public/*" -DestinationPath "release-artifacts/junior-mission-orion-web-shielded.zip" -Force
+
+      - name: Subir artefactos compilados
+        uses: actions/upload-artifact@v4
+        with:
+          name: junior-mission-orion-shielded
+          path: release-artifacts/
+          retention-days: 14

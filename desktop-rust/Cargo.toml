@@ -1,15 +1,43 @@
 [package]
 name = "junior-mission-orion"
-version = "29.0.0"
+version = "29.0.4"
 edition = "2021"
-description = "Junior Mission Orion v29 - Native Desktop Wrapper (WebView2 + Embedded HTML5)"
+description = "Junior Mission Orion v29 - Lanzador Nativo Blindado (ChaCha20-Poly1305 Vault + WebView2)"
 
 [dependencies]
 tao = "0.37.2"
 wry = "0.57.2"
+chacha20poly1305 = "0.10"
+flate2 = "1.0"
+zeroize = "1.8"
+getrandom = "0.2"
+sha2 = "0.10"
+ed25519-dalek = { version = "2.1", default-features = false, features = ["std"], optional = true }
+base64 = { version = "0.22", optional = true }
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.59", features = [
+  "Win32_Foundation",
+  "Win32_System_Diagnostics_Debug",
+  "Win32_System_Threading",
+  "Win32_System_LibraryLoader",
+  "Win32_System_Registry",
+  "Win32_UI_WindowsAndMessaging",
+] }
+
+[build-dependencies]
+chacha20poly1305 = "0.10"
+flate2 = "1.0"
+getrandom = "0.2"
+sha2 = "0.10"
+
+[features]
+default = []
+license-gate = ["dep:ed25519-dalek", "dep:base64"]
 
 [profile.release]
 opt-level = "s"
 lto = true
 codegen-units = 1
-strip = true
+strip = "symbols"
+panic = "abort"

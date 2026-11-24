@@ -12,13 +12,19 @@ ui-debug.log*
 .env
 .env.*
 
-# Compilados y copias generadas
+# Compilados, distribuciones blindadas y copias generadas
 *.exe
 *.apk
 public/
+dist-web/
 desktop-rust/target/
 desktop-rust/assets/game.html
 desktop-rust/Cargo.lock
+node_modules/
+.wrangler/
+keys/
+*.priv.pem
+license.key
 
 # Python cache
 __pycache__/

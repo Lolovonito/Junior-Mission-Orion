@@ -1,0 +1,19 @@
+{
+  "name": "junior-mission-orion-shield",
+  "version": "29.0.4",
+  "private": true,
+  "type": "module",
+  "description": "Pipeline de blindaje multicapa (Web + Desktop .exe) para Junior Mission Orion",
+  "scripts": {
+    "shield:web": "node tools/shield-build.mjs --target=web",
+    "shield:web:dev": "node tools/shield-build.mjs --target=web --allow-localhost",
+    "shield:desktop": "node tools/shield-build.mjs --target=desktop",
+    "shield:all": "npm run shield:web && npm run shield:desktop",
+    "shield:verify": "node tools/verify-shield.mjs",
+    "license:keygen": "node tools/license-keygen.mjs"
+  },
+  "devDependencies": {
+    "javascript-obfuscator": "^4.1.1",
+    "terser": "^5.36.0"
+  }
+}
