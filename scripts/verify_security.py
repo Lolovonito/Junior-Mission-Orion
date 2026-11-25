@@ -67,14 +67,16 @@ class SecureHandler(http.server.SimpleHTTPRequestHandler):
 def check_repo_secrets_and_html() -> None:
     tracked = subprocess.check_output(["git", "-C", str(ROOT), "ls-files"]).decode("utf-8").splitlines()
     candidates = [ROOT / p for p in tracked] + list((ROOT / "public").glob("*"))
+    gk_pfx = "gsk" + "_"
+    gk_sym = "GROQ_" + "API_KEY"
     for p in candidates:
         if not p.is_file():
             continue
         if p.suffix.lower() in {".mp4", ".webp", ".jpg", ".png", ".apk", ".exe", ".lock"}:
             continue
         data = p.read_text(encoding="utf-8", errors="ignore")
-        assert "gsk_" not in data, f"Secreto 'gsk_' encontrado en {p}"
-        assert "GROQ_API_KEY" not in data, f"Identificador 'GROQ_API_KEY' encontrado en {p}"
+        assert gk_pfx not in data, f"Secreto {gk_pfx} encontrado en {p}"
+        assert gk_sym not in data, f"Identificador {gk_sym} encontrado en {p}"
 
     for html_path in (ROOT / "index.html", ROOT / "public" / "index.html"):
         txt = html_path.read_text(encoding="utf-8")
@@ -236,8 +238,8 @@ def check_exe_binary() -> None:
         b"<script",
         b"OrionV30",
         b"RobbieOfflineBrain",
-        b"gsk_",
-        b"GROQ_API_KEY",
+        b"gsk" + b"_",
+        b"GROQ_" + b"API_KEY",
         b"/home/ada",
         b".pdb",
         b"NtQueryInformationProcess",
