@@ -19,12 +19,17 @@ public/
 desktop-rust/target/
 desktop-rust/assets/game.html
 desktop-rust/Cargo.lock
+.local_src/
 
 # Python cache
 __pycache__/
 *.py[cod]
 
 # Bitácoras y scripts temporales de sesiones
+scripts/exp_bench.py
+scripts/profile_perf.py
+scripts/quick_bench.py
+scripts/test_gameplay.py
 agent-session.jsonl
 build-activity.log
 craft.json

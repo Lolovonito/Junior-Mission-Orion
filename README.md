@@ -1,28 +1,66 @@
 # 🚀 Junior Mission Orión — Los Choyeros Galácticos
 
-![Versión](https://img.shields.io/badge/versi%C3%B3n-v29.0%20Robbie%20AI%20%26%20F%C3%ADsica%20Artemis-b84dff?style=for-the-badge)
+![Versión](https://img.shields.io/badge/versi%C3%B3n-v30.1%20Seguridad%20%2B%20Explorador%20NASA%2FCSA-b84dff?style=for-the-badge)
 ![NASA Space Apps](https://img.shields.io/badge/NASA%20Space%20Apps-Junior%20Astronaut%20Mission%20Trainer-ffb547?style=for-the-badge)
 ![Three.js](https://img.shields.io/badge/Motor%203D-Three.js%20r128%20WebGL-46e3c6?style=for-the-badge)
-![HTML5](https://img.shields.io/badge/Despliegue-Single--File%20HTML5%20%2B%20Rust%20.exe-6fb6ff?style=for-the-badge)
+![HTML5](https://img.shields.io/badge/Despliegue-B%C3%B3veda%20Cifrada%20%2B%20Rust%20.exe-6fb6ff?style=for-the-badge)
 
 **Junior Mission Orión** es un simulador espacial educativo interactivo en 3D desarrollado para el reto **Junior Astronaut Mission Trainer (NASA Space Apps Challenge 2026)** por el equipo **Los Choyeros Galácticos**.
 
-Permite a niñas, niños, jóvenes y entusiastas del espacio personalizar a su astronauta, despegar desde la Tierra en la cápsula **Orión**, navegar hacia el **Polo Sur de la Luna (Cresta Shackleton)** y **Marte**, construir una colonia autosustentable con datos científicos reales de la NASA y aprender en todo momento junto a **Robbie**, el ajolote espacial con inteligencia artificial.
+Permite a niñas, niños (7–12 años), jóvenes y docentes personalizar a su astronauta, despegar desde la Tierra en la cápsula **Orión**, navegar hacia el **Polo Sur de la Luna (Cresta Shackleton)** y **Marte**, construir una colonia autosustentable con datos científicos reales de los recursos oficiales de la NASA y la CSA, y aprender en todo momento junto a **Robbie**, el ajolote espacial con inteligencia artificial (chat en línea + motor 100 % offline verificado).
+
+---
+
+## 🔒 Novedades de Seguridad `v30.1.0` (Protección Anti-Ingeniería Inversa Web + `.exe`)
+
+1. **🛡️ Bóveda Web Cifrada y Autodestructiva (`JSM Web Vault`):**
+   - Eliminación completa de secretos en texto plano del código fuente y compilación mediante [`scripts/build_security.py`](./scripts/build_security.py) (minificación léxica de JS/CSS + compresión **Deflate RFC 1951** + cifrado de flujo **ChaCha20** con clave aleatoria dividida en 4 fragmentos XOR/rotación y verificación de integridad **FNV-1a**).
+   - Ejecución síncrona en memoria y purga inmediata de todos los nodos `<script>` del DOM (`document.scripts.length === 0`), borrado en RAM de buffers temporales (`fill(0)`) y ofuscación de cadenas sensibles en el módulo modular y las páginas de aterrizaje.
+2. **🧱 Escudo Activo en Cliente y Sello de Partidas (`JSM Security Shield`):**
+   - Bloqueo preventivo de menú contextual, arrastre, atajos de inspección (`F12`, `Ctrl+Shift+I/J/C/K`, `Ctrl+U/S/P`), neutralización de salida de consola en producción (`console.log/info/debug/dir/table`) y detector calibrado de herramientas de desarrollo acopladas en escritorio.
+   - Firma criptográfica de integridad **MAC de 64 bits** en `localStorage` (`JSM.Store`) para claves `jsm_save*` que detecta manipulaciones manuales conservando compatibilidad de migración con partidas previas.
+   - Cabeceras HTTP de seguridad estrictas en Firebase Hosting (`Content-Security-Policy`, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy`, `Permissions-Policy`, `Cross-Origin-Opener-Policy`).
+3. **🔐 Ejecutable Nativo Windows Blindado ([`desktop-rust/`](./desktop-rust/)):**
+   - Payload incrustado y cifrado en tiempo de compilación con **ChaCha20 (RFC 8439)** + clave dividida (`SHARE_A` / `SHARE_B`) + **MAC de 256 bits** verificado al servir y limpiado inmediatamente de memoria con escritura volátil (`write_volatile` + `compiler_fence`).
+   - Servidor HTTP loopback (`127.0.0.1`) autenticado mediante token efímero de un solo uso (`__jmo_auth`) que entrega una cookie `HttpOnly; SameSite=Strict` a WebView2 y rechaza conexiones locales externas con `403 Forbidden`.
+   - Bloqueo nativo de WebView2 (`with_devtools(false)`, `with_hotkeys_zoom(false)`, `with_browser_accelerator_keys(false)`, `with_default_context_menus(false)`, filtro estricto de navegación) y mitigaciones PE de Windows (`/DYNAMICBASE`, `/HIGHENTROPYVA`, `/NXCOMPAT`, `/DEBUG:NONE`, remapeo de rutas y `strip = "symbols"`).
+   - Detección anti-debugging nativa en Windows (`IsDebuggerPresent`, `CheckRemoteDebuggerPresent`, resolución dinámica ofuscada de `NtQueryInformationProcess` para `ProcessDebugPort` / `ProcessDebugObjectHandle` e inspección de registros hardware `Dr0..Dr3`).
+
+---
+
+## 🆕 Novedades de la versión `v30.0` (Modo Explorador Infantil + Integración Real de Recursos NASA/CSA)
+
+1. **🌟 Perfil Pedagógico Infantil por Niveles (`Explorador 7–10 años` por defecto · `Cadete 10–12` · `Artemis Avanzado`):**
+   - **HUD simplificado:** En Modo Explorador solo muestra **4 recursos vitales** (Oxígeno, Agua, Comida, Energía) + **Escudo Solar (RadLab/DONKI)** y desbloquea los botones de herramientas de forma progresiva por misión (*scaffolding*).
+   - **3 Pilares de Salud Humana (NASA OSDR):** Sustituye los 7 medidores cotidianos por **Fuerza** (huesos/músculos), **Descanso** (sueño espacial) y **Ánimo/Defensas**.
+   - **Matemáticas accesibles:** Oculta fórmulas universitarias (`Δv = ve·ln(m₀/m₁)`, `cos(θ)`) dentro de un desplegable opcional *«Ver fórmula real NASA (Avanzado / Profes)»*.
+2. **🛰️ Congruencia Real con los 6 Recursos Oficiales de NASA Space Apps 2026 (Híbrido Online + Offline):**
+   - **NASA DONKI:** Tormentas solares reales (en vivo vía `api.nasa.gov/DONKI/FLR` + catálogo histórico real offline) con alerta de 20 s, fase activa y refugio en Hábitat.
+   - **RadLab (OSDR Radiation Dosimetry):** Dosímetro solar real (`mSv/día`) y activación del **blindaje 3D con regolito (`b.shielded`)** que bloquea el **85 %** de radiación en tormentas y ahorra **40 %** de calefacción.
+   - **NASA OSDR:** Mecánicas activas de ejercicio diario en Gimnasio, sueño circadiano en Dormitorio y bienestar nutricional.
+   - **NASA Mars Trek & Moon Trek:** Zonas reales seleccionables (*Cresta Shackleton, Cráter con Hielo, Tubo de Lava, Valles Marineris, Jezero, Gale*) con ventajas y compensaciones reales.
+   - **NASA Open APIs (APOD & Mars Rover Photos):** Galería real en el Diario NASA (`N`) y en el Telescopio, con respaldo verificado sin conexión.
+   - **Agencia Espacial Canadiense (CSA):** Cultivos lunares en el Invernadero (*Lechuga espacial, Rábanos rápidos, Fresas*) y conexión educativa con comunidades remotas en la Tierra.
+3. **🤖 Robbie IA Unificado (Online Intacto + Motor 100 % Offline NASA):**
+   - Conserva intacto el chat IA en línea y suma un **motor offline inteligente (`RobbieOfflineBrain`)** que responde con el estado real de tu colonia y los recursos NASA/CSA cuando no hay internet o el usuario activa el modo *Solo Offline NASA*.
+   - Corrección de contradicciones numéricas (`RES_EDU`, reciclaje de agua ISS unificado al **98 %**) y reactivación de los avisos automáticos de Robbie por eventos del juego.
+4. **🛠️ Flujo Modular + Verificación E2E y Seguridad Automatizada:**
+   - Módulo fuente protegido en [`src/orion_nasa_kids_v30.js`](./src/orion_nasa_kids_v30.js), sincronizador [`scripts/sync_v30.py`](./scripts/sync_v30.py), empaquetador cifrado [`scripts/build_security.py`](./scripts/build_security.py), pruebas E2E en Chromium headless [`scripts/verify_v30.py`](./scripts/verify_v30.py) y auditoría de seguridad [`scripts/verify_security.py`](./scripts/verify_security.py).
 
 ---
 
 ## 🎬 Tráiler del Proyecto (30 s)
 
 * **Archivo en el repositorio:** [`video/trailer_junior_mission_orion_30s.mp4`](./video/trailer_junior_mission_orion_30s.mp4) (`5.81 MiB`)
-* **Descarga directa (Release `v29.0.3`):** [Descargar `trailer_junior_mission_orion_30s.mp4`](https://github.com/Lolovonito/Junior-Mission-Orion/releases/download/v29.0.3/trailer_junior_mission_orion_30s.mp4)
+* **Descarga directa (Release `v30.1.0`):** [Descargar `trailer_junior_mission_orion_30s.mp4`](https://github.com/Lolovonito/Junior-Mission-Orion/releases/download/v30.1.0/trailer_junior_mission_orion_30s.mp4)
 
-https://github.com/Lolovonito/Junior-Mission-Orion/releases/download/v29.0.3/trailer_junior_mission_orion_30s.mp4
+https://github.com/Lolovonito/Junior-Mission-Orion/releases/download/v30.1.0/trailer_junior_mission_orion_30s.mp4
 
-> **Descargas `v29.0.3`:** [Jugar en línea](https://orionbeta-165b9.web.app/) · [Android `.apk`](https://github.com/Lolovonito/Junior-Mission-Orion/releases/download/v29.0.3/JMO.apk) · [Windows PC `.exe`](https://github.com/Lolovonito/Junior-Mission-Orion/releases/download/v29.0.3/Junior_Mission_Orion_v29_RobbieAI.exe) · [Landing ES](https://junior-mission-orion.web.app/) · [Landing EN](https://junior-mision-orion.web.app/)
+> **Descargas `v30.1.0`:** [Jugar en línea](https://orionbeta-165b9.web.app/) · [Android `.apk`](https://github.com/Lolovonito/Junior-Mission-Orion/releases/download/v30.1.0/JMO.apk) · [Windows PC `.exe`](https://github.com/Lolovonito/Junior-Mission-Orion/releases/download/v30.1.0/Junior_Mission_Orion_v30.1_Secure.exe) · [Landing ES](https://junior-mission-orion.web.app/) · [Landing EN](https://junior-mision-orion.web.app/)
 
 ---
 
-## 🆕 Novedades de la versión `v29.0` (Robbie AI + Datos Curiosos + Física Realista Fase 1 + App Rust)
+## 🆕 Novedades heredadas de `v29.0` (Robbie AI + Datos Curiosos + Física Realista Fase 1 + App Rust)
 
 1. **🤖 Robbie IA (`RobbieAI` + Tips Dinámicos):**
    - Chat interactivo conectado a API (`Groq openai/gpt-oss-120b`, configurable con `localStorage.JSM_GROQ_KEY`) y enfocado en las mecánicas de **Junior Mission Orión** y los recursos oficiales de **NASA Space Apps Challenge 2026** (NASA Open APIs, DONKI, OSDR, RadLab, Mars Trek y CSA), con formato legible y modos configurables (`chat`, `both`, `physical`).
@@ -34,7 +72,7 @@ https://github.com/Lolovonito/Junior-Mission-Orion/releases/download/v29.0.3/tra
    - **Clima Marciano ($\tau$) y Polvo en Paneles:** Atenuación exponencial por opacidad óptica $\tau$ y acumulación progresiva de polvo limpiable con `clean`.
    - **Gravedad y Locomoción Calibrada (`G_SCALE = 1.4`, `JUMP_V = 3.55`):** Alturas de salto reales proporcionales (`0.46 m` Tierra, `1.2 m` Marte, `2.8 m` Luna) y caminata/trote calibrados (`3.0 / 5.0 m/s`, `×0.85` lunar).
 3. **🖥️ Lanzador Nativo de Escritorio en Rust ([`desktop-rust/`](./desktop-rust/)):**
-   - Binario nativo para Windows (`.exe` sin ventana de consola, usando **WebView2** mediante `tao` + `wry` y servidor HTTP loopback integrado con persistencia de partidas en `localStorage`).
+   - Binario nativo para Windows (`.exe` sin ventana de consola, usando **WebView2** mediante `tao` + `wry`, bóveda cifrada ChaCha20 y servidor HTTP loopback autenticado con persistencia de partidas en `localStorage`).
 
 ## ✨ Novedades heredadas de `v28.0` (Multijugador + Colisiones SDF + Android Horizontal)
 
@@ -102,14 +140,15 @@ https://github.com/Lolovonito/Junior-Mission-Orion/releases/download/v29.0.3/tra
 
 ## 📦 Estructura del Proyecto y Ejecución
 
-El proyecto está empaquetado como una aplicación **100% autocontenida (Single-File HTML5)** sin dependencias externas obligatorias para que funcione de inmediato en cualquier navegador moderno, incluso sin servidor complejo:
+El proyecto está empaquetado como una aplicación **100 % autocontenida (Single-File HTML5)** protegida mediante bóveda cifrada sin dependencias externas obligatorias:
 
-- [`index.html`](./index.html) — Versión principal (`v29.0`) lista para abrir en el navegador o servir en web.
+- [`index.html`](./index.html) — Versión principal protegida (`v30.1.0`) lista para abrir en el navegador o servir en web.
 - [`Junior_Mission_Orion_v29_RobbieAI.html`](./Junior_Mission_Orion_v29_RobbieAI.html) / [`Junior_Mission_Orion_Robbie_Final.html`](./Junior_Mission_Orion_Robbie_Final.html) / [`MissionOrion.html`](./MissionOrion.html) — Copias autocontenidas de distribución directa.
-- [`desktop-rust/`](./desktop-rust/) — Proyecto Rust (`tao` + `wry` WebView2) para compilar el ejecutable nativo `.exe` incrustando el HTML.
+- [`desktop-rust/`](./desktop-rust/) — Proyecto Rust (`tao` + `wry` WebView2) para compilar el ejecutable nativo `.exe` con bóveda ChaCha20, servidor autenticado y anti-debugging.
+- [`scripts/build_security.py`](./scripts/build_security.py) / [`scripts/verify_security.py`](./scripts/verify_security.py) — Empaquetado anti-ingeniería inversa y auditoría de seguridad Web + `.exe`.
+- [`scripts/sync_v30.py`](./scripts/sync_v30.py) / [`scripts/verify_v30.py`](./scripts/verify_v30.py) — Sincronizador modular y suite de pruebas E2E en Chromium headless.
+- [`web_landing/`](./web_landing/) / [`web_landing_en/`](./web_landing_en/) — Sitios web promocionales (ES / EN) con cabeceras CSP y JS protegido.
 - [`video/trailer_junior_mission_orion_30s.mp4`](./video/trailer_junior_mission_orion_30s.mp4) — Tráiler oficial del proyecto (`30 s`, MP4).
-- [`Junior_Mission_Orion_v28_multijugador.html`](./Junior_Mission_Orion_v28_multijugador.html) — Versión anterior archivada (`v28.0`).
-- [`upgrade_robbie_propuesta.py`](./upgrade_robbie_propuesta.py) — Script automatizado de integración de las 6 etapas de Robbie, escenario espacial dinámico y empaquetado de versiones.
 
 ### Cómo ejecutarlo
 1. **Apertura directa:** Haz doble clic sobre `index.html` o `Junior_Mission_Orion_Robbie_Final.html` para abrirlo directamente en cualquier navegador con soporte WebGL2 (Chrome, Brave, Edge, Firefox, Safari).

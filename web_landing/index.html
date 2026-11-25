@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Junior Mission Orion | NASA Space Apps Challenge 2026</title>
+  <meta name="description"
+    content="Junior Mission Orion: proyecto desarrollado para el NASA Space Apps Challenge 2026. Exploración, tecnología e innovación en equipo.">
+  <meta name="theme-color" content="#030712">
+  <meta property="og:title" content="Junior Mission Orion">
+  <meta property="og:description" content="Proyecto para el NASA Space Apps Challenge 2026.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://junior-mission-orion.web.app/">
+  <meta property="og:image" content="https://junior-mission-orion.web.app/assets/captura-cabina.jpg">
+  <meta property="og:locale" content="es_MX">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Junior Mission Orion">
+  <meta name="twitter:image" content="https://junior-mission-orion.web.app/assets/captura-cabina.jpg">
+  <link rel="canonical" href="https://junior-mission-orion.web.app/">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Event","name":"NASA Space Apps Challenge 2026 — Junior Mission Orion","description":"Build a Junior Astronaut Mission Trainer: simulador de misiones para jóvenes astronautas.","startDate":"2026-11-14","endDate":"2026-11-15","eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","location":{"@type":"Place","name":"Colegio Juan Pablo II","address":{"@type":"PostalAddress","addressLocality":"La Paz","addressRegion":"Baja California Sur","addressCountry":"MX"}}}
+  </script>
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23030712'/%3E%3Cpath d='M8 9l8 4 8-4M10 24l6-11 6 11' stroke='%2338bdf8' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=21">
+</head>
+
+<body>
+  <script>try { if (sessionStorage.getItem("jmo-boot")) document.documentElement.classList.add("no-boot"); } catch (e) { }</script>
+  <div class="boot" id="boot" aria-hidden="true">
+    <div class="boot-inner">
+      <svg class="boot-mark" viewBox="0 0 40 40">
+        <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".5" />
+        <path d="M11 11l9 5 9-5M14 30l6-14 6 14" fill="none" stroke="currentColor" stroke-width="1.8"
+          stroke-linecap="round" stroke-linejoin="round" />
+        <circle cx="11" cy="11" r="2" fill="currentColor" />
+        <circle cx="29" cy="11" r="2" fill="currentColor" />
+        <circle cx="20" cy="16" r="2" fill="#fff" />
+        <circle cx="14" cy="30" r="2" fill="currentColor" />
+        <circle cx="26" cy="30" r="2" fill="currentColor" />
+      </svg>
+      <p class="boot-title">JUNIOR MISSION ORION</p>
+      <p class="boot-sub">Iniciando sistemas de la misión…</p>
+      <div class="boot-bar"><i></i></div>
+    </div>
+  </div>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="nebula" aria-hidden="true">
+    <div class="grid-floor"></div>
+  </div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <header class="site-header" id="header">
+    <nav class="nav container" aria-label="Principal">
+      <a href="#home" class="brand" aria-label="Junior Mission Orion, inicio">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".5" />
+          <path d="M11 11l9 5 9-5M14 30l6-14 6 14" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round" />
+          <circle cx="11" cy="11" r="2" fill="currentColor" />
+          <circle cx="29" cy="11" r="2" fill="currentColor" />
+          <circle cx="20" cy="16" r="2" fill="#fff" />
+          <circle cx="14" cy="30" r="2" fill="currentColor" />
+          <circle cx="26" cy="30" r="2" fill="currentColor" />
+        </svg>
+        <span class="brand-text">JUNIOR <b>MISSION ORION</b></span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#about">Proyecto</a></li>
+        <li><a href="#objectives">Objetivos</a></li>
+        <li><a href="#how">Cómo funciona</a></li>
+        <li><a href="#tech">Tecnología</a></li>
+        <li><a href="#team">Equipo</a></li>
+        <li><a href="#demo">Demo</a></li>
+        <li><a href="#nasa">NASA Space Apps</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow reveal"><span class="dot"></span> NASA Space Apps Challenge 2026</p>
+          <h1 aria-label="Junior Mission Orion"><span class="w" style="--i:0" aria-hidden="true">Junior</span> <span
+              class="w" style="--i:1" aria-hidden="true">Mission</span><br><span class="w" style="--i:2"
+              aria-hidden="true"><span class="grad">Orion</span></span></h1>
+          <p class="lead reveal" style="--d:.2s">
+            <strong>Junior Mission Orion</strong> es una aventura espacial diseñada para despertar la curiosidad de los
+            más pequeños.
+            Explora el universo, descubre sus misterios y aprende sobre la exploración espacial a través de experiencias
+            interactivas.
+            ¡El futuro de la exploración comienza contigo!
+          </p>
+          <p class="rotator reveal" style="--d:.25s" aria-live="off">Hoy exploramos <span class="rot-word"
+              id="rotWord">la Luna</span><span class="caret" aria-hidden="true"></span></p>
+          <div class="hero-actions reveal" style="--d:.3s">
+            <a href="#about" class="btn btn-primary">Explorar Misión</a>
+            <a href="#demo" class="btn btn-ghost">Descubrir Proyecto</a>
+          </div>
+          <dl class="hero-stats reveal" style="--d:.9s">
+            <div><dt>Evento</dt><dd>Space Apps 2026</dd></div>
+            <div><dt>Estado</dt><dd>Prototipo</dd></div>
+            <div><dt>Equipo</dt><dd>6 integrantes</dd></div>
+          </dl>
+        </div>
+
+        <div class="hero-visual reveal" style="--d:.2s" data-parallax="0.06">
+          <!-- Ilustración original: planeta, órbitas y cápsula -->
+          <svg viewBox="0 0 520 520" role="img" aria-label="Ilustración de una cápsula espacial orbitando un planeta">
+            <defs>
+              <radialGradient id="planet" cx="35%" cy="30%" r="80%">
+                <stop offset="0" stop-color="#38bdf8" />
+                <stop offset=".45" stop-color="#1d4ed8" />
+                <stop offset="1" stop-color="#0a1230" />
+              </radialGradient>
+              <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+                <stop offset="0" stop-color="#38bdf8" stop-opacity=".35" />
+                <stop offset="1" stop-color="#38bdf8" stop-opacity="0" />
+              </radialGradient>
+              <linearGradient id="orbit" x1="0" x2="1">
+                <stop offset="0" stop-color="#38bdf8" stop-opacity="0" />
+                <stop offset=".5" stop-color="#7dd3fc" />
+                <stop offset="1" stop-color="#38bdf8" stop-opacity="0" />
+              </linearGradient>
+              <linearGradient id="hull" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#f1f5f9" />
+                <stop offset="1" stop-color="#94a3b8" />
+              </linearGradient>
+            </defs>
+            <circle cx="260" cy="260" r="250" fill="url(#glow)" />
+            <circle cx="260" cy="260" r="150" fill="url(#planet)" />
+            <g opacity=".35" fill="none" stroke="#7dd3fc" stroke-width="1">
+              <ellipse cx="260" cy="260" rx="150" ry="40" />
+              <ellipse cx="260" cy="260" rx="150" ry="95" />
+              <ellipse cx="260" cy="260" rx="40" ry="150" />
+              <ellipse cx="260" cy="260" rx="95" ry="150" />
+            </g>
+            <ellipse class="orbit-ring" cx="260" cy="260" rx="235" ry="80" fill="none" stroke="url(#orbit)"
+              stroke-width="1.5" transform="rotate(-24 260 260)" />
+            <ellipse cx="260" cy="260" rx="200" ry="60" fill="none" stroke="#38bdf8" stroke-opacity=".25"
+              stroke-dasharray="3 7" transform="rotate(-24 260 260)" />
+            <g class="planet-bands" opacity=".5" fill="none" stroke="#7dd3fc" stroke-width="1" stroke-dasharray="2 10">
+              <circle cx="260" cy="260" r="120" />
+              <circle cx="260" cy="260" r="90" />
+            </g>
+            <g transform="rotate(-24 260 260)">
+              <g transform="translate(260 260)">
+                <g class="sat">
+                  <g transform="scale(.8)">
+                    <path d="M-26 8 L-14 -14 L14 -14 L26 8 Z" fill="url(#hull)" />
+                    <rect x="-26" y="8" width="52" height="8" rx="2" fill="#475569" />
+                    <rect x="-42" y="-6" width="14" height="6" fill="#38bdf8" />
+                    <rect x="28" y="-6" width="14" height="6" fill="#38bdf8" />
+                    <circle cx="0" cy="-3" r="4" fill="#0b1226" stroke="#7dd3fc" />
+                  </g>
+                  <animateMotion dur="22s" repeatCount="indefinite"
+                    path="M-235 0 A235 80 0 1 1 235 0 A235 80 0 1 1 -235 0" />
+                </g>
+                <circle r="5" fill="#e2e8f0">
+                  <animateMotion dur="11s" repeatCount="indefinite"
+                    path="M-200 0 A200 60 0 1 0 200 0 A200 60 0 1 0 -200 0" />
+                </circle>
+              </g>
+            </g>
+            <g fill="#fff">
+              <circle cx="70" cy="90" r="2" />
+              <circle cx="450" cy="400" r="1.6" />
+              <circle cx="90" cy="420" r="1.8" />
+              <circle cx="470" cy="80" r="1.4" />
+            </g>
+          </svg>
+          <span class="hud hud-a">ORBIT · 000.00°</span>
+          <span class="hud hud-b">STATUS · NOMINAL</span>
+        </div>
+      </div>
+      <a href="#about" class="scroll-hint" aria-label="Desplazar hacia abajo"><span></span></a>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>EXPLORA</span><i>✦</i><span>DESCUBRE</span><i>✦</i><span>APRENDE</span><i>✦</i><span>LUNA</span><i>✦</i><span>MARTE</span><i>✦</i><span>IMAGINA</span><i>✦</i><span>INSPIRA</span><i>✦</i>
+        <span>EXPLORA</span><i>✦</i><span>DESCUBRE</span><i>✦</i><span>APRENDE</span><i>✦</i><span>LUNA</span><i>✦</i><span>MARTE</span><i>✦</i><span>IMAGINA</span><i>✦</i><span>INSPIRA</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <section class="stats" aria-label="La misión en números">
+      <div class="container stats-grid">
+        <div class="stat reveal"><b data-count="2">0</b><span>Mundos por explorar<br><small>Luna y Marte</small></span></div>
+        <div class="stat reveal" style="--d:.1s"><b data-count="4">0</b><span>Objetivos<br><small>de la misión</small></span></div>
+        <div class="stat reveal" style="--d:.2s"><b data-count="3">0</b><span>Pasos<br><small>de la aventura</small></span></div>
+        <div class="stat reveal" style="--d:.3s"><b data-count="6">0</b><span>Exploradores<br><small>en el equipo</small></span></div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">01 · Sobre el proyecto</p>
+          <h2>¿Qué es <span class="grad">Mission Orion</span>?</h2>
+        </header>
+        <div class="about-grid">
+          <article class="panel reveal">
+            <h3>Descripción</h3>
+            <p>Mission Orion es una experiencia interactiva diseñada para que los niños descubran el fascinante mundo de
+              la exploración espacial. A través de actividades, desafíos y aventuras, podrán aprender sobre el espacio
+              de una manera divertida y emocionante.</p>
+          </article>
+          <article class="panel reveal" style="--d:.1s">
+            <h3>Problema</h3>
+            <p>Muchos niños sienten curiosidad por el universo, pero no siempre cuentan con herramientas interactivas y
+              entretenidas que les permitan descubrir cómo funciona el espacio y cómo se realizan las misiones
+              espaciales.</p>
+          </article>
+          <article class="panel reveal" style="--d:.2s">
+            <h3>Objetivo principal</h3>
+            <p>Despertar la curiosidad científica de los niños mediante una experiencia interactiva que les permita
+              aprender sobre el espacio, descubrir nuevos conocimientos y convertirse en pequeños exploradores
+              espaciales.</p>
+          </article>
+          <article class="panel reveal" style="--d:.3s">
+            <h3>Importancia</h3>
+            <p>La educación espacial puede inspirar a las nuevas generaciones a interesarse por la ciencia, la
+              tecnología, la ingeniería y las matemáticas (STEM), fomentando la creatividad, la imaginación y el
+              pensamiento científico desde pequeños.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- OBJECTIVES -->
+    <section class="section" id="objectives">
+      <svg class="orion" viewBox="0 0 120 120" aria-hidden="true">
+        <g class="orion-lines" fill="none" stroke="currentColor" stroke-width=".7" stroke-linecap="round">
+          <path d="M35 24 L60 12 L84 26" />
+          <path d="M35 24 L48 60" />
+          <path d="M84 26 L72 56" />
+          <path d="M48 60 L60 58 L72 56" />
+          <path d="M48 60 L40 100" />
+          <path d="M72 56 L86 96" />
+        </g>
+        <g class="orion-stars" fill="#fff">
+          <circle cx="35" cy="24" r="3.2" fill="#fdba74" />
+          <circle cx="60" cy="12" r="1.6" />
+          <circle cx="84" cy="26" r="2.2" />
+          <circle cx="48" cy="60" r="2" />
+          <circle cx="60" cy="58" r="2.2" />
+          <circle cx="72" cy="56" r="2" />
+          <circle cx="40" cy="100" r="2" />
+          <circle cx="86" cy="96" r="3" fill="#93c5fd" />
+        </g>
+        <text x="60" y="116" text-anchor="middle" font-size="5" fill="currentColor" letter-spacing="2">O R I Ó N</text>
+      </svg>
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">02 · Mission objectives</p>
+          <h2>Objetivos de la <span class="grad">misión</span></h2>
+          <p class="sub">“Cada misión es una oportunidad para aprender algo nuevo. Nuestro objetivo es transformar la
+            curiosidad de los niños en grandes descubrimientos.”</p>
+        </header>
+        <div class="cards">
+          <article class="card reveal">
+            <svg class="ico" viewBox="0 0 48 48" aria-hidden="true">
+              <circle cx="24" cy="24" r="8" fill="none" />
+              <circle cx="24" cy="24" r="19" fill="none" stroke-dasharray="3 5" />
+              <circle cx="38" cy="12" r="2.5" />
+            </svg>
+            <span class="kicker">Objetivo 01</span>
+            <h3>Explorar la Luna y Marte</h3>
+            <p>Acercar a los niños al mundo espacial mediante una experiencia interactiva llena de descubrimientos.</p>
+          </article>
+          <article class="card reveal" style="--d:.1s">
+            <svg class="ico" viewBox="0 0 48 48" aria-hidden="true">
+              <path d="M24 4c8 6 10 16 6 26H18C14 20 16 10 24 4z" fill="none" />
+              <circle cx="24" cy="17" r="3" />
+              <path d="M18 30l-6 8h8M30 30l6 8h-8" fill="none" />
+            </svg>
+            <span class="kicker">Objetivo 02</span>
+            <h3>Aprender jugando</h3>
+            <p>Enseñar conceptos sobre el espacio, los planetas y la exploración espacial de forma divertida y sencilla.
+            </p>
+          </article>
+          <article class="card reveal" style="--d:.2s">
+            <svg class="ico" viewBox="0 0 48 48" aria-hidden="true">
+              <circle cx="24" cy="24" r="16" fill="none" />
+              <path d="M8 24h32M24 8c-8 9-8 23 0 32M24 8c8 9 8 23 0 32" fill="none" />
+            </svg>
+            <span class="kicker">Objetivo 03</span>
+            <h3>Despertar la curiosidad</h3>
+            <p>Estimular la imaginación, el pensamiento científico y las ganas de descubrir cómo funciona la Luna y
+              Marte.</p>
+          </article>
+          <article class="card reveal" style="--d:.3s">
+            <svg class="ico" viewBox="0 0 48 48" aria-hidden="true">
+              <path d="M6 36l10-12 8 6 10-16 8 8" fill="none" />
+              <path d="M6 42h36" fill="none" />
+              <circle cx="16" cy="24" r="2" />
+              <circle cx="34" cy="14" r="2" />
+            </svg>
+            <span class="kicker">Objetivo 04</span>
+            <h3>Inspirar futuros científicos</h3>
+            <p>Motivar a las nuevas generaciones a interesarse por la ciencia, la tecnología y la investigación
+              espacial.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section" id="how">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">03 · How it works</p>
+          <h2>Cómo <span class="grad">funciona</span></h2>
+          <p class="sub">“Cada gran descubrimiento comienza con una pregunta. En Junior Mission Orion, los niños
+            aprenden, exploran y se convierten en protagonistas de su propia aventura espacial.”</p>
+        </header>
+        <ol class="flow">
+          <li class="flow-step reveal"><span class="num">01</span>
+            <h3>Inicio</h3><span class="kicker">Comienza la aventura</span>
+            <p>El usuario ingresa a Junior Mission Orion y conoce su misión espacial. Se prepara para comenzar a
+              explorar la Luna y Marte.</p>
+          </li>
+          <li class="flow-step reveal" style="--d:.1s"><span class="num">02</span>
+            <h3>Exploración</h3><span class="kicker">Aprende y descubre</span>
+            <p>A través de actividades y experiencias interactivas, los niños exploran conceptos espaciales, descubren
+              información y aprenden mientras avanzan.</p>
+          </li>
+          <li class="flow-step reveal" style="--d:.2s"><span class="num">03</span>
+            <h3>Descubrimiento</h3><span class="kicker">Completa tu misión</span>
+            <p>Los usuarios ponen a prueba lo aprendido, superan los desafíos de la misión y descubren nuevos
+              conocimientos sobre la Luna y Marte.</p>
+          </li>
+        </ol>
+        <div class="shots">
+          <figure class="shot reveal"><img class="zoomable" tabindex="0" role="button"
+              src="assets/captura-lanzamiento.webp"
+              alt="Captura del juego: un astronauta en la plataforma de lanzamiento junto a la nave Orión" width="1366"
+              height="768" loading="lazy">
+            <figcaption>Plataforma de lanzamiento · Tierra</figcaption>
+          </figure>
+          <figure class="shot reveal" style="--d:.1s"><img class="zoomable" tabindex="0" role="button"
+              src="assets/captura-cabina.jpg"
+              alt="Captura del juego: vista desde la cabina de la nave rumbo a la Luna, con la Tierra al fondo"
+              width="1366" height="768" loading="lazy">
+            <figcaption>Rumbo a la Luna</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECHNOLOGY -->
+    <section class="section" id="tech">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">04 · The technology</p>
+          <h2>La <span class="grad">tecnología</span></h2>
+        </header>
+        <div class="tech-grid">
+          <div class="tech-list">
+            <div class="tech reveal"><span class="tech-tag">HTML</span>
+              <div>
+                <h3>Estructura</h3>
+                <p>Marcado semántico del contenido del prototipo.</p>
+              </div>
+            </div>
+            <div class="tech reveal" style="--d:.1s"><span class="tech-tag">CSS</span>
+              <div>
+                <h3>Presentación</h3>
+                <p>Estilos, diseño responsive y animaciones.</p>
+              </div>
+            </div>
+            <div class="tech reveal" style="--d:.2s"><span class="tech-tag">JS</span>
+              <div>
+                <h3>Interacción</h3>
+                <p>Lógica y comportamiento en el navegador.</p>
+              </div>
+            </div>
+          </div>
+          <div class="panel arch reveal" style="--d:.15s">
+            <h3>Arquitectura</h3>
+            <pre class="code" aria-label="Diagrama de arquitectura de Junior Mission Orion">Navegador / Android APK / PC Rust (.exe)
+  └─ Junior Mission Orión (HTML5 + Three.js 3D)
+      ├─ Motor educativo infantil (Modo Explorador / Cadete / Artemis)
+      ├─ Datos NASA/CSA (Open APIs, DONKI, OSDR, RadLab, Mars Trek, CSA)
+      ├─ Simulación de colonias (Luna · Marte · Tierra + Multijugador P2P)
+      └─ Robbie IA (Chat en línea + Motor 100 % Offline NASA)</pre>
+            <p class="note">Aplicación autocontenida con modo híbrido: consulta datos NASA en vivo y funciona 100 % sin conexión en escuelas.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAM -->
+    <section class="section team-section" id="team">
+      <img class="team-photo" src="assets/equipo.webp" alt="" width="1280" height="1120" loading="lazy"
+        aria-hidden="true">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">05 · Team</p>
+          <h2>El <span class="grad">equipo</span></h2>
+        </header>
+        <div class="team-badge reveal">
+          <img src="assets/team-logo.webp"
+            alt="Emblema Los Choyeros Galácticos: un ajolote con lentes en un platillo volador" width="220" height="214"
+            loading="lazy">
+          <div>
+            <p class="eyebrow">Emblema del equipo</p>
+            <h3>Los Choyeros Galácticos</h3>
+            <p>La Paz, Baja California Sur · Equipo creador de Junior Mission Orión y Robbie el ajolote espacial.</p>
+          </div>
+        </div>
+        <div class="team-grid">
+          <article class="member reveal">
+            <div class="avatar" aria-hidden="false"><img src="assets/irvin-valdez.jpg" alt="Irvin Jaziel Valdez Guzman"
+                width="92" height="92" loading="lazy"></div>
+            <h3>Irvin Jaziel Valdez Guzman</h3>
+            <p class="role">Programador de diseños</p>
+            <p>Ayudante en corrección de errores y beta tester.</p>
+          </article>
+          <article class="member reveal" style="--d:.1s">
+            <div class="avatar"><img src="assets/dana-flores.jpg" alt="Dana Paola Flores Ortega" width="108"
+                height="108" loading="lazy"></div>
+            <h3>Dana Paola Flores Ortega</h3>
+            <p class="role">Dirección artística</p>
+            <p>Creadora de imágenes y beta tester.</p>
+          </article>
+          <article class="member reveal" style="--d:.2s">
+            <div class="avatar"><img src="assets/hector-cota.jpg" alt="Hector Miguel Cota Castillo" width="108"
+                height="108" loading="lazy"></div>
+            <h3>Hector Miguel Cota Castillo</h3>
+            <p class="role">Programador</p>
+            <p>Creador de versiones funcionales.</p>
+          </article>
+          <article class="member reveal" style="--d:.3s">
+            <div class="avatar"><img src="assets/derek-valdez.jpg" alt="Derek Valdez Guzman" width="108" height="108"
+                loading="lazy"></div>
+            <h3>Derek Valdez Guzman</h3>
+            <p class="role">Aportador de ideas</p>
+            <p>Creador de bases experimentales.</p>
+          </article>
+          <article class="member reveal" style="--d:.4s">
+            <div class="avatar"><img src="assets/adalid-arista.jpg" alt="Adalid Arista Lomas" width="108" height="108"
+                loading="lazy"></div>
+            <h3>Adalid Arista Lomas</h3>
+            <p class="role">Programador de multifunciones</p>
+          </article>
+          <article class="member reveal" style="--d:.5s">
+            <div class="avatar"><img src="assets/antonio-marizcal.jpg" alt="Profesor Antonio Marizcal" width="108"
+                height="108" loading="lazy"></div>
+            <h3>Profesor Antonio Marizcal</h3>
+            <p class="role">Asesor</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEMO -->
+    <section class="section" id="demo">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">06 · Project demo</p>
+          <h2>Demo del <span class="grad">prototipo</span></h2>
+        </header>
+        <div class="demo reveal">
+          <div class="video-frame">
+            <video controls playsinline preload="metadata" aria-label="Video demostrativo de Junior Mission Orion">
+              <source src="assets/demo.mp4" type="video/mp4">
+              Tu navegador no puede reproducir este video. <a href="assets/demo.mp4">Descárgalo aquí</a>.
+            </video>
+          </div>
+          <div class="demo-side">
+            <h3>Accede al prototipo</h3>
+            <p>Juega en línea, descarga la versión para tu dispositivo o revisa el código del proyecto.</p>
+            <div class="demo-actions">
+              <a class="btn btn-primary wide" href="https://orionbeta-165b9.web.app/" target="_blank"
+                rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M8 5v14l11-7z" fill="currentColor" />
+                </svg> Jugar en línea ↗</a>
+              <a class="btn btn-ghost is-download" id="dlApk"
+                href="https://github.com/Lolovonito/Junior-Mission-Orion/releases/download/v30.1.0/JMO.apk"
+                download="JMO.apk" rel="noopener noreferrer" title="Descargar JMO.apk para Android (v30.1.0 · 922 KB)">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Descargar APK</span> <em id="dlApkMeta">Android · v30.1.0</em>
+              </a>
+              <a class="btn btn-ghost is-download" id="dlExe"
+                href="https://github.com/Lolovonito/Junior-Mission-Orion/releases/download/v30.1.0/Junior_Mission_Orion_v30.1_Secure.exe"
+                download="Junior_Mission_Orion_v30.1_Secure.exe" rel="noopener noreferrer"
+                title="Descargar Junior_Mission_Orion_v30.1_Secure.exe para PC Windows (v30.1.0 · Seguro)">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Descargar EXE</span> <em id="dlExeMeta">PC · v30.1.0</em>
+              </a>
+              <a class="btn btn-ghost wide" href="https://github.com/Lolovonito/Junior-Mission-Orion" target="_blank"
+                rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="currentColor"
+                    d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.83 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z" />
+                </svg>
+                Ver en GitHub ↗
+              </a>
+            </div>
+            <p class="demo-release-note">Última release en GitHub: <a id="dlReleaseLink"
+                href="https://github.com/Lolovonito/Junior-Mission-Orion/releases/tag/v30.1.0" target="_blank"
+                rel="noopener noreferrer">v30.1.0</a> · Instalador Android (.apk) y PC Windows (.exe)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NASA SPACE APPS -->
+    <section class="section" id="nasa">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">07 · NASA Space Apps</p>
+          <h2>NASA Space Apps <span class="grad">Challenge 2026</span></h2>
+        </header>
+        <div class="nasa panel reveal">
+          <p>NASA Space Apps Challenge es un hackathon internacional anual en el que equipos de todo el mundo
+            desarrollan soluciones a retos basados en datos y ciencia espacial.</p>
+          <p class="event-status" id="eventStatus" aria-live="polite"></p>
+          <ul class="facts">
+            <li class="wide"><span>Reto elegido</span>Build a Junior Astronaut Mission Trainer<small>Construye un
+                simulador de misiones para jóvenes astronautas.</small></li>
+            <li><span>Categoría</span>Juegos, software y exploración espacial</li>
+            <li><span>Sede / Ciudad</span>La Paz, Baja California Sur, México<small>Colegio Juan Pablo II</small></li>
+            <li><span>Fecha del evento</span>14 y 15 de noviembre de 2026<small>Sábado y domingo · Evento
+                presencial</small></li>
+          </ul>
+          <a class="btn btn-ghost" href="https://www.spaceappschallenge.org/" target="_blank"
+            rel="noopener noreferrer">Sitio oficial de NASA Space Apps ↗</a>
+          <p class="note">Proyecto independiente de estudiantes. Este sitio no es oficial de la NASA ni está afiliado a
+            ella.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="contact">
+    <div class="container footer-center">
+      <p class="footer-title">JUNIOR MISSION ORION</p>
+      <p class="footer-sub">NASA Space Apps Challenge 2026</p>
+    </div>
+    <p class="copy container">© 2026 Junior Mission Orion. Todos los derechos reservados.</p>
+  </footer>
+
+  <nav class="dots" id="dots" aria-label="Secciones de la página">
+    <a href="#home" data-label="Inicio" aria-label="Inicio"></a>
+    <a href="#about" data-label="Proyecto" aria-label="Proyecto"></a>
+    <a href="#objectives" data-label="Objetivos" aria-label="Objetivos"></a>
+    <a href="#how" data-label="Cómo funciona" aria-label="Cómo funciona"></a>
+    <a href="#tech" data-label="Tecnología" aria-label="Tecnología"></a>
+    <a href="#team" data-label="Equipo" aria-label="Equipo"></a>
+    <a href="#demo" data-label="Demo" aria-label="Demo"></a>
+    <a href="#nasa" data-label="NASA Space Apps" aria-label="NASA Space Apps"></a>
+  </nav>
+
+  <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Imagen ampliada">
+    <button class="lb-close" id="lbClose" type="button" aria-label="Cerrar imagen">×</button>
+    <img id="lbImg" alt="">
+    <p id="lbCap"></p>
+  </div>
+
+  <button class="to-top" id="toTop" type="button" aria-label="Volver arriba">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 2c3 2.5 4.5 6 4 10l-2 2h-4l-2-2c-.5-4 1-7.500 4-10z" fill="none" stroke="currentColor"
+        stroke-width="1.6" stroke-linejoin="round" />
+      <circle cx="12" cy="9" r="1.7" fill="currentColor" />
+      <path d="M8.500 13l-3 4 3.500-.5M15.500 13l3 4-3.500-.5" fill="none" stroke="currentColor" stroke-width="1.6"
+        stroke-linejoin="round" />
+      <path class="flame" d="M10.500 17c0 1.500.6 3 1.500 4 .9-1 1.500-2.500 1.500-4" fill="none" stroke="#fb923c"
+        stroke-width="1.6" stroke-linecap="round" />
+    </svg>
+  </button>
+
+  <script src="js/space.js?v=19" defer></script>
+  <script src="js/main.js?v=20" defer></script>
+</body>
+
+</html>

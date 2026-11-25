@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Junior Mission Orion | NASA Space Apps Challenge 2026</title>
+  <meta name="description" content="Junior Mission Orion: interactive 3D space simulator developed for the NASA Space Apps Challenge 2026. Space exploration, NASA science, technology, and teamwork.">
+  <meta name="theme-color" content="#030712">
+  <meta property="og:title" content="Junior Mission Orion">
+  <meta property="og:description" content="Interactive 3D space mission simulator for NASA Space Apps Challenge 2026.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://junior-mision-orion.web.app/">
+  <meta property="og:image" content="https://junior-mision-orion.web.app/assets/captura-cabina.jpg">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Junior Mission Orion">
+  <meta name="twitter:image" content="https://junior-mision-orion.web.app/assets/captura-cabina.jpg">
+  <link rel="canonical" href="https://junior-mision-orion.web.app/">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Event","name":"NASA Space Apps Challenge 2026 — Junior Mission Orion","description":"Build a Junior Astronaut Mission Trainer: interactive space mission simulator for young astronauts.","startDate":"2026-11-14","endDate":"2026-11-15","eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","location":{"@type":"Place","name":"Colegio Juan Pablo II","address":{"@type":"PostalAddress","addressLocality":"La Paz","addressRegion":"Baja California Sur","addressCountry":"MX"}}}
+  </script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23030712'/%3E%3Cpath d='M8 9l8 4 8-4M10 24l6-11 6 11' stroke='%2338bdf8' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=32">
+</head>
+<body>
+  <script>try{if(sessionStorage.getItem("jmo-boot"))document.documentElement.classList.add("no-boot");}catch(e){}</script>
+  <div class="boot" id="boot" aria-hidden="true">
+    <div class="boot-inner">
+      <svg class="boot-mark" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".5"/><path d="M11 11l9 5 9-5M14 30l6-14 6 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="11" r="2" fill="currentColor"/><circle cx="29" cy="11" r="2" fill="currentColor"/><circle cx="20" cy="16" r="2" fill="#fff"/><circle cx="14" cy="30" r="2" fill="currentColor"/><circle cx="26" cy="30" r="2" fill="currentColor"/></svg>
+      <p class="boot-title">JUNIOR MISSION ORION</p>
+      <p class="boot-sub">Initializing mission systems…</p>
+      <div class="boot-bar"><i></i></div>
+    </div>
+  </div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="nebula" aria-hidden="true">
+    <div class="grid-floor"></div>
+  </div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <header class="site-header" id="header">
+    <nav class="nav container" aria-label="Primary">
+      <a href="#home" class="brand" aria-label="Junior Mission Orion, home">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".5"/>
+          <path d="M11 11l9 5 9-5M14 30l6-14 6 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="11" cy="11" r="2" fill="currentColor"/><circle cx="29" cy="11" r="2" fill="currentColor"/>
+          <circle cx="20" cy="16" r="2" fill="#fff"/><circle cx="14" cy="30" r="2" fill="currentColor"/><circle cx="26" cy="30" r="2" fill="currentColor"/>
+        </svg>
+        <span class="brand-text">JUNIOR <b>MISSION ORION</b></span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#about">Project</a></li>
+        <li><a href="#objectives">Objectives</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#tech">Technology</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#demo">Demo</a></li>
+        <li><a href="#nasa">NASA Space Apps</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow reveal"><span class="dot"></span> NASA Space Apps Challenge 2026</p>
+          <h1 aria-label="Junior Mission Orion"><span class="w" style="--i:0" aria-hidden="true">Junior</span> <span class="w" style="--i:1" aria-hidden="true">Mission</span><br><span class="w" style="--i:2" aria-hidden="true"><span class="grad">Orion</span></span></h1>
+          <p class="lead reveal" style="--d:.2s">
+            <strong>Junior Mission Orion</strong> is a space adventure designed to spark curiosity in young explorers.
+            Explore the universe, uncover its mysteries, and learn about space exploration through interactive experiences.
+            The future of exploration starts with you!
+          </p>
+          <p class="rotator reveal" style="--d:.25s" aria-live="off">Today we explore <span class="rot-word" id="rotWord">the Moon</span><span class="caret" aria-hidden="true"></span></p>
+          <div class="hero-actions reveal" style="--d:.3s">
+            <a href="#about" class="btn btn-primary">Explore Mission</a>
+            <a href="#demo" class="btn btn-ghost">Discover Project</a>
+          </div>
+          <dl class="hero-stats reveal" style="--d:.9s">
+            <div><dt>Event</dt><dd>Space Apps 2026</dd></div>
+            <div><dt>Status</dt><dd>Prototype</dd></div>
+            <div><dt>Team</dt><dd>6 members</dd></div>
+          </dl>
+        </div>
+
+        <div class="hero-visual reveal" style="--d:.2s" data-parallax="0.06">
+          <!-- Original illustration: planet, orbits, and space capsule -->
+          <svg viewBox="0 0 520 520" role="img" aria-label="Illustration of a space capsule orbiting a planet">
+            <defs>
+              <radialGradient id="planet" cx="35%" cy="30%" r="80%">
+                <stop offset="0" stop-color="#38bdf8"/><stop offset=".45" stop-color="#1d4ed8"/><stop offset="1" stop-color="#0a1230"/>
+              </radialGradient>
+              <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+                <stop offset="0" stop-color="#38bdf8" stop-opacity=".35"/><stop offset="1" stop-color="#38bdf8" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="orbit" x1="0" x2="1">
+                <stop offset="0" stop-color="#38bdf8" stop-opacity="0"/><stop offset=".5" stop-color="#7dd3fc"/><stop offset="1" stop-color="#38bdf8" stop-opacity="0"/>
+              </linearGradient>
+              <linearGradient id="hull" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#f1f5f9"/><stop offset="1" stop-color="#94a3b8"/>
+              </linearGradient>
+            </defs>
+            <circle cx="260" cy="260" r="250" fill="url(#glow)"/>
+            <circle cx="260" cy="260" r="150" fill="url(#planet)"/>
+            <g opacity=".35" fill="none" stroke="#7dd3fc" stroke-width="1">
+              <ellipse cx="260" cy="260" rx="150" ry="40"/><ellipse cx="260" cy="260" rx="150" ry="95"/>
+              <ellipse cx="260" cy="260" rx="40" ry="150"/><ellipse cx="260" cy="260" rx="95" ry="150"/>
+            </g>
+            <ellipse class="orbit-ring" cx="260" cy="260" rx="235" ry="80" fill="none" stroke="url(#orbit)" stroke-width="1.5" transform="rotate(-24 260 260)"/>
+            <ellipse cx="260" cy="260" rx="200" ry="60" fill="none" stroke="#38bdf8" stroke-opacity=".25" stroke-dasharray="3 7" transform="rotate(-24 260 260)"/>
+            <g class="planet-bands" opacity=".5" fill="none" stroke="#7dd3fc" stroke-width="1" stroke-dasharray="2 10">
+              <circle cx="260" cy="260" r="120"/><circle cx="260" cy="260" r="90"/>
+            </g>
+            <g transform="rotate(-24 260 260)">
+              <g transform="translate(260 260)">
+                <g class="sat">
+                  <g transform="scale(.8)">
+                    <path d="M-26 8 L-14 -14 L14 -14 L26 8 Z" fill="url(#hull)"/>
+                    <rect x="-26" y="8" width="52" height="8" rx="2" fill="#475569"/>
+                    <rect x="-42" y="-6" width="14" height="6" fill="#38bdf8"/><rect x="28" y="-6" width="14" height="6" fill="#38bdf8"/>
+                    <circle cx="0" cy="-3" r="4" fill="#0b1226" stroke="#7dd3fc"/>
+                  </g>
+                  <animateMotion dur="22s" repeatCount="indefinite" path="M-235 0 A235 80 0 1 1 235 0 A235 80 0 1 1 -235 0"/>
+                </g>
+                <circle r="5" fill="#e2e8f0">
+                  <animateMotion dur="11s" repeatCount="indefinite" path="M-200 0 A200 60 0 1 0 200 0 A200 60 0 1 0 -200 0"/>
+                </circle>
+              </g>
+            </g>
+            <g fill="#fff"><circle cx="70" cy="90" r="2"/><circle cx="450" cy="400" r="1.6"/><circle cx="90" cy="420" r="1.8"/><circle cx="470" cy="80" r="1.4"/></g>
+          </svg>
+          <span class="hud hud-a" id="hudMet">MET T+00:00:00</span>
+          <span class="hud hud-b" id="hudDist">367,200 km TO GO</span><span class="hud hud-c" id="hudVel">10,700 km/h · SIMULATION</span>
+        </div>
+      </div>
+      <a href="#about" class="scroll-hint" aria-label="Scroll down"><span></span></a>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>EXPLORE</span><i>✦</i><span>DISCOVER</span><i>✦</i><span>LEARN</span><i>✦</i><span>MOON</span><i>✦</i><span>MARS</span><i>✦</i><span>IMAGINE</span><i>✦</i><span>INSPIRE</span><i>✦</i>
+        <span>EXPLORE</span><i>✦</i><span>DISCOVER</span><i>✦</i><span>LEARN</span><i>✦</i><span>MOON</span><i>✦</i><span>MARS</span><i>✦</i><span>IMAGINE</span><i>✦</i><span>INSPIRE</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <section class="stats" aria-label="Mission in numbers">
+      <div class="container stats-grid">
+        <div class="stat reveal"><b data-count="2">0</b><span>Worlds to explore<br><small>Moon and Mars</small></span></div>
+        <div class="stat reveal" style="--d:.1s"><b data-count="4">0</b><span>Mission<br><small>objectives</small></span></div>
+        <div class="stat reveal" style="--d:.2s"><b data-count="3">0</b><span>Adventure<br><small>stages</small></span></div>
+        <div class="stat reveal" style="--d:.3s"><b data-count="6">0</b><span>Explorers<br><small>on the team</small></span></div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">01 · About the project</p>
+          <h2>What is <span class="grad">Mission Orion</span>?</h2>
+        </header>
+        <div class="about-grid">
+          <article class="panel reveal">
+            <h3>Description</h3>
+            <p>Mission Orion is an interactive experience designed for children to discover the fascinating world of space exploration. Through activities, challenges, and adventures, they can learn about space in a fun and exciting way.</p>
+          </article>
+          <article class="panel reveal" style="--d:.1s">
+            <h3>Problem</h3>
+            <p>Many kids feel curious about the universe, yet they do not always have interactive and entertaining tools that let them explore how space works and how real space missions are carried out.</p>
+          </article>
+          <article class="panel reveal" style="--d:.2s">
+            <h3>Main Objective</h3>
+            <p>To ignite children's scientific curiosity through an interactive experience that empowers them to learn about space, unlock new knowledge, and become young space explorers.</p>
+          </article>
+          <article class="panel reveal" style="--d:.3s">
+            <h3>Why It Matters</h3>
+            <p>Space education can inspire new generations to take an interest in science, technology, engineering, and mathematics (STEM), nurturing creativity, imagination, and scientific thinking from an early age.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- OBJECTIVES -->
+    <section class="section" id="objectives">
+      <svg class="orion" viewBox="0 0 120 120" aria-hidden="true">
+        <g class="orion-lines" fill="none" stroke="currentColor" stroke-width=".7" stroke-linecap="round">
+          <path d="M35 24 L60 12 L84 26"/><path d="M35 24 L48 60"/><path d="M84 26 L72 56"/>
+          <path d="M48 60 L60 58 L72 56"/><path d="M48 60 L40 100"/><path d="M72 56 L86 96"/>
+        </g>
+        <g class="orion-stars" fill="#fff">
+          <circle cx="35" cy="24" r="3.2" fill="#fdba74"/><circle cx="60" cy="12" r="1.6"/><circle cx="84" cy="26" r="2.2"/>
+          <circle cx="48" cy="60" r="2"/><circle cx="60" cy="58" r="2.2"/><circle cx="72" cy="56" r="2"/>
+          <circle cx="40" cy="100" r="2"/><circle cx="86" cy="96" r="3" fill="#93c5fd"/>
+        </g>
+        <text x="60" y="116" text-anchor="middle" font-size="5" fill="currentColor" letter-spacing="2">O R I O N</text>
+      </svg>
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">02 · Mission objectives</p>
+          <h2>Mission <span class="grad">objectives</span></h2>
+          <p class="sub">“Every mission is a chance to learn something new. Our goal is to turn children's curiosity into great discoveries.”</p>
+        </header>
+        <div class="cards">
+          <article class="card reveal">
+            <svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="8" fill="none"/><circle cx="24" cy="24" r="19" fill="none" stroke-dasharray="3 5"/><circle cx="38" cy="12" r="2.5"/></svg>
+            <span class="kicker">Objective 01</span><h3>Explore the Moon & Mars</h3><p>Bring young learners closer to space exploration through an interactive experience packed with discoveries.</p>
+          </article>
+          <article class="card reveal" style="--d:.1s">
+            <svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4c8 6 10 16 6 26H18C14 20 16 10 24 4z" fill="none"/><circle cx="24" cy="17" r="3"/><path d="M18 30l-6 8h8M30 30l6 8h-8" fill="none"/></svg>
+            <span class="kicker">Objective 02</span><h3>Learn Through Play</h3><p>Teach core ideas about space, planets, and spaceflight in a fun, accessible, hands-on way.</p>
+          </article>
+          <article class="card reveal" style="--d:.2s">
+            <svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="16" fill="none"/><path d="M8 24h32M24 8c-8 9-8 23 0 32M24 8c8 9 8 23 0 32" fill="none"/></svg>
+            <span class="kicker">Objective 03</span><h3>Spark Curiosity</h3><p>Stimulate imagination, scientific thinking, and a lasting desire to discover how the Moon and Mars work.</p>
+          </article>
+          <article class="card reveal" style="--d:.3s">
+            <svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M6 36l10-12 8 6 10-16 8 8" fill="none"/><path d="M6 42h36" fill="none"/><circle cx="16" cy="24" r="2"/><circle cx="34" cy="14" r="2"/></svg>
+            <span class="kicker">Objective 04</span><h3>Inspire Future Scientists</h3><p>Motivate the next generation to explore careers in science, technology, engineering, and space research.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROUTE -->
+    <section class="section route" id="route">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">Mission trajectory</p>
+          <h2>Bound for the <span class="grad">Moon & Mars</span></h2>
+          <p class="sub">Follow our spacecraft's flight path from the launch pad to distant worlds. Scroll down to advance the journey.</p>
+        </header>
+        <div class="route-map" id="routeMap">
+          <svg viewBox="0 0 1000 270" role="img" aria-label="Spacecraft trajectory: from Earth to the Moon and Mars">
+            <defs>
+              <linearGradient id="routeGrad" x1="0" x2="1"><stop offset="0" stop-color="#38bdf8"/><stop offset=".55" stop-color="#a78bfa"/><stop offset="1" stop-color="#fb923c"/></linearGradient>
+              <radialGradient id="gEarth" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#93c5fd"/><stop offset=".55" stop-color="#2563eb"/><stop offset="1" stop-color="#0b1a4a"/></radialGradient>
+              <radialGradient id="gMoon" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#f1f5f9"/><stop offset=".55" stop-color="#94a3b8"/><stop offset="1" stop-color="#1e293b"/></radialGradient>
+              <radialGradient id="gMars" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#fdba74"/><stop offset=".55" stop-color="#c2410c"/><stop offset="1" stop-color="#431407"/></radialGradient>
+            </defs>
+            <path class="route-base" d="M90 190 C 250 40, 380 40, 500 130 S 760 230, 910 80"/>
+            <path class="route-live" id="routeLive" d="M90 190 C 250 40, 380 40, 500 130 S 760 230, 910 80"/>
+            <g class="route-node" data-cx="90" data-cy="190"><circle class="halo" cx="90" cy="190" r="40"/><circle cx="90" cy="190" r="26" fill="url(#gEarth)"/><path d="M78 186c6-6 10 0 14-4s8 2 6 8-8 4-12 8-10-4-8-12z" fill="#4ade80" opacity=".75"/><text x="90" y="246">EARTH</text><text class="sub" x="90" y="264">Launch</text></g>
+            <g class="route-node" data-cx="500" data-cy="130"><circle class="halo" cx="500" cy="130" r="34"/><circle cx="500" cy="130" r="19" fill="url(#gMoon)"/><circle cx="494" cy="125" r="4" fill="#000" opacity=".2"/><circle cx="506" cy="136" r="3" fill="#000" opacity=".2"/><text x="500" y="176">MOON</text><text class="sub" x="500" y="194">Exploration</text></g>
+            <g class="route-node" data-cx="910" data-cy="80"><circle class="halo" cx="910" cy="80" r="40"/><circle cx="910" cy="80" r="24" fill="url(#gMars)"/><ellipse cx="910" cy="59" rx="9" ry="3" fill="#fff" opacity=".7"/><text x="910" y="126">MARS</text><text class="sub" x="910" y="144">Discovery</text></g>
+            <g id="routeRocket"><path class="flame" d="M-14 -2 L-32 0 L-14 2 Z" fill="#fb923c"/><path d="M-14 0 L-23 -6 L-8 0 L-23 6 Z" fill="#38bdf8"/><path d="M-14 0 L-6 -6 L10 -4 L19 0 L10 4 L-6 6 Z" fill="#f8fafc"/><circle cx="4" cy="0" r="2.4" fill="#0b1226" stroke="#38bdf8"/></g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section" id="how">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">03 · How it works</p>
+          <h2>How it <span class="grad">works</span></h2>
+          <p class="sub">“Every great discovery begins with a question. In Junior Mission Orion, kids learn, explore, and become the heroes of their own space adventure.”</p>
+        </header>
+        <ol class="flow">
+          <li class="flow-step reveal"><span class="num">01</span><h3>Launch</h3><span class="kicker">Begin the adventure</span><p>Players enter Junior Mission Orion, customize their astronaut, and prepare to launch toward the Moon and Mars.</p></li>
+          <li class="flow-step reveal" style="--d:.1s"><span class="num">02</span><h3>Exploration</h3><span class="kicker">Learn and discover</span><p>Through interactive missions and colony building, kids explore space concepts, discover NASA science, and learn as they advance.</p></li>
+          <li class="flow-step reveal" style="--d:.2s"><span class="num">03</span><h3>Discovery</h3><span class="kicker">Complete your mission</span><p>Players put what they learned to the test, manage life-support systems, and unlock new insights across the Moon and Mars.</p></li>
+        </ol>
+        <div class="shots">
+          <figure class="shot reveal"><img class="zoomable" tabindex="0" role="button" src="assets/captura-lanzamiento.webp" alt="Game screenshot: an astronaut on the launch pad next to the Orion spacecraft" width="1366" height="768" loading="lazy"><figcaption>Launch Pad · Earth</figcaption></figure>
+          <figure class="shot reveal" style="--d:.1s"><img class="zoomable" tabindex="0" role="button" src="assets/captura-cabina.jpg" alt="Game screenshot: view from inside the spacecraft cockpit heading to the Moon, with Earth in the background" width="1366" height="768" loading="lazy"><figcaption>Bound for the Moon</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECHNOLOGY -->
+    <section class="section" id="tech">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">04 · The technology</p>
+          <h2>The <span class="grad">technology</span></h2>
+        </header>
+        <div class="tech-grid">
+          <div class="tech-list">
+            <div class="tech reveal"><span class="tech-tag">WEBGL2</span><div><h3>Single-File 3D Core</h3><p>Self-contained HTML5 simulator powered by Three.js r128, Web Audio synthesis, live bilingual I18N, and 3D SDF silhouette collisions.</p></div></div>
+            <div class="tech reveal" style="--d:.1s"><span class="tech-tag">AI+SIM</span><div><h3>NASA Physics & Robbie AI</h3><p>Deterministic lunar/Martian survival physics paired with Groq AI (<code>openai/gpt-oss-120b</code>) scoped to NASA Space Apps datasets.</p></div></div>
+            <div class="tech reveal" style="--d:.2s"><span class="tech-tag">NATIVE</span><div><h3>Rust · Android · Co-op P2P</h3><p>Cross-platform wrappers for Windows (<code>tao</code>+<code>wry</code> WebView2 <code>.exe</code>) and Android (<code>.apk</code>), plus serverless WebRTC co-op multiplayer.</p></div></div>
+          </div>
+          <div class="panel arch reveal" style="--d:.15s">
+            <h3>Architecture</h3>
+            <pre class="code" aria-label="Junior Mission Orion system architecture diagram">Single-File Core (HTML5 + Three.js r128 + WebAudio)
+  ├─ Web SPA       → Firebase Hosting (Browser)
+  ├─ Windows .exe  → Rust Loopback + WebView2
+  ├─ Android .apk  → Hardware-Accelerated WebView
+  ├─ Robbie AI     → Groq REST API (NASA Scoped)
+  └─ Co-op P2P     → Host Hub + WebRTC (PeerJS/ntfy)</pre>
+            <p class="note">Shared simulation logic runs identically across Web, Desktop, and Mobile.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAM -->
+    <section class="section team-section" id="team">
+      <img class="team-photo" src="assets/equipo.webp" alt="" width="1280" height="1120" loading="lazy" aria-hidden="true">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">05 · Team</p>
+          <h2>The <span class="grad">team</span></h2>
+        </header>
+        <div class="team-badge reveal">
+          <img src="assets/team-logo.webp" alt="Los Choyeros Galácticos emblem: an axolotl wearing sunglasses in a flying saucer" width="220" height="214" loading="lazy">
+          <div>
+            <p class="eyebrow">Team Emblem</p>
+            <h3>Los Choyeros Galácticos</h3>
+            <p>La Paz, Baja California Sur, Mexico</p>
+          </div>
+        </div>
+        <div class="team-grid">
+          <article class="member reveal"><div class="avatar" aria-hidden="false"><img src="assets/irvin-valdez.jpg" alt="Irvin Jaziel Valdez Guzman" width="92" height="92" loading="lazy"></div><h3>Irvin Jaziel Valdez Guzman</h3><p class="role">Design Programmer</p><p>Bug fixing assistant and beta tester.</p></article>
+          <article class="member reveal" style="--d:.1s"><div class="avatar"><img src="assets/dana-flores.jpg" alt="Dana Paola Flores Ortega" width="108" height="108" loading="lazy"></div><h3>Dana Paola Flores Ortega</h3><p class="role">Art Director</p><p>Visual asset creator and beta tester.</p></article>
+          <article class="member reveal" style="--d:.2s"><div class="avatar"><img src="assets/hector-cota.jpg" alt="Hector Miguel Cota Castillo" width="108" height="108" loading="lazy"></div><h3>Hector Miguel Cota Castillo</h3><p class="role">Programmer</p><p>Builder of functional playable releases.</p></article>
+          <article class="member reveal" style="--d:.3s"><div class="avatar"><img src="assets/derek-valdez.jpg" alt="Derek Valdez Guzman" width="108" height="108" loading="lazy"></div><h3>Derek Valdez Guzman</h3><p class="role">Idea Contributor</p><p>Creator of experimental colony layouts.</p></article>
+          <article class="member reveal" style="--d:.4s"><div class="avatar"><img src="assets/adalid-arista.jpg" alt="Adalid Arista Lomas" width="108" height="108" loading="lazy"></div><h3>Adalid Arista Lomas</h3><p class="role">Multifunction Programmer</p></article>
+          <article class="member reveal" style="--d:.5s"><div class="avatar"><img src="assets/antonio-marizcal.jpg" alt="Professor Antonio Marizcal" width="108" height="108" loading="lazy"></div><h3>Professor Antonio Marizcal</h3><p class="role">Advisor</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEMO -->
+    <section class="section" id="demo">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">06 · Project demo</p>
+          <h2>Prototype <span class="grad">demo</span></h2>
+        </header>
+        <div class="demo reveal">
+          <div class="video-frame">
+            <video id="demoVideo" controls playsinline preload="metadata" aria-label="Junior Mission Orion demo video">
+              <source src="assets/trailer.mp4" type="video/mp4">
+              Your browser cannot play this video. <a href="assets/trailer.mp4">Download it here</a>.
+            </video>
+          </div>
+          <div class="demo-side">
+            <h3>Access the prototype</h3>
+            <p>Play online, download the version for your device, or explore the project code.</p>
+            <div class="demo-actions">
+              <a class="btn btn-primary wide" href="https://orionbeta-165b9.web.app/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg> Play Online ↗</a>
+              <a class="btn btn-ghost is-soon" href="#demo" aria-disabled="true" tabindex="-1" title="Reserved"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Download APK <em>Reserved</em></a>
+              <a class="btn btn-ghost is-soon" href="#demo" aria-disabled="true" tabindex="-1" title="Reserved"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Download EXE <em>Reserved</em></a>
+              <a class="btn btn-ghost wide is-soon" href="#demo" aria-disabled="true" tabindex="-1" title="Reserved"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.83 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg> View on GitHub <em>Reserved</em></a>
+            </div>
+          </div>
+        </div>
+        <div class="clips reveal" id="clips">
+          <p class="clips-title"><span>Trailer Highlights</span><i></i></p>
+          <div class="clips-rail">
+            <button class="clip feature" type="button" data-start="12" data-end="18" aria-label="Watch the 0:12 scene in the main video">
+              <video muted playsinline preload="metadata" disablepictureinpicture src="assets/trailer.mp4#t=12"></video>
+              <span class="clip-tag"><b>SCENE 03</b> · 0:12</span><span class="clip-play" aria-hidden="true"></span>
+            </button>
+            <button class="clip" type="button" data-start="2" data-end="6" aria-label="Watch the 0:02 scene in the main video">
+              <video muted playsinline preload="metadata" disablepictureinpicture src="assets/trailer.mp4#t=2"></video>
+              <span class="clip-tag"><b>SCENE 01</b> · 0:02</span><span class="clip-play" aria-hidden="true"></span>
+            </button>
+            <button class="clip" type="button" data-start="7" data-end="11" aria-label="Watch the 0:07 scene in the main video">
+              <video muted playsinline preload="metadata" disablepictureinpicture src="assets/trailer.mp4#t=7"></video>
+              <span class="clip-tag"><b>SCENE 02</b> · 0:07</span><span class="clip-play" aria-hidden="true"></span>
+            </button>
+            <button class="clip" type="button" data-start="19" data-end="23" aria-label="Watch the 0:19 scene in the main video">
+              <video muted playsinline preload="metadata" disablepictureinpicture src="assets/trailer.mp4#t=19"></video>
+              <span class="clip-tag"><b>SCENE 04</b> · 0:19</span><span class="clip-play" aria-hidden="true"></span>
+            </button>
+            <button class="clip" type="button" data-start="25" data-end="29" aria-label="Watch the 0:25 scene in the main video">
+              <video muted playsinline preload="metadata" disablepictureinpicture src="assets/trailer.mp4#t=25"></video>
+              <span class="clip-tag"><b>SCENE 05</b> · 0:25</span><span class="clip-play" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NASA SPACE APPS -->
+    <section class="section" id="nasa">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">07 · NASA Space Apps</p>
+          <h2>NASA Space Apps <span class="grad">Challenge 2026</span></h2>
+        </header>
+        <div class="nasa panel reveal">
+          <p>The NASA Space Apps Challenge is an annual global hackathon where teams around the world develop solutions to challenges grounded in space science and open NASA data.</p>
+          <p class="event-status" id="eventStatus" aria-live="polite"></p>
+          <ul class="facts">
+            <li class="wide"><span>Selected Challenge</span>Build a Junior Astronaut Mission Trainer<small>Build a mission simulator for young astronauts.</small></li>
+            <li><span>Category</span>Games, Software &amp; Space Exploration</li>
+            <li><span>Host / City</span>La Paz, Baja California Sur, Mexico<small>Colegio Juan Pablo II</small></li>
+            <li><span>Event Dates</span>November 14–15, 2026<small>Saturday &amp; Sunday · In-person event</small></li>
+          </ul>
+          <a class="btn btn-ghost" href="https://www.spaceappschallenge.org/" target="_blank" rel="noopener noreferrer">Official NASA Space Apps Website ↗</a>
+          <p class="note">Independent student project. This website is not an official NASA site and is not affiliated with NASA.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="contact">
+    <div class="container footer-center">
+      <p class="footer-title">JUNIOR MISSION ORION</p>
+      <p class="footer-sub">NASA Space Apps Challenge 2026</p>
+      <p class="footer-hint">Psst… try typing <kbd>O</kbd><kbd>R</kbd><kbd>I</kbd><kbd>O</kbd><kbd>N</kbd> on your keyboard</p>
+    </div>
+    <p class="copy container">© 2026 Junior Mission Orion. All rights reserved.</p>
+  </footer>
+
+  <div class="sector-hud" id="sectorHud" aria-hidden="true"><span class="sector-no">SECTOR 01</span><span class="sector-name">HOME</span><i class="sector-bar"></i></div>
+  <nav class="dots" id="dots" aria-label="Page sections">
+    <a href="#home" data-label="Home" aria-label="Home"></a>
+    <a href="#about" data-label="Project" aria-label="Project"></a>
+    <a href="#objectives" data-label="Objectives" aria-label="Objectives"></a>
+    <a href="#route" data-label="Route" aria-label="Mission trajectory"></a>
+    <a href="#how" data-label="How It Works" aria-label="How it works"></a>
+    <a href="#tech" data-label="Technology" aria-label="Technology"></a>
+    <a href="#team" data-label="Team" aria-label="Team"></a>
+    <a href="#demo" data-label="Demo" aria-label="Demo"></a>
+    <a href="#nasa" data-label="NASA Space Apps" aria-label="NASA Space Apps"></a>
+  </nav>
+
+  <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Enlarged image">
+    <button class="lb-close" id="lbClose" type="button" aria-label="Close image">×</button>
+    <img id="lbImg" alt="">
+    <p id="lbCap"></p>
+  </div>
+
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c3 2.5 4.5 6 4 10l-2 2h-4l-2-2c-.5-4 1-7.500 4-10z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="9" r="1.7" fill="currentColor"/><path d="M8.500 13l-3 4 3.500-.5M15.500 13l3 4-3.500-.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path class="flame" d="M10.500 17c0 1.500.6 3 1.500 4 .9-1 1.500-2.500 1.500-4" fill="none" stroke="#fb923c" stroke-width="1.6" stroke-linecap="round"/></svg>
+  </button>
+
+  <script src="js/space.js?v=28" defer></script>
+  <script src="js/main.js?v=32" defer></script>
+</body>
+</html>
